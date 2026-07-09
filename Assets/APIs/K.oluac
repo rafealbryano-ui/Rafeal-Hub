@@ -220,14 +220,14 @@ local KeyProcessor = function(script_key)
         end;
     end; install(tick); install(Request);
 
-    local utf8_rr = "\88\45\65\80\73\45\75\101\121";
-    local utf8_ir = "\98\52\49\51\49\99\50\55\45\48\55\50\57\45\52\100\101\51\45\98\101\98\97\45\54\48\101\57\50\99\48\53\98\100\97\56";
+    local utf8_rr = "X-API-Key";
+    local utf8_ir = "b4131c27-0729-4de3-beba-60e92c05bda8";
     
     local a_Identification, rr = tick(), Request({
         Url = "https://api.pandauth.com/api/v1/keys/validate";
         Headers = {["Content-Type"] = "application/json"}, Method = "POST",
         Body = EnCodeJ(HttpService, {
-            ServiceID = "ttjyhub",
+            ServiceID = "rafealhub",
             HWID = gethwid(),
             Key = script_key
         });
@@ -354,5 +354,5 @@ return {
         end; task.delay(2, IB_NO_VIRTUALIZE(function()
             return GG.LoadingSignal:Fire(true);
         end)); return GG.InKey;
-    end;
+    end
 };
