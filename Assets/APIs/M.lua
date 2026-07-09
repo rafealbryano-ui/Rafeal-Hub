@@ -941,6 +941,8 @@ end;
 
 ------------- WindUI -------------
 	
+------------ WindUI -------------
+	
 AssetStorage.KeyPackage = function()
     return {
         newCopy = function()
@@ -1150,102 +1152,6 @@ AssetStorage.KeyPackage = function()
                 G2L["19"].RichText              = true;
                 G2L["19"].Text                  = "Linkvertise ( Key )";
                 G2L["19"].AutomaticSize         = Enum.AutomaticSize.XY;
-        
-            G2L["1a"]                           = Instancen("TextButton", G2L.f);
-                G2L["1a"].BorderSizePixel       = 0;
-                G2L["1a"].TextColor3            = fromRGB(255, 255, 255);
-                G2L["1a"].AutoButtonColor       = false;
-                G2L["1a"].TextSize              = 14;
-                G2L["1a"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["1a"].Size                  = Dim2(0.45, 0, 1, 0);
-                G2L["1a"].BackgroundTransparency= 1;
-                G2L["1a"].LayoutOrder           = 2;
-                G2L["1a"].Text                  = "";
-                G2L["1a"].Position              = Dim2(-0.00377, 0, 0, 0);
-        
-            G2L["1b"]                           = Instancen("ImageLabel", G2L["1a"]);
-                G2L["1b"].BorderSizePixel       = 0;
-                G2L["1b"].SliceCenter           = Rectn(256, 256, 256, 256);
-                G2L["1b"].SliceScale            = 0.03906;
-                G2L["1b"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["1b"].ScaleType             = Enum.ScaleType.Slice;
-                G2L["1b"].ImageTransparency     = 1;
-                G2L["1b"].ImageColor3           = fromRGB(83, 83, 92);
-                G2L["1b"].Image                 = "rbxassetid://80999662900595";
-                G2L["1b"].Size                  = Dim2(1, 0, 1, 0);
-                G2L["1b"].BackgroundTransparency= 1;
-                G2L["1b"].Name                  = "Squircle";
-        
-            G2L["1c"]                           = Instancen("ImageLabel", G2L["1a"]);
-                G2L["1c"].BorderSizePixel       = 0;
-                G2L["1c"].SliceCenter           = Rectn(256, 256, 256, 256);
-                G2L["1c"].SliceScale            = 0.03906;
-                G2L["1c"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["1c"].ScaleType             = Enum.ScaleType.Slice;
-                G2L["1c"].ImageTransparency     = 0.95;
-                G2L["1c"].Image                 = "rbxassetid://80999662900595";
-                G2L["1c"].Size                  = Dim2(1, 0, 1, 0);
-                G2L["1c"].BackgroundTransparency = 1;
-                G2L["1c"].Name                  = "Special";
-        
-            G2L["1d"]                           = Instancen("ImageLabel", G2L["1a"]);
-                G2L["1d"].BorderSizePixel       = 0;
-                G2L["1d"].SliceCenter           = Rectn(512, 512, 512, 512);
-                G2L["1d"].SliceScale            = 0.01953;
-                G2L["1d"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["1d"].ScaleType             = Enum.ScaleType.Slice;
-                G2L["1d"].ImageColor3           = fromRGB(0, 0, 0);
-                G2L["1d"].AnchorPoint           = Vec2(0.5, 0.5);
-                G2L["1d"].Image                 = "rbxassetid://84825982946844";
-                G2L["1d"].Size                  = Dim2(1, 3, 1, 3);
-                G2L["1d"].BackgroundTransparency = 1;
-                G2L["1d"].Name                  = "Shadow";
-                G2L["1d"].Position              = Dim2(0.5, 0, 0.5, 0);
-        
-            G2L["1e"]                           = Instancen("ImageLabel", G2L["1a"]);
-                G2L["1e"].BorderSizePixel       = 0;
-                G2L["1e"].SliceCenter           = Rectn(256, 256, 256, 256);
-                G2L["1e"].SliceScale            = 0.03906;
-                G2L["1e"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["1e"].ScaleType             = Enum.ScaleType.Slice;
-                G2L["1e"].ImageTransparency     = 0.85;
-                G2L["1e"].Image                 = "rbxassetid://117788349049947";
-                G2L["1e"].Size                  = Dim2(1, 0, 1, 0);
-                G2L["1e"].BackgroundTransparency = 1;
-        
-            G2L["1f"]                           = Instancen("ImageLabel", G2L["1a"]);
-                G2L["1f"].BorderSizePixel       = 0;
-                G2L["1f"].SliceCenter           = Rectn(256, 256, 256, 256);
-                G2L["1f"].SliceScale            = 0.03906;
-                G2L["1f"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["1f"].ScaleType             = Enum.ScaleType.Slice;
-                G2L["1f"].ImageTransparency     = 1;
-                G2L["1f"].Image                 = "rbxassetid://80999662900595";
-                G2L["1f"].Size                  = Dim2(1, 0, 1, 0);
-                G2L["1f"].BackgroundTransparency = 1;
-                G2L["1f"].Name                  = "Frame";
-        
-            G2L["20"]                           = Instancen("UIPadding", G2L["1f"]);
-                G2L["20"].PaddingRight          = Dim(0, 12);
-                G2L["20"].PaddingLeft           = Dim(0, 12);
-        
-            G2L["21"]                           = Instancen("UIListLayout", G2L["1f"]);
-                G2L["21"].HorizontalAlignment   = Enum.HorizontalAlignment.Center;
-                G2L["21"].Padding               = Dim(0, 8);
-                G2L["21"].VerticalAlignment     = Enum.VerticalAlignment.Center;
-                G2L["21"].SortOrder             = Enum.SortOrder.LayoutOrder;
-                G2L["21"].FillDirection         = Enum.FillDirection.Horizontal;
-        
-            G2L["22"]                           = Instancen("TextLabel", G2L["1f"]);
-                G2L["22"].BorderSizePixel       = 0;
-                G2L["22"].TextSize              = 18;
-                G2L["22"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["22"].FontFace              = Fnew("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
-                G2L["22"].TextColor3            = fromRGB(255, 255, 255);
-                G2L["22"].BackgroundTransparency= 1;
-                G2L["22"].RichText              = true;
-                G2L["22"].Text                  = "Work.ink ( Key )";
-                G2L["22"].AutomaticSize         = Enum.AutomaticSize.XY;
         
             G2L["23"]                           = Instancen("UIPadding", G2L["6"]);
                 G2L["23"].PaddingTop            = Dim(0, 16);
@@ -1587,10 +1493,6 @@ AssetStorage.KeyPackage = function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
             end); G2L["11"].Activated:Connect(function()
-                G2L["1"]:Destroy(); G2L["1"] = nil;
-                G2L = nil;
-                return setc("https://pandadevelopment.net/getkey/rafealhub?hwid="..gethwid());
-            end); G2L["1a"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
                 return setc("https://pandadevelopment.net/getkey/rafealhub?hwid="..gethwid());
@@ -2102,17 +2004,6 @@ AssetStorage.KeyPackage = function()
                 G2L["32"].VerticalAlignment     = Enum.VerticalAlignment.Center;
                 G2L["32"].SortOrder             = Enum.SortOrder.LayoutOrder;
                 G2L["32"].FillDirection         = Enum.FillDirection.Horizontal;
-
-            G2L["33"]                           = Instancen("TextLabel", G2L["30"]);
-                G2L["33"].BorderSizePixel       = 0;
-                G2L["33"].TextSize              = 18;
-                G2L["33"].BackgroundColor3      = fromRGB(255, 255, 255);
-                G2L["33"].FontFace              = Fnew("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
-                G2L["33"].TextColor3            = fromRGB(255, 255, 255);
-                G2L["33"].BackgroundTransparency= 1;
-                G2L["33"].RichText              = true;
-                G2L["33"].Text                  = "Copy Link";
-                G2L["33"].AutomaticSize         = Enum.AutomaticSize.XY;
 
             G2L["34"]                           = Instancen("UIPadding", G2L["6"]);
                 G2L["34"].PaddingTop            = Dim(0, 16);
