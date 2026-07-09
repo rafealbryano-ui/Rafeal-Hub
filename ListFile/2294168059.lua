@@ -1,4 +1,4 @@
-local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[TTJY Studio] : Really? Your account is now at risk for the next ban wave."); end;
+local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafael Studio] : Really? Your account is now at risk for the next ban wave."); end;
 
 local QUEUE_INFO = GG.QUEUE_INFO or {};
 local ScriptCache = GG.ScriptCache;
@@ -3986,14 +3986,14 @@ return {
             WindUI = WindLib();
             local Window = WindUI:CreateWindow({
                 Title = "The Mimic",
-                Folder = "TTJYStudio",
+                Folder = "RafaelStudio",
                 Transparent = true,
                 Theme = "Dark",
                 SideBarWidth = 200,
                 HasOutline = true,
                 NewElements = true,
                 OpenButton = {
-                    Title = "TTJY Hub",
+                    Title = "Rafael Hub",
                     CornerRadius = UDim.new(1,0),
                     StrokeThickness = 3,
                     Enabled = true,
