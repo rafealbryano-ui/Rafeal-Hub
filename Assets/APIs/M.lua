@@ -11931,9 +11931,24 @@ local AutoInclude = function(Included)
 end;
 
 if FreeLoad[GameId] then
-    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
+    local loadFunc = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)
+    if loadFunc and type(loadFunc) == "function" then
+        return loadFunc(AutoInclude(FreeLoad[GameId].Included))()
+    else
+        return function() end
+    end
 elseif KeyLoad[GameId] then
-    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/K.oluac", "K.lua", "KAuth3.67")(GG.CustomVersion or KeyLoad[GameId].Version, AssetStorage.KeyPackage, AutoInclude(KeyLoad[GameId].Included))();
+    local loadFunc = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/K.oluac", "K.lua", "KAuth3.67")
+    if loadFunc and type(loadFunc) == "function" then
+        return loadFunc(GG.CustomVersion or KeyLoad[GameId].Version, AssetStorage.KeyPackage, AutoInclude(KeyLoad[GameId].Included))()
+    else
+        return function() end
+    end
 else
-    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
-end;
+    local loadFunc = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)
+    if loadFunc and type(loadFunc) == "function" then
+        return loadFunc(AutoInclude(FreeLoad[7597195391].Included))()
+    else
+        return function() end
+    end
+end
