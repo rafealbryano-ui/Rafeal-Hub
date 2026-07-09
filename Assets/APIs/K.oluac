@@ -149,7 +149,7 @@ local KeyProcessor = function(script_key)
     end; 
 
     local InvalidDecoded = DeCodeJ(HttpService, InvalidTable);
-    if InvalidDecoded.Registered_ServiceID == "ttjyhub" then
+    if InvalidDecoded.Registered_ServiceID == "rafealhub" then
         return 12;
     end;
     if InvalidDecoded.V2_Authentication == "success" then
