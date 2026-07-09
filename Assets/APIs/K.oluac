@@ -57,7 +57,7 @@ local decrypt = function(encryptedText ,key)
 end;
 
 local InvalidTable = [[{
-	"OwnerSecretID": "26188f037be64de98bbe7d48d93b3d2f",
+	"OwnerSecretID": "68bffa9ef8948d329c5754d216b9830d3a08ce227d174f55d4189f7c6a186e9e",
 	"Registered_ServiceID": "rafealhub",
 	"Authentication": "cc4dd48a9316360d006bed2e77a8eb18be233f79f555aa34e9d9805716006cd8",
 	"V2_Authentication": "false",
