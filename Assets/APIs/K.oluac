@@ -313,7 +313,7 @@ return {
                     end;
                     local Result = KeyProcessor(key);
                     if Result == 200 or Result == 201 then
-                        writefile("TTJYStudioKey.txt", key);
+                        writefile("RafaellHub_Key.txt", key);
                         pcall(IB_NO_VIRTUALIZE(function()
                             return tbl:fadeAndTween({
                                 g2["f"], g2["10"]
@@ -341,8 +341,8 @@ return {
                     return GlobCrLoad.newCopy();
                 end)
             });
-        end; if isfile and isfile("TTJYStudioKey.txt") then
-            local Keytxt = readfile("TTJYStudioKey.txt");
+        end; if isfile and isfile("RafaellHub_Key.txt") then
+            local Keytxt = readfile("RafaellHub_Key.txt");
             if Keytxt then
                 local Result = KeyProcessor(Keytxt);
                 if Result == 200 or Result == 201 then
