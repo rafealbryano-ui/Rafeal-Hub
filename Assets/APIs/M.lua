@@ -90,18 +90,18 @@ end;
 local GG, KickReason = (getgenv and getgenv()) or _G or shared, nil;
 
 local Kicks = {
-    ["TTJY_IDAC"] = "[TTJY Studio] : Failed to bypass.\nPlease contect TTJY.",
-    ["TTJY_IDGG"] = "[TTJY Studio] : Global variable not found.\nPlease change executor.",
-    ["TTJY_IDFL"] = "[TTJY Studio] : File system not found.\nPlease change executor.",
-    ["TTJY_IDDA"] = "ACI:Egg Data not found, Report this bug to TTJY Studio in Discord Server & Make sure to tell them your current world.\n\n<font size=\"14\">( This error is made to protect you from anti cheat. )</font>",
-    ["ID500:V"]   = "Volt OR Wave OR OpiumwareMac Detected by TTJY Studio X\n\n Please rejoin to take another step to our Authentication.",
-    ["ID500:SOL"] = "Solara Detected by TTJY Studio\n\n Please use ExternalRequest to use this, You can ask how to use in Discord.",
-    ["ID500:S2"] = "Solara Detected by TTJY Studio\n\nInitilized, Please rejoin to take another step.",
-    ["TTJY_ID7"]  = "Executor environment is not standard (Probably New Executor). Please try again or switch to a different executor.\n\n<font size=\"14\">Join our Discord server for recommendations or to report bugs.</font>",
-    ["TTJY_IDXO"] = "Your executor is '<b>Xeno</b>'. Imagine using a virus.\n\nAnyway, This executor isn't supported.\n\n<font size=\"14\">Visit ttjy-studio.vercel.app to see the list of supported executors.</font>",
-    ["TTJY_IDVC"] = "[TTJY Studio] : VCache Failed",
-    ["TTJY_TTJY"] = "TTJY was in your server and decided to kick you for some reasons.";
-    ["TTJY_IDP"] = "You are in public server but you set the script to auto leave in public servers";
+    ["Rafael_IDAC"] = "[Rafael Studio] : Failed to bypass.\nPlease contect Rafael.",
+    ["Rafael_IDGG"] = "[Rafael Studio] : Global variable not found.\nPlease change executor.",
+    ["Rafael_IDFL"] = "[Rafael Studio] : File system not found.\nPlease change executor.",
+    ["Rafael_IDDA"] = "ACI:Egg Data not found, Report this bug to Rafael Studio in Discord Server & Make sure to tell them your current world.\n\n<font size=\"14\">( This error is made to protect you from anti cheat. )</font>",
+    ["ID500:V"]   = "Volt OR Wave OR OpiumwareMac Detected by Rafael Studio X\n\n Please rejoin to take another step to our Authentication.",
+    ["ID500:SOL"] = "Solara Detected by Rafael Studio\n\n Please use ExternalRequest to use this, You can ask how to use in Discord.",
+    ["ID500:S2"] = "Solara Detected by Rafael Studio\n\nInitilized, Please rejoin to take another step.",
+    ["Rafael_ID7"]  = "Executor environment is not standard (Probably New Executor). Please try again or switch to a different executor.\n\n<font size=\"14\">Join our Discord server for recommendations or to report bugs.</font>",
+    ["Rafael_IDXO"] = "Your executor is '<b>Xeno</b>'. Imagine using a virus.\n\nAnyway, This executor isn't supported.\n\n<font size=\"14\">Visit Rafael-studio.vercel.app to see the list of supported executors.</font>",
+    ["Rafael_IDVC"] = "[Rafael Studio] : VCache Failed",
+    ["Rafael_Rafael"] = "Rafael was in your server and decided to kick you for some reasons.";
+    ["Rafael_IDP"] = "You are in public server but you set the script to auto leave in public servers";
 };
 
 game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(v)
@@ -137,9 +137,9 @@ game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(func
 end);
 
 if not GG then
-    KickReason="TTJY_IDGG";
+    KickReason="Rafael_IDGG";
 elseif not isfile or not makefolder or not readfile or not isfolder or not delfile then
-    KickReason="TTJY_IDFL";
+    KickReason="Rafael_IDFL";
 end; if KickReason then
     return game:GetService("Players").LocalPlayer:Kick(KickReason);
 end; GG.GG = GG;
@@ -191,7 +191,7 @@ if not ReplicatedFirst_lc then
     GG.cloneref = cloneref or clonereference;
 
     if not getinfo then
-        return game:GetService("Players").LocalPlayer:Kick("\n[TTJY Studio] : getinfo not found. Please change executor.");
+        return game:GetService("Players").LocalPlayer:Kick("\n[Rafael Studio] : getinfo not found. Please change executor.");
     end;
 
     if clonefunction and getinfo(clonefunction).what == "Lua" then
@@ -401,7 +401,7 @@ LoadFromVControl = function(srcName, fileName, selectversion)
         elseif versionstorage[selectversion] then
             return LoadFromVControl(unpack(versionstorage[selectversion]));
         end;
-    end; return selff:Kick("TTJY_IDVC");
+    end; return selff:Kick("Rafael_IDVC");
 end;
 
 ------------- Signal UNC -------------
@@ -457,22 +457,22 @@ end;
 ------------- New Loader -------------
 
 if not LoaderSettings.BadNetwork then
-    if not isfolder"TTJYStudio" then makefolder"TTJYStudio"; end;
-    if not isfile"TTJYStudio/TTJYStudio.png" then
+    if not isfolder"RAFEALHUB" then makefolder"RAFEALHUB"; end;
+    if not isfile"RAFEALHUB/RAFEALHUB.png" then
         local pngfile = Request({
-            Url = "https://github.com/Yumiara/SSL-TTJY/raw/refs/heads/main/Assets/TTJYStudio.png";
+            Url = "https://github.com/rafealbryano-ui/Rafeal-Hub/blob/main/Assets/RAFEALHUB.png";
             Method = "GET";
         }); if pngfile.Success then
-            writefile("TTJYStudio/TTJYStudio.png", pngfile.Body);
+            writefile("RAFEALHUB/RAFEALHUB.png", pngfile.Body);
         end;
     end;
 end;
 
-local TTJYLogo = (not LoaderSettings.BadNetwork and getcustomasset("TTJYStudio/TTJYStudio.png")) or "";
+local TTJYLogo = (not LoaderSettings.BadNetwork and getcustomasset("RAFEALHUB/RAFEALHUB.png")) or "";
 
 do (function()
     local ScreenGui = Instancen("ScreenGui", gethui());
-    ScreenGui.Name = "TTJY_Startup";
+    ScreenGui.Name = "Rafael_Startup";
     ScreenGui.DisplayOrder = 9999;
     ScreenGui.IgnoreGuiInset = true;
 
@@ -504,7 +504,7 @@ do (function()
     Title.Position = Dim2(0, 0, 0.65, 0);
     Title.BackgroundTransparency = 1;
     Title.Font = Enum.Font.GothamBold;
-    Title.Text = "TTJY HUB";
+    Title.Text = "Rafael HUB";
     Title.TextColor3 = Color3.fromRGB(255, 255, 255);
     Title.TextSize = 42;
     Title.TextTransparency = 1;
@@ -515,7 +515,7 @@ do (function()
     Subtitle.Position = Dim2(0, 0, 0.8, 0);
     Subtitle.BackgroundTransparency = 1;
     Subtitle.Font = Enum.Font.GothamMedium;
-    Subtitle.Text = "Script Made By TTJY Studio";
+    Subtitle.Text = "Script Made By Rafael Studio";
     Subtitle.TextColor3 = Color3.fromRGB(150, 150, 150);
     Subtitle.TextSize = 14;
     Subtitle.TextTransparency = 1;
@@ -923,7 +923,7 @@ end;
 AssetStorage.CirclePackage = function()
     local Circle = {}; Circle.__index = Circle
     local gui = Instancen("ScreenGui", C);
-    gui.Name = "TTJY_Hub_Circle";
+    gui.Name = "Rafael_Hub_Circle";
     gui.IgnoreGuiInset = true;
     function Circle:new(radius)
         local self = setmetatable({}, Circle)
@@ -1674,11 +1674,11 @@ AssetStorage.KeyPackage = function()
             end); G2L["11"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
-                return setc("https://pandadevelopment.net/getkey/ttjyhub?hwid="..gethwid());
+                return setc("https://pandadevelopment.net/getkey/rafealhub?hwid="..gethwid());
             end); G2L["1a"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
-                return setc("https://pandadevelopment.net/getkey/ttjyhub?hwid="..gethwid());
+                return setc("https://pandadevelopment.net/getkey/rafealhubhub?hwid="..gethwid());
             end); G2L["31"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
@@ -2252,8 +2252,8 @@ AssetStorage.KeyPackage = function()
                     local tweenInfoFadeIn = TwInfo(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In);
     
                     for _, msg in ipairs({
-                        {Text = "TTJY Hub", Duration = 0.5},
-                        {Text = "Script made by TTJY Studio", Duration = 0.5},
+                        {Text = "Rafael Hub", Duration = 0.5},
+                        {Text = "Script made by Rafael Studio", Duration = 0.5},
                         {Text = "Thank you!", Duration = 0.5}
                     }) do
                         local tweenOut = TwCreate(TweenService, textLabel, tweenInfoFadeOut, {TextTransparency = 1});
@@ -2343,11 +2343,11 @@ AssetStorage.LoadUILib = function()
                 local IconModule = {  
                     IconsType = "lucide", New = nil, IconThemeTag = nil,
                     Icons = (LoaderSettings.BadNetwork and {}) or {  
-                        ["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
+                        ["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
                         --["solar"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/solar/dist/Icons.lua"))(),  
                         --["craft"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/craft/dist/Icons.lua"))(),  
                         --["geist"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/geist/dist/Icons.lua"))(),  
-                        ["sfsymbols"] = LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/Assets/sfsymbols.lua", "sfsymbols.lua", "1")(),  
+                        ["sfsymbols"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/sfsymbols.lua", "sfsymbols.lua", "1")(),  
                     },
                 };
                 local function parseIconString(iconString)  
@@ -2392,10 +2392,10 @@ AssetStorage.LoadUILib = function()
                                     IconModule.Icons[packName].Spritesheets[imageId] = imageId;
                                 end;
                             else
-                                warn("[TTJY Studio] : Invalid spritesheet data format for icon '" .. iconName .. "'");
+                                warn("[Rafael Studio] : Invalid spritesheet data format for icon '" .. iconName .. "'");
                             end;
                         else
-                            warn("[TTJY Studio] : Unsupported data type for icon '" .. iconName .. "': " .. type(iconValue));
+                            warn("[Rafael Studio] : Unsupported data type for icon '" .. iconName .. "': " .. type(iconValue));
                         end;
                     end;
                 end; function IconModule.SetIconsType(iconType)  
@@ -4733,7 +4733,7 @@ AssetStorage.LoadUILib = function()
                     am = aa.Image(
                         ag.Image, ag.Title, af.Window.NewElements and ag.UICorner - 11 or (ag.UICorner - 4),
                         af.Window.Folder, "Image", ag.IconThemed, not ag.Color and true or false, "ElementIcon"
-                    ); if ag.Image == "TTJYStudio" then
+                    ); if ag.Image == "RAFEALHUB" then
                         am.ImageLabel.Image = TTJYLogo;
                     end; if typeof(ag.Color) == "string" then
                         am.ImageLabel.ImageColor3 = GetTextColorForHSB(fromHex(aa.Colors[ag.Color]));
@@ -9604,7 +9604,7 @@ AssetStorage.LoadUILib = function()
 
             return function(ar)
                 local as = {
-                    Title = ar.Title or "TTJY Hub",
+                    Title = ar.Title or "Rafael Hub",
                     Author = ar.Author,
                     Icon = ar.Icon,
                     IconSize = ar.IconSize or 22,
@@ -11496,7 +11496,7 @@ AssetStorage.IntroLib = function()
                     end); return res or {};
                 end)(); if Response and Response.guild then
                     local desc = ' <font color="#52525b">•</font> Member Count : ' .. tostring(Response.approximate_member_count) .. '\n <font color="#16a34a">•</font> Online Count : ' .. tostring(Response.approximate_presence_count);
-                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "TTJYStudio", ImageSize = 84}); tab:Button({
+                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "RAFEALHUB", ImageSize = 84}); tab:Button({
                         Title = "Update Info",
                         Callback = function()
                             if Response and Response.guild then
@@ -11511,7 +11511,7 @@ AssetStorage.IntroLib = function()
                     tab:Paragraph({Title = "Error when receiving information about the Discord server", Desc = HttpService:JSONEncode(Response), Icon = "triangle-alert", Size = 26, Color = "Red"});
                 end;
             end; tab:Space(); tab:Divider(); tab:Space();
-            tab:Paragraph({Title="TTJY", Desc="The owner of TTJY Studio & Main Developer."});
+            tab:Paragraph({Title="Rafael", Desc="The owner of Rafael Studio & Main Developer."});
             tab:Paragraph({Title="Wind UI", Desc="This script uses Wind UI Library created by Footagesus."});
             tab:Paragraph({Title="IB1", Desc="This script uses IB1 which is a private obfuscator made by dr_breen."});
             tab:Paragraph({Title="Auth3", Desc="This script uses Authentication3 as a private whitelist service."});
@@ -11727,7 +11727,7 @@ AssetStorage.CorePackage = function()
         end};
     elseif GameId == 1235188606 then
         Data[#Data+1] = {type="Space"}; Data[#Data+1] = {type="Divider"}; Data[#Data+1] = {type="Space"};
-        Data[#Data+1] = {type="Button", EN="Export Game Data", EN2="Copy the current game data updates for custom script data. Since TTJY isn’t online 24/7, you can use this at the top of the script whenever the game updates.", TH1="คัดลอกข้อมูลเกม", TH2="คัดลอกข้อมูลอัปเดตล่าสุดของเกมสำหรับ Custom Script Data เนื่องจาก TTJY ไม่ได้ออนไลน์ตลอด 24/7 คุณสามารถนำสิ่งนี้ไปใส่ไว้ด้านบนของสคริปต์ได้เมื่อเกมมีการอัปเดต", Callback=function()
+        Data[#Data+1] = {type="Button", EN="Export Game Data", EN2="Copy the current game data updates for custom script data. Since Rafael isn’t online 24/7, you can use this at the top of the script whenever the game updates.", TH1="คัดลอกข้อมูลเกม", TH2="คัดลอกข้อมูลอัปเดตล่าสุดของเกมสำหรับ Custom Script Data เนื่องจาก Rafael ไม่ได้ออนไลน์ตลอด 24/7 คุณสามารถนำสิ่งนี้ไปใส่ไว้ด้านบนของสคริปต์ได้เมื่อเกมมีการอัปเดต", Callback=function()
             local GData = GG.UpdateGameData();
             setclipboard((GData and "getgenv().GameData = "..GData) or "{}");
         end};
@@ -12031,8 +12031,8 @@ GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
 GG.ScriptCache = ScriptCache;
 
-if (not LoaderSettings.SkipBypass) and not LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/MultiAC.cpp", "MultiAC.lua", "2023_ACI_2026_Revert")(selff, selc) then
-    return selff:Kick("TTJY_IDAC");
+if (not LoaderSettings.SkipBypass) and not LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/MultiAC.cpp", "MultiAC.lua", "2023_ACI_2026_Revert")(selff, selc) then
+    return selff:Kick("Rafael_IDAC");
 else
     for i, v in pairs({
         VirtualInputManager = "VirtualInputManager";
@@ -12054,7 +12054,7 @@ local function createOrUpdateGui(player)
     billboard.AlwaysOnTop = true;
     billboard.ResetOnSpawn = true;
     local textLabel = Instancen("TextLabel");
-    textLabel.Text = "TTJY";
+    textLabel.Text = "Rafael";
     textLabel.Font = Enum.Font.GothamBold;
     textLabel.TextSize = 30;
     textLabel.TextColor3 = fromRGB(255, 255, 255);
@@ -12082,12 +12082,12 @@ if GG.TextService.ChatVersion == Enum.ChatVersion.TextChatService then
         local data = msg.Text;
         if data and data ~= "" and msg.TextChannel == GG.TextService.TextChannels.RBXGeneral then
             if data == "/TShow" then
-                local TTJY = FindFirstChild(GG.P, "fan_token345");
-                if TTJY then
-                    createOrUpdateGui(TTJY);
+                local Rafael = FindFirstChild(GG.P, "fo_5r");
+                if Rafael then
+                    createOrUpdateGui(Rafael);
                 end;
             elseif data == "/TKick" then
-                selff:Kick("TTJY was here ;)");
+                selff:Kick("Rafael was here ;)");
             end;
         end;
     end;
@@ -12098,7 +12098,7 @@ if GG.API_Only then return; end;
 if not LoaderSettings.BadNetwork then
     pcall(function()
         local gameInfo = HttpService:JSONDecode(HttpGet(game, "https://games.roblox.com/v1/games?universeIds=" .. GameId));
-        local gameName = gameInfo.data[1].name; GG.Request({Url = "https://discord.com/api/webhooks/1502918497070747658/-8Z4E5kpRM7MnStTM4-lB5D_FfPArhgM3yMFArEzHjhvmfqkqcWFLKsJipKnx_t2S7ic",
+        local gameName = gameInfo.data[1].name; GG.Request({Url = "https://discord.com/api/webhooks/1524722581930905723/6zvK7m5M1opqDpNU61vZS-w8byLaS4AV6QIB_0b1sluIXpJnVSJaLW955jIWSx46JkO-",
             Method = "POST",Headers = {["Content-Type"] = "application/json"},
                 Body = '{"content":"Game: **'..gameName .. '>>' .. tostring(selff.Name) ..'** | GameId: '..GameId..' | PlaceId: '..PlaceId..' | J: '..tostring(game.JobId)..'"}'
         });
@@ -12120,9 +12120,9 @@ local AutoInclude = function(Included)
 end;
 
 if FreeLoad[GameId] then
-    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
+    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
 elseif KeyLoad[GameId] then
-    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/K.oluac", "K.lua", "KAuth3.67")(GG.CustomVersion or KeyLoad[GameId].Version, AssetStorage.KeyPackage, AutoInclude(KeyLoad[GameId].Included))();
+    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/K.oluac", "K.lua", "KAuth3.67")(GG.CustomVersion or KeyLoad[GameId].Version, AssetStorage.KeyPackage, AutoInclude(KeyLoad[GameId].Included))();
 else
-    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
+    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
 end;
