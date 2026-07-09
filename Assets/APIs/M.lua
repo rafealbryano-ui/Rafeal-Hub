@@ -10727,7 +10727,7 @@ AssetStorage.LoadUILib = function()
                 ); local clo = as.UIElements.Main.Main.Topbar.Right:Clone();
                 clo.Frame:Destroy(); clo.Position = Dim2(0,10,0.5,0)
                 clo.Parent = as.UIElements.Main.Main.Topbar;
-                clo.Frame.ImageButton.Image = TTJYLogo;
+                clo.Frame.ImageButton.Image = RAFEALLOGO;
                 clo.Frame.ImageButton.ImageColor3 = fromRGB(255,255,255);
                 clo.Frame.ImageButton.Size = Dim2(1.5,0,1.5,0);
                 as.UIElements.SideBar.Parent.Name = "Sidebar";
@@ -12037,7 +12037,7 @@ if not LoaderSettings.BadNetwork then
     end);
 end;
 
-local Resolve = FreeLoad[GameId] and FreeLoad[GameId].File .. ".lua";
+local Resolve = FreeLoad[GameId] and FreeLoad[GameId].File .. ".lua" or "7597195391.lua";
 Resolve = Resolve or (KeyLoad[GameId] and KeyLoad[GameId].File .. ".lua");
 
 local AutoInclude = function(Included)
@@ -12054,5 +12054,25 @@ end;
 if FreeLoad[GameId] then
     return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
 else
-    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
+    local Resolve = "7597195391.lua";
+    local Included = {
+        "CorePackage",
+        "LoadUILib",
+        "IntroLib",
+        "Windy",
+        "ClientPackage",
+        "PromptPackage",
+        "CoruTask"
+    };
+    return LoadFromVControl(
+        "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
+        Resolve,
+        GG.CustomVersion or "RealUNISnapshot3"
+    )(AutoInclude(Included));
 end
+
+-- if FreeLoad[GameId] then
+--     return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
+-- else
+--     return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
+-- end
