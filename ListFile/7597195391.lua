@@ -42,7 +42,7 @@ GG.Configs = GG.Configs or {
 };
 
 return {
-    Version = "KAuth3.67";
+    Version = "RealUNISnapshot3";
     Function = function(CorePackage, WindLib, IntroLib, Windy, ClientPackage, PromptPackage, CoruTask)
         local CoreConnection    = {};
         local CoreDestroyed     = false;
