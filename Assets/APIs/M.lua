@@ -1610,15 +1610,10 @@ AssetStorage.KeyPackage = function()
             local G2L = {};
             local tbl = {};
             local configu = {
-                Auth = function(key) return true; end,
+                Auth = arg and arg.Auth or emptyfunction;
                 GetKey = arg and arg.GetKey or emptyfunction;
             };
 
-			--[[	== BYPASS IF NEEDDED LINE: 1613; ==
-				Auth = function(key) return true; end,
-
-			]]
-        
             local G2L = {};
         
             G2L["1"]                            = Instancen("ScreenGui", C);
@@ -2145,14 +2140,7 @@ AssetStorage.KeyPackage = function()
             G2L["1b"].MouseButton1Click:Connect(function()
                 return configu.Auth(G2L["25"].Text);
             end);
-
-			--[[ NEEDDED IF BYPASS
-				 G2L["1b"].MouseButton1Click:Connect(function()
-				configu.Auth("dummy_key")
-                G2L["1"]:Destroy();
-				G2L = nil
-            end);
-			]]
+				
             G2L["2b"].MouseButton1Click:Connect(configu.GetKey);
             G2L["12"].MouseButton1Click:Connect(function(...)
                 G2L["1"]:Destroy(); G2L = nil;
