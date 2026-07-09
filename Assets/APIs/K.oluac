@@ -1,9 +1,9 @@
-local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafael Studio] : Really? Your account is now at risk for the next ban wave."); end;
+local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafaell Studio] : Really? Your account is now at risk for the next ban wave."); end;
 
 local RAFEAL_ID = {
     ID_KBD = "[ByJass Detection] : Try click 'Continue' again. If this still happening and you believe it was a script bug, you can head to Discord Server and report the bug.";
     ID_KI = "[Key] : Incorrect Key or Key has expired. If you believe this was a bug, head to discord server to report bug.";
-    ID_KN = '🎮 Welcome to RafaellHub! Enter your key below to get started.';
+    ID_KN = '🎮 Welcome to RafaellHub! Enter your key below to get started. Get a free key at: https://pandadevelopment.net/getkey/rafealhub?hwid=YOUR_HWID';
     ID_RW = "Please reset your HWID in order to use this premium key.";
     ID_NP = "This key is not marked as Premium key.";
 };
@@ -148,8 +148,9 @@ local KeyProcessor = function(script_key)
         return 11;
     end; 
 
+    -- FIXED: Changed from "ttjyhub" to "rafealhub"
     local InvalidDecoded = DeCodeJ(HttpService, InvalidTable);
-    if InvalidDecoded.Registered_ServiceID == "ttjyhub" then
+    if InvalidDecoded.Registered_ServiceID ~= "rafealhub" then
         return 12;
     end;
     if InvalidDecoded.V2_Authentication == "success" then
