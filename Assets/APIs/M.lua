@@ -14,7 +14,7 @@ local Kicks = {
     ["ID500:S2"] = "Solara Detected by RAFEAL Studio\n\nInitilized, Please rejoin to take another step.",
     ["Rafeal_ID7"]  = "Executor environment is not standard (Probably New Executor). Please try again or switch to a different executor.\n\n<font size=\"14\">Join our Discord server for recommendations or to report bugs.</font>",
     ["Rafeal_IDXO"] = "Your executor is '<b>Xeno</b>'. Imagine using a virus.\n\nAnyway, This executor isn't supported.\n\n<font size=\"14\">Visit ttjy-studio.vercel.app to see the list of supported executors.</font>",
-    ["Rafeal_IDVC"] = "[RAFEAL Studio] : VCache Failed",
+    -- ["Rafeal_IDVC"] = "[RAFEAL Studio] : VCache Failed",
     ["Rafeal_TTJY"] = "Rafeal was in your server and decided to kick you for some reasons.";
     ["Rafeal_IDP"] = "You are in public server but you set the script to auto leave in public servers";
 };
@@ -308,7 +308,7 @@ LoadFromVControl = function(srcName, fileName, selectversion)
     
     local source = HttpGet(game, srcName);
     if not source then
-        return selff:Kick("Rafeal_IDVC: Failed to load script");
+        return function() end;
     end;
     
     local loadc = loadstring(source)();
@@ -325,7 +325,7 @@ LoadFromVControl = function(srcName, fileName, selectversion)
         end;
     end; 
     
-    return selff:Kick("Rafeal_IDVC: Script load failed");
+    return function() end;
 end;
 
 ------------- Signal UNC -------------
