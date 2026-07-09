@@ -114,7 +114,7 @@ local KeyProcessor = function(script_key)
             if defineLuaExec ~= "Lua" and not protecthook then
                 local serve1=tick(); isfunctionhooked(print); local serve2=tick();
                 local serve3 = serve2 - serve1; if serve3 < 0.0000000728955078125 or serve3 > 0.00000250928955078125 then
-                    return 7, P.LocalPlayer:Kick("RAFEAL_ID7");
+                    return 7;
                 end;
             end;
         end;
@@ -148,7 +148,6 @@ local KeyProcessor = function(script_key)
         return 11;
     end; 
 
-    -- FIXED: Changed from "ttjyhub" to "rafealhub"
     local InvalidDecoded = DeCodeJ(HttpService, InvalidTable);
     if InvalidDecoded.Registered_ServiceID ~= "rafealhub" then
         return 12;
@@ -252,37 +251,8 @@ local KeyProcessor = function(script_key)
                 return 100;
             else
                 if ValidData.Authenticated_Status == "Success" then
-                    if GG.IsPremium and ValidData.Key_Premium then
-                        local ValidData2 = Request({
-                            Url = "https://ttjy.vercel.app/apis/validate?key="..script_key.."&hwid="..gethwid();
-                            Method = "GET",
-                        }); if ValidData2 then
-                            local dd2 = decrypt(ValidData2.Body, 2) == "true";
-                            if dd2 then
-                                return 201
-                            else
-                                return 222;
-                            end;
-                        else
-                            return 223;
-                        end;
-                    end; return 200;
+                    return 200;
                 else
-                    if GG.IsPremium and ValidData.Key_Premium then
-                        local ValidData2 = Request({
-                            Url = "https://ttjy.vercel.app/apis/validate?key="..script_key.."&hwid="..gethwid();
-                            Method = "GET",
-                        }); if ValidData2 then
-                            local dd2 = decrypt(ValidData2.Body, 2) == "true";
-                            if dd2 then
-                                return 201
-                            else
-                                return 222;
-                            end;
-                        else
-                            return 223;
-                        end;
-                    end;
                     return 300;
                 end;
             end;
@@ -292,7 +262,7 @@ local KeyProcessor = function(script_key)
     else
         if LowerC and ResetC then
             if getexecutorname and (getexecutorname() == "Volt" or getexecutorname() == "Wave" or getexecutorname() == "OpiumwareMac") then
-                return writefile("SecurityVoltSharp.txt", "AnyTrue"), P.LocalPlayer:Kick("ID500:V");
+                return writefile("SecurityVoltSharp.txt", "AnyTrue");
             end;
         end; return 500;
     end;
@@ -325,16 +295,16 @@ return {
                             if g2.f and g2.f.Parent then
                                 g2.f.Text = RAFEAL_ID.ID_KN;
                             end;
-                        end); if Result ~= 300 then
-                            g2.f.Text = RAFEAL_ID.ID_KBD .. " [" .. tostring(Result) .. "]";
-                        elseif Result ~= 202 then
+                        end); if Result == 300 then
+                            g2.f.Text = RAFEAL_ID.ID_KI .. " [" .. tostring(Result) .. "]";
+                        elseif Result == 202 then
                             g2.f.Text = RAFEAL_ID.ID_RW .. " [" .. tostring(Result) .. "]";
-                        elseif Result ~= 222 then
+                        elseif Result == 222 then
                             g2.f.Text = RAFEAL_ID.ID_NP .. " [" .. tostring(Result) .. "]";
-                        elseif Result ~= 223 then
+                        elseif Result == 223 then
                             g2.f.Text = RAFEAL_ID.ID_KBD .. " [" .. tostring(Result) .. "]";
                         else
-                            g2.f.Text = RAFEAL_ID.ID_KI .. " [" .. tostring(Result) .. "]";
+                            g2.f.Text = RAFEAL_ID.ID_KBD .. " [" .. tostring(Result) .. "]";
                         end;
                     end;
                 end,
