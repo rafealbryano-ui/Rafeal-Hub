@@ -1,8 +1,8 @@
 local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[TTJY Studio] : Really? Your account is now at risk for the next ban wave."); end;
 
 local TJYS_ID = {
-    ID_KBD = "\91\66\121\112\97\115\115\32\68\101\116\101\99\116\105\111\110\93\32\58\32\84\114\121\32\99\108\105\99\107\32\39\67\111\110\116\105\110\117\101\39\32\97\103\97\105\110\46\32\73\102\32\116\104\105\115\32\115\116\105\108\108\32\104\97\112\112\101\110\105\110\103\32\97\110\100\32\121\111\117\32\98\101\108\105\101\118\101\32\105\116\32\119\97\115\32\97\32\115\99\114\105\112\116\32\98\117\103\44\32\121\111\117\32\99\97\110\32\104\101\97\100\32\116\111\32\68\105\115\99\111\114\100\32\83\101\114\118\101\114\32\97\110\100\32\114\101\112\111\114\116\32\116\104\101\32\98\117\103\46";
-    ID_KI = "\91\75\101\121\93\32\58\32\73\110\99\111\114\114\101\99\116\32\75\101\121\32\111\114\32\75\101\121\32\104\97\115\32\101\120\112\105\114\101\100\46\32\73\102\32\121\111\117\32\98\101\108\105\101\118\101\32\116\104\105\115\32\119\97\115\32\97\32\98\117\103\44\32\104\101\97\100\32\116\111\32\100\105\115\99\111\114\100\32\115\101\114\118\101\114\32\116\111\32\114\101\112\111\114\116\32\98\117\103\46";
+    ID_KBD = "[ByJass Detection] : Try click 'Continue' again. If this still happening and you believe it was a script bug, you can head to Discord Server and report the bug.";
+    ID_KI = "[Key] : Incorrect Key or Key has expired. If you believe this was a bug, head to discord server to report bug.";
     ID_KN = 'We are very <font color="rgb(0, 255, 135)">s</font><font color="rgb(19, 251, 159)">o</font><font color="rgb(38, 248, 183)">r</font><font color="rgb(57, 245, 207)">r</font><font color="rgb(76, 242, 231)">y</font>, to have this auth or key system but this means a lot to us, this is where you support our project. Linkvertise has "no" 1H waiting time.';
     ID_RW = "Please reset your HWID in order to use this premium key.";
     ID_NP = "This key is not marked as Premium key.";
