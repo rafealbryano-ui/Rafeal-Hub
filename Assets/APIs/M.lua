@@ -1,6 +1,6 @@
--- if not game:IsLoaded() then
---     game.Loaded:Wait();
--- end;
+if not game:IsLoaded() then
+    game.Loaded:Wait();
+end;
 
 local GG, KickReason = (getgenv and getgenv()) or _G or shared, nil;
 
