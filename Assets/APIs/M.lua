@@ -298,7 +298,7 @@ ScriptCache.userIdentify.unc_infos = {
 
 local LoadFromVControl = nil;
 LoadFromVControl = function(srcName, fileName, selectversion)
-    local cacheFile = "TTJYStudio/" .. tostring(fileName);
+    local cacheFile = "RafealHub/" .. tostring(fileName);
     if LoaderSettings.AllowCache then
         if isfile(cacheFile) then
             local loadc = loadstring(readfile(cacheFile))();
@@ -320,7 +320,7 @@ LoadFromVControl = function(srcName, fileName, selectversion)
         elseif versionstorage[selectversion] then
             return LoadFromVControl(unpack(versionstorage[selectversion]));
         end;
-    end; return selff:Kick("TTJY_IDVC");
+    end; return selff:Kick("Rafeal_IDVC");
 end;
 
 ------------- Signal UNC -------------
@@ -376,18 +376,18 @@ end;
 ------------- New Loader -------------
 
 if not LoaderSettings.BadNetwork then
-    if not isfolder"TTJYStudio" then makefolder"TTJYStudio"; end;
-    if not isfile"TTJYStudio/TTJYStudio.png" then
+    if not isfolder"RafealHub" then makefolder"RafealHub"; end;
+    if not isfile"RafealHub/RAFEALHUB.png" then
         local pngfile = Request({
-            Url = "https://github.com/Yumiara/SSL-TTJY/raw/refs/heads/main/Assets/TTJYStudio.png";
+            Url = "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/RAFEALHUB.png";
             Method = "GET";
         }); if pngfile.Success then
-            writefile("TTJYStudio/TTJYStudio.png", pngfile.Body);
+            writefile("RafealHub/RAFEALHUB.png", pngfile.Body);
         end;
     end;
 end;
 
-local TTJYLogo = (not LoaderSettings.BadNetwork and getcustomasset("TTJYStudio/TTJYStudio.png")) or "";
+local RAFEALLOGO = (not LoaderSettings.BadNetwork and getcustomasset("RafealStudio/RAFEALHUB.png")) or "";
 
 do (function()
     local ScreenGui = Instancen("ScreenGui", gethui());
@@ -415,7 +415,7 @@ do (function()
     Logo.AnchorPoint = Vector2.new(0.5, 0.5);
     Logo.Position = Dim2(0.5, 0, 0.4, 0);
     Logo.BackgroundTransparency = 1;
-    Logo.Image = TTJYLogo;
+    Logo.Image = RAFEALLOGO;
 
     local Title = Instancen("TextLabel", ContentContainer);
     Title.Name = "Title";
@@ -4665,8 +4665,8 @@ AssetStorage.LoadUILib = function()
                     am = aa.Image(
                         ag.Image, ag.Title, af.Window.NewElements and ag.UICorner - 11 or (ag.UICorner - 4),
                         af.Window.Folder, "Image", ag.IconThemed, not ag.Color and true or false, "ElementIcon"
-                    ); if ag.Image == "TTJYStudio" then
-                        am.ImageLabel.Image = TTJYLogo;
+                    ); if ag.Image == "RafealHub" then
+                        am.ImageLabel.Image = RAFEALLOGO;
                     end; if typeof(ag.Color) == "string" then
                         am.ImageLabel.ImageColor3 = GetTextColorForHSB(fromHex(aa.Colors[ag.Color]));
                     elseif typeof(ag.Color) == "Color3" then
@@ -11428,7 +11428,7 @@ AssetStorage.IntroLib = function()
                     end); return res or {};
                 end)(); if Response and Response.guild then
                     local desc = ' <font color="#52525b">•</font> Member Count : ' .. tostring(Response.approximate_member_count) .. '\n <font color="#16a34a">•</font> Online Count : ' .. tostring(Response.approximate_presence_count);
-                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "TTJYStudio", ImageSize = 84}); tab:Button({
+                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "RafealHub", ImageSize = 84}); tab:Button({
                         Title = "Update Info",
                         Callback = function()
                             if Response and Response.guild then
