@@ -25,6 +25,7 @@
     v3.0.1  |  2026-7-9  |  Roblox Script
     
     Author: Rafael Studio
+	Discord: https://discord.gg/n8v8pRSMb6
     License: ND ( No Derivatives )
     
      _____ ____  
@@ -11385,7 +11386,7 @@ AssetStorage.IntroLib = function()
         end,
         Init = function(wind, tab)
             if not LoaderSettings.BadNetwork then
-                local DiscordAPI = "https://discord.com/api/v10/invites/" .. "dagGQ6m2vb" .. "?with_counts=true&with_expiration=true";
+                local DiscordAPI = "https://discord.com/api/v10/invites/" .. "n8v8pRSMb6" .. "?with_counts=true&with_expiration=true";
                 local Response = (function()
                     local res = nil; pcall(function()
                         res = HttpService:JSONDecode(Request({
