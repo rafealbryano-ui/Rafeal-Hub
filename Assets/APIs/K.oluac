@@ -1,9 +1,9 @@
-local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafeal Studio] : Really? Your account is now at risk for the next ban wave."); end;
+local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafael Studio] : Really? Your account is now at risk for the next ban wave."); end;
 
 local RAFEAL_ID = {
     ID_KBD = "[ByJass Detection] : Try click 'Continue' again. If this still happening and you believe it was a script bug, you can head to Discord Server and report the bug.";
     ID_KI = "[Key] : Incorrect Key or Key has expired. If you believe this was a bug, head to discord server to report bug.";
-    ID_KN = 'We are very <font color="rgb(0, 255, 135)">s</font><font color="rgb(19, 251, 159)">o</font><font color="rgb(38, 248, 183)">r</font><font color="rgb(57, 245, 207)">r</font><font color="rgb(76, 242, 231)">y</font>, to have this auth or key system but this means a lot to us, this is where you support our project. Linkvertise has "no" 1H waiting time.';
+    ID_KN = '🎮 Welcome to RafaellHub! Enter your key below to get started.';
     ID_RW = "Please reset your HWID in order to use this premium key.";
     ID_NP = "This key is not marked as Premium key.";
 };
@@ -114,7 +114,7 @@ local KeyProcessor = function(script_key)
             if defineLuaExec ~= "Lua" and not protecthook then
                 local serve1=tick(); isfunctionhooked(print); local serve2=tick();
                 local serve3 = serve2 - serve1; if serve3 < 0.0000000728955078125 or serve3 > 0.00000250928955078125 then
-                    return 7, P.LocalPlayer:Kick("TTJY_ID7");
+                    return 7, P.LocalPlayer:Kick("RAFEAL_ID7");
                 end;
             end;
         end;
@@ -149,7 +149,7 @@ local KeyProcessor = function(script_key)
     end; 
 
     local InvalidDecoded = DeCodeJ(HttpService, InvalidTable);
-    if InvalidDecoded.Registered_ServiceID == "rafealhub" then
+    if InvalidDecoded.Registered_ServiceID == "ttjyhub" then
         return 12;
     end;
     if InvalidDecoded.V2_Authentication == "success" then
@@ -309,7 +309,7 @@ return {
             g2, tbl = GlobCrLoad.new({
                 Auth = function(key)
                     if getexecutorname and getexecutorname() == "Xeno" then
-                        return GG.P.LocalPlayer:Kick("TTJY_IDXO");
+                        return GG.P.LocalPlayer:Kick("RAFEAL_IDXO");
                     end;
                     local Result = KeyProcessor(key);
                     if Result == 200 or Result == 201 then
