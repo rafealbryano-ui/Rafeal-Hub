@@ -5,18 +5,18 @@
 local GG, KickReason = (getgenv and getgenv()) or _G or shared, nil;
 
 local Kicks = {
-    ["TTJY_IDAC"] = "[RAFEAL Studio] : Failed to bypass.\nPlease contect RAFEAL.",
-    ["TTJY_IDGG"] = "[RAFEAL Studio] : Global variable not found.\nPlease change executor.",
-    ["TTJY_IDFL"] = "[RAFEAL Studio] : File system not found.\nPlease change executor.",
-    ["TTJY_IDDA"] = "ACI:Egg Data not found, Report this bug to RAFEAL Studio in Discord Server & Make sure to tell them your current world.\n\n<font size=\"14\">( This error is made to protect you from anti cheat. )</font>",
+    ["Rafeal_IDAC"] = "[RAFEAL Studio] : Failed to bypass.\nPlease contect RAFEAL.",
+    ["Rafeal_IDGG"] = "[RAFEAL Studio] : Global variable not found.\nPlease change executor.",
+    ["Rafeal_IDFL"] = "[RAFEAL Studio] : File system not found.\nPlease change executor.",
+    ["Rafeal_IDDA"] = "ACI:Egg Data not found, Report this bug to RAFEAL Studio in Discord Server & Make sure to tell them your current world.\n\n<font size=\"14\">( This error is made to protect you from anti cheat. )</font>",
     ["ID500:V"]   = "Volt OR Wave OR OpiumwareMac Detected by RAFEAL Studio X\n\n Please rejoin to take another step to our Authentication.",
     ["ID500:SOL"] = "Solara Detected by RAFEAL Studio\n\n Please use ExternalRequest to use this, You can ask how to use in Discord.",
     ["ID500:S2"] = "Solara Detected by RAFEAL Studio\n\nInitilized, Please rejoin to take another step.",
-    ["TTJY_ID7"]  = "Executor environment is not standard (Probably New Executor). Please try again or switch to a different executor.\n\n<font size=\"14\">Join our Discord server for recommendations or to report bugs.</font>",
-    ["TTJY_IDXO"] = "Your executor is '<b>Xeno</b>'. Imagine using a virus.\n\nAnyway, This executor isn't supported.\n\n<font size=\"14\">Visit ttjy-studio.vercel.app to see the list of supported executors.</font>",
-    ["TTJY_IDVC"] = "[RAFEAL Studio] : VCache Failed",
-    ["TTJY_TTJY"] = "TTJY was in your server and decided to kick you for some reasons.";
-    ["TTJY_IDP"] = "You are in public server but you set the script to auto leave in public servers";
+    ["Rafeal_ID7"]  = "Executor environment is not standard (Probably New Executor). Please try again or switch to a different executor.\n\n<font size=\"14\">Join our Discord server for recommendations or to report bugs.</font>",
+    ["Rafeal_IDXO"] = "Your executor is '<b>Xeno</b>'. Imagine using a virus.\n\nAnyway, This executor isn't supported.\n\n<font size=\"14\">Visit ttjy-studio.vercel.app to see the list of supported executors.</font>",
+    ["Rafeal_IDVC"] = "[RAFEAL Studio] : VCache Failed",
+    ["Rafeal_TTJY"] = "Rafeal was in your server and decided to kick you for some reasons.";
+    ["Rafeal_IDP"] = "You are in public server but you set the script to auto leave in public servers";
 };
 
 game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(v)
@@ -11964,7 +11964,7 @@ GG.LoaderSettings = LoaderSettings;
 GG.ScriptCache = ScriptCache;
 
 if (not LoaderSettings.SkipBypass) and not LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/MultiAC.cpp", "MultiAC.lua", "2023_ACI_2026_Revert")(selff, selc) then
-    return selff:Kick("TTJY_IDAC");
+    return selff:Kick("TTJY_");
 else
     for i, v in pairs({
         VirtualInputManager = "VirtualInputManager";
