@@ -84,7 +84,7 @@ local LoaderSettings = LoaderSettings or {
 
     TheMimicLoader = {
         Load_Sections = true;
-        Load_WithPlaceID_Check = true;
+        Load_WithPlaceID_Check = false;
     };
 
     GAG2Loader = {
