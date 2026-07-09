@@ -11905,59 +11905,58 @@ if not LoaderSettings.BadNetwork then
     end;
 end;
 
--- local FreeLoad, KeyLoad = {
---     [7597195391] = {
---         File = "7597195391";
---         Version = "RealUNISnapshot3";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask"};
---     };
---     [3647333358] = {
---         File = "3647333358";
---         Version = "EvadeV3";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF"};
---     };
---     [8795154789] = {
---         File = "8795154789";
---         Version = "FlickV3.01";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "CoruTask", "ESPPackage", "CommonF", "CirclePackage"};
---     };
---     [1701518532] = {
---         File = "1701518532";
---         Version = "JPJ_V3.01";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF"};
---     };
---     [9294074907] = {
---         File = "9294074907";
---         Version = "OneTapV3.01";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF", "CirclePackage"};
---     };
--- }, {
---     [2294168059] = {
---         File = "2294168059";
---         Version = "TheMimicV3.B1";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "TheMimicPaints", "QueuePack"};
---     };
---     [1235188606] = {
---         File = "1235188606";
---         Version = "DA_V3.38";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "DAPackage"};
---     };
---     [5995470825] = {
---         File = "5995470825";
---         Version = "HyperSV3.03";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "CirclePackage"};
---     };
---     [10200395747] = {
---         File = "10200395747";
---         Version = "GAG2_V3.15";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF"};
---     };
---     [6739698191] = {
---         File = "6739698191";
---         Version = "VD_V3.00";
---         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF"};
---     };
--- };
+local FreeLoad = {
+    [7597195391] = {
+        File = "7597195391";
+        Version = "RealUNISnapshot3";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask"};
+    };
+    [3647333358] = {
+        File = "3647333358";
+        Version = "EvadeV3";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF"};
+    };
+    [8795154789] = {
+        File = "8795154789";
+        Version = "FlickV3.01";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "CoruTask", "ESPPackage", "CommonF", "CirclePackage"};
+    };
+    [1701518532] = {
+        File = "1701518532";
+        Version = "JPJ_V3.01";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF"};
+    };
+    [9294074907] = {
+        File = "9294074907";
+        Version = "OneTapV3.01";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF", "CirclePackage"};
+    };
+    [2294168059] = {
+        File = "2294168059";
+        Version = "TheMimicV3.B1";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "TheMimicPaints", "QueuePack"};
+    };
+    [1235188606] = {
+        File = "1235188606";
+        Version = "DA_V3.38";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "DAPackage"};
+    };
+    [5995470825] = {
+        File = "5995470825";
+        Version = "HyperSV3.03";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "CirclePackage"};
+    };
+    [10200395747] = {
+        File = "10200395747";
+        Version = "GAG2_V3.15";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF"};
+    };
+    [6739698191] = {
+        File = "6739698191";
+        Version = "VD_V3.00";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF"};
+    };
+};
 
 GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
@@ -12048,19 +12047,28 @@ local AutoInclude = function(Included)
     end; return unpack(tbl);
 end;
 
-local Resolve = "7597195391.lua";
-local Included = {
-    "CorePackage",
-    "LoadUILib",
-    "IntroLib",
-    "Windy",
-    "ClientPackage",
-    "PromptPackage",
-    "CoruTask"
-};
+local Resolve = FreeLoad[GameId] and FreeLoad[GameId].File .. ".lua";
 
-return LoadFromVControl(
-    "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
-    Resolve,
-    GG.CustomVersion or "RealUNISnapshot3"
-)(AutoInclude(Included));
+if FreeLoad[GameId] then
+    return LoadFromVControl(
+        "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
+        Resolve,
+        GG.CustomVersion or FreeLoad[GameId].Version
+    )(AutoInclude(FreeLoad[GameId].Included));
+else
+    local Resolve = "7597195391.lua";
+    local Included = {
+        "CorePackage",
+        "LoadUILib",
+        "IntroLib",
+        "Windy",
+        "ClientPackage",
+        "PromptPackage",
+        "CoruTask"
+    };
+    return LoadFromVControl(
+        "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
+        Resolve,
+        GG.CustomVersion or "RealUNISnapshot3"
+    )(AutoInclude(Included));
+end
