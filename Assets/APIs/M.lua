@@ -295,38 +295,33 @@ ScriptCache.userIdentify.unc_infos = {
 local LoadFromVControl = nil;
 LoadFromVControl = function(srcName, fileName, selectversion)
     local cacheFile = "RAFEALHUB/" .. tostring(fileName);
-    if LoaderSettings.AllowCache then
-        if isfile(cacheFile) then
-            local loadc = loadstring(readfile(cacheFile))();
-            if loadc and typeof(loadc) == 'table' then
-                if loadc.Version == selectversion then
-                    return loadc.Function;
-                end;
-            end;
-        end;
-    end; 
+    if LoaderSettings.AllowCache and isfile(cacheFile) then
+        local success, loadc = pcall(function()
+            return loadstring(readfile(cacheFile))()
+        end)
+        if success and loadc and typeof(loadc) == 'table' and type(loadc.Function) == "function" then
+            return loadc.Function
+        end
+    end
     
-    local source = HttpGet(game, srcName);
-    if not source then
-        return selff:Kick("Rafeal_IDVC: Failed to load script");
-    end;
+    local success, source = pcall(function()
+        return HttpGet(game, srcName)
+    end)
     
-    local loadc = loadstring(source)();
-    if loadc and typeof(loadc) == 'table' then
-        if loadc.Version == selectversion then
-            if LoaderSettings.AllowCache then
-                writefile(cacheFile, source);
-            end; 
-            return loadc.Function;
-        else
-            if type(loadc.Function) == "function" then
-                return loadc.Function;
-            end;
-        end;
-    end; 
+    if not success or not source then
+        return function() end
+    end
     
-    return selff:Kick("Rafeal_IDVC: Script load failed");
-end;
+    local loadc = loadstring(source)()
+    if loadc and typeof(loadc) == 'table' and type(loadc.Function) == "function" then
+        if LoaderSettings.AllowCache then
+            pcall(function() writefile(cacheFile, source) end)
+        end
+        return loadc.Function
+    end
+    
+    return function() end
+end
 
 ------------- Signal UNC -------------
 
