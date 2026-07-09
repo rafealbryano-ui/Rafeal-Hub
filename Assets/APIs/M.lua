@@ -1593,11 +1593,11 @@ AssetStorage.KeyPackage = function()
             end); G2L["11"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
-                return setc("https://pandadevelopment.net/getkey/ttjyhub?hwid="..gethwid());
+                return setc("https://pandadevelopment.net/getkey/rafealhub?hwid="..gethwid());
             end); G2L["1a"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
-                return setc("https://pandadevelopment.net/getkey/ttjyhub?hwid="..gethwid());
+                return setc("https://pandadevelopment.net/getkey/rafealhub?hwid="..gethwid());
             end); G2L["31"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
