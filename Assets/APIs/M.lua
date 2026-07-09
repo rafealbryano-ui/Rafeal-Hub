@@ -61,13 +61,9 @@ end; GG.GG = GG;
 
 if GG.LSecureLoad then
     return GG.LSecureLoad();
-end
--- else -- removed key branch
---[[
 elseif GG.InKey then
     return GG.InKey();
 end;
-]]
 
 local LoaderSettings = LoaderSettings or {
     UIKeybind = "V";
