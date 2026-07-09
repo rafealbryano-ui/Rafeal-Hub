@@ -58,7 +58,7 @@ end;
 
 local InvalidTable = [[{
 	"OwnerSecretID": "68bffa9ef8948d329c5754d216b9830d3a08ce227d174f55d4189f7c6a186e9e",
-	"Registered_ServiceID": "ttjy",
+	"Registered_ServiceID": "rafealhub",
 	"Authentication": "cc4dd48a9316360d006bed2e77a8eb18be233f79f555aa34e9d9805716006cd8",
 	"V2_Authentication": "false",
 	"Key_Information": {
@@ -149,7 +149,7 @@ local KeyProcessor = function(script_key)
     end; 
 
     local InvalidDecoded = DeCodeJ(HttpService, InvalidTable);
-    if InvalidDecoded.Registered_ServiceID == "ttjyhub" then
+    if InvalidDecoded.Registered_ServiceID == "rafealhub" then
         return 12;
     end;
     if InvalidDecoded.V2_Authentication == "success" then
