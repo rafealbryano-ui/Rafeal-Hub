@@ -379,7 +379,7 @@ ScriptCache.userIdentify.unc_infos = {
 
 local LoadFromVControl = nil;
 LoadFromVControl = function(srcName, fileName, selectversion)
-    local cacheFile = "TTJYStudio/" .. tostring(fileName);
+    local cacheFile = "RAFEALHUB/" .. tostring(fileName);
     if LoaderSettings.AllowCache then
         if isfile(cacheFile) then
             local loadc = loadstring(readfile(cacheFile))();
@@ -468,7 +468,7 @@ if not LoaderSettings.BadNetwork then
     end;
 end;
 
-local TTJYLogo = (not LoaderSettings.BadNetwork and getcustomasset("RAFEALHUB/RAFEALHUB.png")) or "";
+local RafaelLogo = (not LoaderSettings.BadNetwork and getcustomasset("RAFEALHUB/RAFEALHUB.png")) or "";
 
 do (function()
     local ScreenGui = Instancen("ScreenGui", gethui());
@@ -496,7 +496,7 @@ do (function()
     Logo.AnchorPoint = Vector2.new(0.5, 0.5);
     Logo.Position = Dim2(0.5, 0, 0.4, 0);
     Logo.BackgroundTransparency = 1;
-    Logo.Image = TTJYLogo;
+    Logo.Image = RafaelLogo;
 
     local Title = Instancen("TextLabel", ContentContainer);
     Title.Name = "Title";
@@ -4734,7 +4734,7 @@ AssetStorage.LoadUILib = function()
                         ag.Image, ag.Title, af.Window.NewElements and ag.UICorner - 11 or (ag.UICorner - 4),
                         af.Window.Folder, "Image", ag.IconThemed, not ag.Color and true or false, "ElementIcon"
                     ); if ag.Image == "RAFEALHUB" then
-                        am.ImageLabel.Image = TTJYLogo;
+                        am.ImageLabel.Image = RafaelLogo;
                     end; if typeof(ag.Color) == "string" then
                         am.ImageLabel.ImageColor3 = GetTextColorForHSB(fromHex(aa.Colors[ag.Color]));
                     elseif typeof(ag.Color) == "Color3" then
@@ -10795,7 +10795,7 @@ AssetStorage.LoadUILib = function()
                 ); local clo = as.UIElements.Main.Main.Topbar.Right:Clone();
                 clo.Frame:Destroy(); clo.Position = Dim2(0,10,0.5,0)
                 clo.Parent = as.UIElements.Main.Main.Topbar;
-                clo.Frame.ImageButton.Image = TTJYLogo;
+                clo.Frame.ImageButton.Image = RafaelLogo;
                 clo.Frame.ImageButton.ImageColor3 = fromRGB(255,255,255);
                 clo.Frame.ImageButton.Size = Dim2(1.5,0,1.5,0);
                 as.UIElements.SideBar.Parent.Name = "Sidebar";
