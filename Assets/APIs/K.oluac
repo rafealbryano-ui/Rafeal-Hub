@@ -1,6 +1,6 @@
-local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[TTJY Studio] : Really? Your account is now at risk for the next ban wave."); end;
+local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafeal Studio] : Really? Your account is now at risk for the next ban wave."); end;
 
-local TJYS_ID = {
+local RAFEAL_ID = {
     ID_KBD = "[ByJass Detection] : Try click 'Continue' again. If this still happening and you believe it was a script bug, you can head to Discord Server and report the bug.";
     ID_KI = "[Key] : Incorrect Key or Key has expired. If you believe this was a bug, head to discord server to report bug.";
     ID_KN = 'We are very <font color="rgb(0, 255, 135)">s</font><font color="rgb(19, 251, 159)">o</font><font color="rgb(38, 248, 183)">r</font><font color="rgb(57, 245, 207)">r</font><font color="rgb(76, 242, 231)">y</font>, to have this auth or key system but this means a lot to us, this is where you support our project. Linkvertise has "no" 1H waiting time.';
@@ -322,18 +322,18 @@ return {
                     else
                         task.delay(5, function()
                             if g2.f and g2.f.Parent then
-                                g2.f.Text = TJYS_ID.ID_KN;
+                                g2.f.Text = RAFEAL_ID.ID_KN;
                             end;
                         end); if Result ~= 300 then
-                            g2.f.Text = TJYS_ID.ID_KBD .. " [" .. tostring(Result) .. "]";
+                            g2.f.Text = RAFEAL_ID.ID_KBD .. " [" .. tostring(Result) .. "]";
                         elseif Result ~= 202 then
-                            g2.f.Text = TJYS_ID.ID_RW .. " [" .. tostring(Result) .. "]";
+                            g2.f.Text = RAFEAL_ID.ID_RW .. " [" .. tostring(Result) .. "]";
                         elseif Result ~= 222 then
-                            g2.f.Text = TJYS_ID.ID_NP .. " [" .. tostring(Result) .. "]";
+                            g2.f.Text = RAFEAL_ID.ID_NP .. " [" .. tostring(Result) .. "]";
                         elseif Result ~= 223 then
-                            g2.f.Text = TJYS_ID.ID_KBD .. " [" .. tostring(Result) .. "]";
+                            g2.f.Text = RAFEAL_ID.ID_KBD .. " [" .. tostring(Result) .. "]";
                         else
-                            g2.f.Text = TJYS_ID.ID_KI .. " [" .. tostring(Result) .. "]";
+                            g2.f.Text = RAFEAL_ID.ID_KI .. " [" .. tostring(Result) .. "]";
                         end;
                     end;
                 end,
