@@ -1,4 +1,4 @@
-local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafaell Studio] : Really? Your account is now at risk for the next ban wave."); end;
+local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafael Studio] : Really? Your account is now at risk for the next ban wave."); end;
 
 local RAFEAL_ID = {
     ID_KBD = "[ByJass Detection] : Try click 'Continue' again. If this still happening and you believe it was a script bug, you can head to Discord Server and report the bug.";
