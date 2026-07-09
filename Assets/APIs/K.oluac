@@ -270,6 +270,14 @@ end; if defineLuaExec ~= "Lua" then
     KeyProcessor = newcclosure(KeyProcessor);
 end;
 
+local function GetGameFileName()
+    if GameId == 2294168059 then
+        return "2294168059.lua";
+    else
+        return tostring(GameId) .. ".lua";
+    end
+end
+
 return {
     Version = "KAuth3.67",
     Function = function(version, KeyPackage, ...)
@@ -289,7 +297,9 @@ return {
                             return tbl:fadeAndTween({
                                 g2["f"], g2["10"]
                             }, g2["e"]), task.wait(1), g2["1"]:Destroy(), GG.LoadingSignal:Fire(false);
-                        end)); return GG.LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/"..tostring(GameId) .. ".lua", tostring(GameId) .. ".lua", version)(unpack(ToGo))(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2));
+                        end)); 
+                        local fileName = GetGameFileName();
+                        return GG.LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/"..fileName, fileName, version)(unpack(ToGo))(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2));
                     else
                         task.delay(5, function()
                             if g2.f and g2.f.Parent then
@@ -318,7 +328,8 @@ return {
                 local Result = KeyProcessor(Keytxt);
                 if Result == 200 or Result == 201 then
                     GG.LoadingSignal:Fire(false);
-                    GG.LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/"..tostring(GameId) .. ".lua", tostring(GameId)..".lua", version)(...)(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2));
+                    local fileName = GetGameFileName();
+                    GG.LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/"..fileName, fileName, version)(...)(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2));
                     return IB_NO_VIRTUALIZE(function() end);
                 end;
             end;
