@@ -2274,7 +2274,7 @@ AssetStorage.LoadUILib = function()
             local l = (function()
                 local IconModule = {  
                     IconsType = "lucide", New = nil, IconThemeTag = nil,
-                    Icons = (.BadNetwork and {}) or {  
+                    Icons = (LoaderSettings.BadNetwork and {}) or {  
                        	["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
                         --["solar"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/solar/dist/Icons.lua"))(),  
                         --["craft"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/craft/dist/Icons.lua"))(),  
@@ -12037,9 +12037,6 @@ if not LoaderSettings.BadNetwork then
     end);
 end;
 
-local Resolve = FreeLoad[GameId] and FreeLoad[GameId].File .. ".lua" or "7597195391.lua";
-Resolve = Resolve or (KeyLoad[GameId] and KeyLoad[GameId].File .. ".lua");
-
 local AutoInclude = function(Included)
     local tbl={}; for i, v in ipairs(Included) do
         if v == "LoadUILib" then
@@ -12047,32 +12044,23 @@ local AutoInclude = function(Included)
         else
             tble.insert(tbl, i, AssetStorage[v]());
             AssetStorage[v] = nil;
-        end; continue;
+        end;
     end; return unpack(tbl);
 end;
 
-if FreeLoad[GameId] then
-    return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
-else
-    local Resolve = "7597195391.lua";
-    local Included = {
-        "CorePackage",
-        "LoadUILib",
-        "IntroLib",
-        "Windy",
-        "ClientPackage",
-        "PromptPackage",
-        "CoruTask"
-    };
-    return LoadFromVControl(
-        "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
-        Resolve,
-        GG.CustomVersion or "RealUNISnapshot3"
-    )(AutoInclude(Included));
-end
+local Resolve = "7597195391.lua";
+local Included = {
+    "CorePackage",
+    "LoadUILib",
+    "IntroLib",
+    "Windy",
+    "ClientPackage",
+    "PromptPackage",
+    "CoruTask"
+};
 
--- if FreeLoad[GameId] then
---     return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
--- else
---     return LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
--- end
+return LoadFromVControl(
+    "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
+    Resolve,
+    GG.CustomVersion or "RealUNISnapshot3"
+)(AutoInclude(Included));
