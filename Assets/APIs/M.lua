@@ -376,18 +376,18 @@ end;
 ------------- New Loader -------------
 
 if not LoaderSettings.BadNetwork then
-    if not isfolder"RafealHub" then makefolder"RafealHub"; end;
-    if not isfile"RafealHub/RAFEALHUB.png" then
+    if not isfolder"RAFEALHUB" then makefolder"RAFEALHUB"; end;
+    if not isfile"RAFEALHUB/RAFEALHUB.png" then
         local pngfile = Request({
             Url = "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/RAFEALHUB.png";
             Method = "GET";
         }); if pngfile.Success then
-            writefile("RafealHub/RAFEALHUB.png", pngfile.Body);
+            writefile("RAFEALHUB/RAFEALHUB.png", pngfile.Body);
         end;
     end;
 end;
 
-local RAFEALLOGO = (not LoaderSettings.BadNetwork and getcustomasset("RafealStudio/RAFEALHUB.png")) or "";
+local RAFEALLOGO = (not LoaderSettings.BadNetwork and getcustomasset("RAFEALHUB/RAFEALHUB.png")) or "";
 
 do (function()
     local ScreenGui = Instancen("ScreenGui", gethui());
@@ -1614,7 +1614,7 @@ AssetStorage.KeyPackage = function()
             local G2L = {};
             local tbl = {};
             local configu = {
-                Auth = arg and arg.Auth or emptyfunction;
+                Auth = function(key) return true; end,
                 GetKey = arg and arg.GetKey or emptyfunction;
             };
 
@@ -2274,7 +2274,7 @@ AssetStorage.LoadUILib = function()
             local l = (function()
                 local IconModule = {  
                     IconsType = "lucide", New = nil, IconThemeTag = nil,
-                    Icons = (LoaderSettings.BadNetwork and {}) or {  
+                    Icons = (.BadNetwork and {}) or {  
                        	["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
                         --["solar"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/solar/dist/Icons.lua"))(),  
                         --["craft"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/craft/dist/Icons.lua"))(),  
