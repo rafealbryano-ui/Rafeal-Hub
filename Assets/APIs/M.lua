@@ -124,7 +124,7 @@ game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(func
         Cloned.Name = "DiscordInvite"; Cloned.ButtonText.Text = "Discord Invite";
         ButtonLayout.CellSize = UDim2.new(0,150,0,36); Cloned.Parent = ButtonArea;
         Cloned.MouseButton1Click:Connect(function()
-            return setclipboard and setclipboard("https://discord.gg/G7CX2rD9p2");
+            return setclipboard and setclipboard("https://discord.gg/n8v8pRSMb6");
         end); task.delay(0.2, function()
             for i,v in pairs(Kicks) do
                 if string.find(ErrorMessage.Text, i) then
