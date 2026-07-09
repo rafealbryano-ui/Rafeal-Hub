@@ -301,22 +301,31 @@ LoadFromVControl = function(srcName, fileName, selectversion)
             if loadc and typeof(loadc) == 'table' then
                 if loadc.Version == selectversion then
                     return loadc.Function;
-                elseif versionstorage[selectversion] then
-                    return LoadFromVControl(unpack(versionstorage[selectversion]));
                 end;
             end;
         end;
-    end; local source = HttpGet(game, srcName);
+    end; 
+    
+    local source = HttpGet(game, srcName);
+    if not source then
+        return selff:Kick("Rafeal_IDVC: Failed to load script");
+    end;
+    
     local loadc = loadstring(source)();
     if loadc and typeof(loadc) == 'table' then
         if loadc.Version == selectversion then
             if LoaderSettings.AllowCache then
                 writefile(cacheFile, source);
-            end; return loadc.Function;
-        elseif versionstorage[selectversion] then
-            return LoadFromVControl(unpack(versionstorage[selectversion]));
+            end; 
+            return loadc.Function;
+        else
+            if type(loadc.Function) == "function" then
+                return loadc.Function;
+            end;
         end;
-    end; return selff:Kick("Rafeal_IDVC");
+    end; 
+    
+    return selff:Kick("Rafeal_IDVC: Script load failed");
 end;
 
 ------------- Signal UNC -------------
