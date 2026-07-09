@@ -937,7 +937,7 @@ AssetStorage.QueuePack = function()
                 src ..= ("[%q] = %q;"):format(tostring(k), tostring(v));
             end; src ..= [[}]];
 
-            src ..= 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/M.lua"))()';
+            src ..= 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/M.lua"))()';
             queueonteleport(src);
         end;
     };
@@ -2275,11 +2275,11 @@ AssetStorage.LoadUILib = function()
                 local IconModule = {  
                     IconsType = "lucide", New = nil, IconThemeTag = nil,
                     Icons = (LoaderSettings.BadNetwork and {}) or {  
-                        ["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
+                       	["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
                         --["solar"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/solar/dist/Icons.lua"))(),  
                         --["craft"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/craft/dist/Icons.lua"))(),  
                         --["geist"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/geist/dist/Icons.lua"))(),  
-                        ["sfsymbols"] = LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/Assets/sfsymbols.lua", "sfsymbols.lua", "1")(),  
+                        ["sfsymbols"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/sfsymbols.lua", "sfsymbols.lua", "1")(),
                     },
                 };
                 local function parseIconString(iconString)  
@@ -11963,7 +11963,7 @@ GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
 GG.ScriptCache = ScriptCache;
 
-if (not LoaderSettings.SkipBypass) and not LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/MultiAC.cpp", "MultiAC.lua", "2023_ACI_2026_Revert")(selff, selc) then
+if (not LoaderSettings.SkipBypass) and not LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/MultiAC.cpp", "MultiAC.lua", "2023_ACI_2026_Revert")(selff, selc) then
     return selff:Kick("TTJY_IDAC");
 else
     for i, v in pairs({
