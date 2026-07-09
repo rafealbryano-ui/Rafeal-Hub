@@ -133,14 +133,14 @@ return {
             local WindUI = WindLib();
             local Window = WindUI:CreateWindow({
                 Title = "Universal",
-                Folder = "TTJYStudio",
+                Folder = "RafealStudio",
                 Transparent = true,
                 Theme = "Dark",
                 SideBarWidth = 200,
                 HasOutline = true,
                 NewElements = true,
                 OpenButton = {
-                    Title = "TTJY Hub",
+                    Title = "Rafeal Hub",
                     CornerRadius = UDim.new(1,0),
                     StrokeThickness = 3,
                     Enabled = true,
