@@ -1,3 +1,90 @@
+------------- CREDITS -------------
+
+--[[
+     _      ___         ____  ______
+    | | /| / (_)__  ___/ / / / /  _/
+    | |/ |/ / / _ \/ _  / /_/ // /  
+    |__/|__/_/_//_/\_,_/\____/___/
+    
+    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
+    
+    To view the source code, see the `src/` folder on the official GitHub repository.
+    
+    Author: Footagesus ( Footages, .ftgs, oftgs )
+    Github: https://github.com/Footagesus/WindUI
+    Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
+    License: MIT
+    
+    ████████╗████████╗░░░░░██╗██╗░░░██╗  ░██████╗████████╗██╗░░░██╗██████╗░██╗░█████╗░
+    ╚══██╔══╝╚══██╔══╝░░░░░██║╚██╗░██╔╝  ██╔════╝╚══██╔══╝██║░░░██║██╔══██╗██║██╔══██╗
+    ░░░██║░░░░░░██║░░░░░░░░██║░╚████╔╝░  ╚█████╗░░░░██║░░░██║░░░██║██║░░██║██║██║░░██║
+    ░░░██║░░░░░░██║░░░██╗░░██║░░╚██╔╝░░  ░╚═══██╗░░░██║░░░██║░░░██║██║░░██║██║██║░░██║
+    ░░░██║░░░░░░██║░░░╚█████╔╝░░░██║░░░  ██████╔╝░░░██║░░░╚██████╔╝██████╔╝██║╚█████╔╝
+    ░░░╚═╝░░░░░░╚═╝░░░░╚════╝░░░░╚═╝░░░  ╚═════╝░░░░╚═╝░░░░╚═════╝░╚═════╝░╚═╝░╚════╝░
+
+    v3.0.1  |  2026-4-13  |  Roblox Script
+    
+    Author: TTJY Studio
+    Github: https://github.com/Yumiara/SSL-TTJY
+    Discord: https://discord.gg/G7CX2rD9p2
+    License: ND ( No Derivatives )
+    
+     _____ ____  
+     |_   _|  _ \ 
+       | | | |_) |
+       | | |  _ < 
+      _| |_| |_) |
+     |_____|____/ 
+              
+    v1  |  2025-07-06  | Code Obfuscator & Optimizer
+    
+    Author: dr_breen
+    Github: https://github.com/7Duser/ironbrew1
+    License: ND ( No Derivatives )
+    
+     █████╗ ██╗   ██╗████████╗██╗  ██╗  ██████╗
+    ██╔══██╗██║   ██║╚══██╔══╝██║  ██║  ╚════██╗
+    ███████║██║   ██║   ██║   ███████║   █████╔╝
+    ██╔══██║██║   ██║   ██║   ██╔══██║   ╚═══██╗
+    ██║  ██║╚██████╔╝   ██║   ██║  ██║  ██████╔╝
+    ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝  ╚═════╝
+
+    v3.4.1  |  2025-XX-XX  | Private Whitelist Service
+
+    Author: TTJY
+    License: ND ( No Derivatives )
+    
+    ▒█▀▀█ ░█▀▀█ ▒█▄░▒█ ▒█▀▀▄ ░█▀▀█ 　 ▒█▀▀▄ ▒█▀▀▀ ▒█░░▒█ ▒█▀▀▀ ▒█░░░ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▄▀█ ▒█▀▀▀ ▒█▄░▒█ ▀▀█▀▀ 
+    ▒█▄▄█ ▒█▄▄█ ▒█▒█▒█ ▒█░▒█ ▒█▄▄█ 　 ▒█░▒█ ▒█▀▀▀ ░▒█▒█░ ▒█▀▀▀ ▒█░░░ ▒█░░▒█ ▒█▄▄█ ▒█▒█▒█ ▒█▀▀▀ ▒█▒█▒█ ░▒█░░ 
+    ▒█░░░ ▒█░▒█ ▒█░░▀█ ▒█▄▄▀ ▒█░▒█ 　 ▒█▄▄▀ ▒█▄▄▄ ░░▀▄▀░ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░░░ ▒█░░▒█ ▒█▄▄▄ ▒█░░▀█ ░▒█░░
+
+    v3  |  2025-03-16  | Public Whitelist Service
+
+    Author: Pelican Development
+    Official Site: https://pandadevelopment.net/
+]]
+
+--[[
+
+    This script uses a single public webhook.
+
+    Purpose:
+    The webhook is only used for basic analytics to understand:
+        • How many people are using the script
+        • Which games the script is most commonly used in
+
+    Data Sent:
+        • GameId
+        • PlaceId
+
+    No personal or sensitive information is collected.
+
+    Please do not raid or spam the webhook. Raiding this
+        will result in script quality. Even if it is raided,
+        it will simply be replaced. Thank you.
+
+]]
+
 if not game:IsLoaded() then
     game.Loaded:Wait();
 end;
@@ -5,18 +92,18 @@ end;
 local GG, KickReason = (getgenv and getgenv()) or _G or shared, nil;
 
 local Kicks = {
-    ["Rafeal_IDAC"] = "[RAFEAL Studio] : Failed to bypass.\nPlease contect RAFEAL.",
-    ["Rafeal_IDGG"] = "[RAFEAL Studio] : Global variable not found.\nPlease change executor.",
-    ["Rafeal_IDFL"] = "[RAFEAL Studio] : File system not found.\nPlease change executor.",
-    ["Rafeal_IDDA"] = "ACI:Egg Data not found, Report this bug to RAFEAL Studio in Discord Server & Make sure to tell them your current world.\n\n<font size=\"14\">( This error is made to protect you from anti cheat. )</font>",
-    ["ID500:V"]   = "Volt OR Wave OR OpiumwareMac Detected by RAFEAL Studio X\n\n Please rejoin to take another step to our Authentication.",
-    ["ID500:SOL"] = "Solara Detected by RAFEAL Studio\n\n Please use ExternalRequest to use this, You can ask how to use in Discord.",
-    ["ID500:S2"] = "Solara Detected by RAFEAL Studio\n\nInitilized, Please rejoin to take another step.",
-    ["Rafeal_ID7"]  = "Executor environment is not standard (Probably New Executor). Please try again or switch to a different executor.\n\n<font size=\"14\">Join our Discord server for recommendations or to report bugs.</font>",
-    ["Rafeal_IDXO"] = "Your executor is '<b>Xeno</b>'. Imagine using a virus.\n\nAnyway, This executor isn't supported.\n\n<font size=\"14\">Visit ttjy-studio.vercel.app to see the list of supported executors.</font>",
-    ["Rafeal_IDVC"] = "[RAFEAL Studio] : VCache Failed",
-    ["Rafeal_TTJY"] = "Rafeal was in your server and decided to kick you for some reasons.";
-    ["Rafeal_IDP"] = "You are in public server but you set the script to auto leave in public servers";
+    ["TTJY_IDAC"] = "[TTJY Studio] : Failed to bypass.\nPlease contect TTJY.",
+    ["TTJY_IDGG"] = "[TTJY Studio] : Global variable not found.\nPlease change executor.",
+    ["TTJY_IDFL"] = "[TTJY Studio] : File system not found.\nPlease change executor.",
+    ["TTJY_IDDA"] = "ACI:Egg Data not found, Report this bug to TTJY Studio in Discord Server & Make sure to tell them your current world.\n\n<font size=\"14\">( This error is made to protect you from anti cheat. )</font>",
+    ["ID500:V"]   = "Volt OR Wave OR OpiumwareMac Detected by TTJY Studio X\n\n Please rejoin to take another step to our Authentication.",
+    ["ID500:SOL"] = "Solara Detected by TTJY Studio\n\n Please use ExternalRequest to use this, You can ask how to use in Discord.",
+    ["ID500:S2"] = "Solara Detected by TTJY Studio\n\nInitilized, Please rejoin to take another step.",
+    ["TTJY_ID7"]  = "Executor environment is not standard (Probably New Executor). Please try again or switch to a different executor.\n\n<font size=\"14\">Join our Discord server for recommendations or to report bugs.</font>",
+    ["TTJY_IDXO"] = "Your executor is '<b>Xeno</b>'. Imagine using a virus.\n\nAnyway, This executor isn't supported.\n\n<font size=\"14\">Visit ttjy-studio.vercel.app to see the list of supported executors.</font>",
+    ["TTJY_IDVC"] = "[TTJY Studio] : VCache Failed",
+    ["TTJY_TTJY"] = "TTJY was in your server and decided to kick you for some reasons.";
+    ["TTJY_IDP"] = "You are in public server but you set the script to auto leave in public servers";
 };
 
 game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(v)
@@ -106,7 +193,7 @@ if not ReplicatedFirst_lc then
     GG.cloneref = cloneref or clonereference;
 
     if not getinfo then
-        return game:GetService("Players").LocalPlayer:Kick("\n[RAFEAL Studio] : getinfo not found. Please change executor.");
+        return game:GetService("Players").LocalPlayer:Kick("\n[TTJY Studio] : getinfo not found. Please change executor.");
     end;
 
     if clonefunction and getinfo(clonefunction).what == "Lua" then
@@ -294,34 +381,30 @@ ScriptCache.userIdentify.unc_infos = {
 
 local LoadFromVControl = nil;
 LoadFromVControl = function(srcName, fileName, selectversion)
-    local cacheFile = "RAFEALHUB/" .. tostring(fileName);
-    if LoaderSettings.AllowCache and isfile(cacheFile) then
-        local success, loadc = pcall(function()
-            return loadstring(readfile(cacheFile))()
-        end)
-        if success and loadc and typeof(loadc) == 'table' and type(loadc.Function) == "function" then
-            return loadc.Function
-        end
-    end
-    
-    local success, source = pcall(function()
-        return HttpGet(game, srcName)
-    end)
-    
-    if not success or not source then
-        return function() end
-    end
-    
-    local loadc = loadstring(source)()
-    if loadc and typeof(loadc) == 'table' and type(loadc.Function) == "function" then
-        if LoaderSettings.AllowCache then
-            pcall(function() writefile(cacheFile, source) end)
-        end
-        return loadc.Function
-    end
-    
-    return function() end
-end
+    local cacheFile = "TTJYStudio/" .. tostring(fileName);
+    if LoaderSettings.AllowCache then
+        if isfile(cacheFile) then
+            local loadc = loadstring(readfile(cacheFile))();
+            if loadc and typeof(loadc) == 'table' then
+                if loadc.Version == selectversion then
+                    return loadc.Function;
+                elseif versionstorage[selectversion] then
+                    return LoadFromVControl(unpack(versionstorage[selectversion]));
+                end;
+            end;
+        end;
+    end; local source = HttpGet(game, srcName);
+    local loadc = loadstring(source)();
+    if loadc and typeof(loadc) == 'table' then
+        if loadc.Version == selectversion then
+            if LoaderSettings.AllowCache then
+                writefile(cacheFile, source);
+            end; return loadc.Function;
+        elseif versionstorage[selectversion] then
+            return LoadFromVControl(unpack(versionstorage[selectversion]));
+        end;
+    end; return selff:Kick("TTJY_IDVC");
+end;
 
 ------------- Signal UNC -------------
 
@@ -376,22 +459,22 @@ end;
 ------------- New Loader -------------
 
 if not LoaderSettings.BadNetwork then
-    if not isfolder"RAFEALHUB" then makefolder"RAFEALHUB"; end;
-    if not isfile"RAFEALHUB/RAFEALHUB.png" then
+    if not isfolder"TTJYStudio" then makefolder"TTJYStudio"; end;
+    if not isfile"TTJYStudio/TTJYStudio.png" then
         local pngfile = Request({
-            Url = "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/RAFEALHUB.png";
+            Url = "https://github.com/Yumiara/SSL-TTJY/raw/refs/heads/main/Assets/TTJYStudio.png";
             Method = "GET";
         }); if pngfile.Success then
-            writefile("RAFEALHUB/RAFEALHUB.png", pngfile.Body);
+            writefile("TTJYStudio/TTJYStudio.png", pngfile.Body);
         end;
     end;
 end;
 
-local RAFEALLOGO = (not LoaderSettings.BadNetwork and getcustomasset("RAFEALHUB/RAFEALHUB.png")) or "";
+local TTJYLogo = (not LoaderSettings.BadNetwork and getcustomasset("TTJYStudio/TTJYStudio.png")) or "";
 
 do (function()
     local ScreenGui = Instancen("ScreenGui", gethui());
-    ScreenGui.Name = "Refeal Startup";
+    ScreenGui.Name = "TTJY_Startup";
     ScreenGui.DisplayOrder = 9999;
     ScreenGui.IgnoreGuiInset = true;
 
@@ -415,7 +498,7 @@ do (function()
     Logo.AnchorPoint = Vector2.new(0.5, 0.5);
     Logo.Position = Dim2(0.5, 0, 0.4, 0);
     Logo.BackgroundTransparency = 1;
-    Logo.Image = RAFEALLOGO;
+    Logo.Image = TTJYLogo;
 
     local Title = Instancen("TextLabel", ContentContainer);
     Title.Name = "Title";
@@ -423,7 +506,7 @@ do (function()
     Title.Position = Dim2(0, 0, 0.65, 0);
     Title.BackgroundTransparency = 1;
     Title.Font = Enum.Font.GothamBold;
-    Title.Text = "RAFEAL HUB";
+    Title.Text = "TTJY HUB";
     Title.TextColor3 = Color3.fromRGB(255, 255, 255);
     Title.TextSize = 42;
     Title.TextTransparency = 1;
@@ -434,7 +517,7 @@ do (function()
     Subtitle.Position = Dim2(0, 0, 0.8, 0);
     Subtitle.BackgroundTransparency = 1;
     Subtitle.Font = Enum.Font.GothamMedium;
-    Subtitle.Text = "Script Made By RAFEAL Studio";
+    Subtitle.Text = "Script Made By TTJY Studio";
     Subtitle.TextColor3 = Color3.fromRGB(150, 150, 150);
     Subtitle.TextSize = 14;
     Subtitle.TextTransparency = 1;
@@ -842,7 +925,7 @@ end;
 AssetStorage.CirclePackage = function()
     local Circle = {}; Circle.__index = Circle
     local gui = Instancen("ScreenGui", C);
-    gui.Name = "RAFEAL_Hub_Circle";
+    gui.Name = "TTJY_Hub_Circle";
     gui.IgnoreGuiInset = true;
     function Circle:new(radius)
         local self = setmetatable({}, Circle)
@@ -937,16 +1020,14 @@ AssetStorage.QueuePack = function()
                 src ..= ("[%q] = %q;"):format(tostring(k), tostring(v));
             end; src ..= [[}]];
 
-            src ..= 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/M.lua"))()';
+            src ..= 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/M.lua"))()';
             queueonteleport(src);
         end;
     };
 end;
 
 ------------- WindUI -------------
-	
------------- WindUI -------------
-	
+
 AssetStorage.KeyPackage = function()
     return {
         newCopy = function()
@@ -1156,6 +1237,102 @@ AssetStorage.KeyPackage = function()
                 G2L["19"].RichText              = true;
                 G2L["19"].Text                  = "Linkvertise ( Key )";
                 G2L["19"].AutomaticSize         = Enum.AutomaticSize.XY;
+        
+            G2L["1a"]                           = Instancen("TextButton", G2L.f);
+                G2L["1a"].BorderSizePixel       = 0;
+                G2L["1a"].TextColor3            = fromRGB(255, 255, 255);
+                G2L["1a"].AutoButtonColor       = false;
+                G2L["1a"].TextSize              = 14;
+                G2L["1a"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["1a"].Size                  = Dim2(0.45, 0, 1, 0);
+                G2L["1a"].BackgroundTransparency= 1;
+                G2L["1a"].LayoutOrder           = 2;
+                G2L["1a"].Text                  = "";
+                G2L["1a"].Position              = Dim2(-0.00377, 0, 0, 0);
+        
+            G2L["1b"]                           = Instancen("ImageLabel", G2L["1a"]);
+                G2L["1b"].BorderSizePixel       = 0;
+                G2L["1b"].SliceCenter           = Rectn(256, 256, 256, 256);
+                G2L["1b"].SliceScale            = 0.03906;
+                G2L["1b"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["1b"].ScaleType             = Enum.ScaleType.Slice;
+                G2L["1b"].ImageTransparency     = 1;
+                G2L["1b"].ImageColor3           = fromRGB(83, 83, 92);
+                G2L["1b"].Image                 = "rbxassetid://80999662900595";
+                G2L["1b"].Size                  = Dim2(1, 0, 1, 0);
+                G2L["1b"].BackgroundTransparency= 1;
+                G2L["1b"].Name                  = "Squircle";
+        
+            G2L["1c"]                           = Instancen("ImageLabel", G2L["1a"]);
+                G2L["1c"].BorderSizePixel       = 0;
+                G2L["1c"].SliceCenter           = Rectn(256, 256, 256, 256);
+                G2L["1c"].SliceScale            = 0.03906;
+                G2L["1c"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["1c"].ScaleType             = Enum.ScaleType.Slice;
+                G2L["1c"].ImageTransparency     = 0.95;
+                G2L["1c"].Image                 = "rbxassetid://80999662900595";
+                G2L["1c"].Size                  = Dim2(1, 0, 1, 0);
+                G2L["1c"].BackgroundTransparency = 1;
+                G2L["1c"].Name                  = "Special";
+        
+            G2L["1d"]                           = Instancen("ImageLabel", G2L["1a"]);
+                G2L["1d"].BorderSizePixel       = 0;
+                G2L["1d"].SliceCenter           = Rectn(512, 512, 512, 512);
+                G2L["1d"].SliceScale            = 0.01953;
+                G2L["1d"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["1d"].ScaleType             = Enum.ScaleType.Slice;
+                G2L["1d"].ImageColor3           = fromRGB(0, 0, 0);
+                G2L["1d"].AnchorPoint           = Vec2(0.5, 0.5);
+                G2L["1d"].Image                 = "rbxassetid://84825982946844";
+                G2L["1d"].Size                  = Dim2(1, 3, 1, 3);
+                G2L["1d"].BackgroundTransparency = 1;
+                G2L["1d"].Name                  = "Shadow";
+                G2L["1d"].Position              = Dim2(0.5, 0, 0.5, 0);
+        
+            G2L["1e"]                           = Instancen("ImageLabel", G2L["1a"]);
+                G2L["1e"].BorderSizePixel       = 0;
+                G2L["1e"].SliceCenter           = Rectn(256, 256, 256, 256);
+                G2L["1e"].SliceScale            = 0.03906;
+                G2L["1e"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["1e"].ScaleType             = Enum.ScaleType.Slice;
+                G2L["1e"].ImageTransparency     = 0.85;
+                G2L["1e"].Image                 = "rbxassetid://117788349049947";
+                G2L["1e"].Size                  = Dim2(1, 0, 1, 0);
+                G2L["1e"].BackgroundTransparency = 1;
+        
+            G2L["1f"]                           = Instancen("ImageLabel", G2L["1a"]);
+                G2L["1f"].BorderSizePixel       = 0;
+                G2L["1f"].SliceCenter           = Rectn(256, 256, 256, 256);
+                G2L["1f"].SliceScale            = 0.03906;
+                G2L["1f"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["1f"].ScaleType             = Enum.ScaleType.Slice;
+                G2L["1f"].ImageTransparency     = 1;
+                G2L["1f"].Image                 = "rbxassetid://80999662900595";
+                G2L["1f"].Size                  = Dim2(1, 0, 1, 0);
+                G2L["1f"].BackgroundTransparency = 1;
+                G2L["1f"].Name                  = "Frame";
+        
+            G2L["20"]                           = Instancen("UIPadding", G2L["1f"]);
+                G2L["20"].PaddingRight          = Dim(0, 12);
+                G2L["20"].PaddingLeft           = Dim(0, 12);
+        
+            G2L["21"]                           = Instancen("UIListLayout", G2L["1f"]);
+                G2L["21"].HorizontalAlignment   = Enum.HorizontalAlignment.Center;
+                G2L["21"].Padding               = Dim(0, 8);
+                G2L["21"].VerticalAlignment     = Enum.VerticalAlignment.Center;
+                G2L["21"].SortOrder             = Enum.SortOrder.LayoutOrder;
+                G2L["21"].FillDirection         = Enum.FillDirection.Horizontal;
+        
+            G2L["22"]                           = Instancen("TextLabel", G2L["1f"]);
+                G2L["22"].BorderSizePixel       = 0;
+                G2L["22"].TextSize              = 18;
+                G2L["22"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["22"].FontFace              = Fnew("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+                G2L["22"].TextColor3            = fromRGB(255, 255, 255);
+                G2L["22"].BackgroundTransparency= 1;
+                G2L["22"].RichText              = true;
+                G2L["22"].Text                  = "Work.ink ( Key )";
+                G2L["22"].AutomaticSize         = Enum.AutomaticSize.XY;
         
             G2L["23"]                           = Instancen("UIPadding", G2L["6"]);
                 G2L["23"].PaddingTop            = Dim(0, 16);
@@ -1499,7 +1676,11 @@ AssetStorage.KeyPackage = function()
             end); G2L["11"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
-                return setc("https://pandadevelopment.net/getkey/rafealhub?hwid="..gethwid());
+                return setc("https://pandadevelopment.net/getkey/ttjyhub?hwid="..gethwid());
+            end); G2L["1a"].Activated:Connect(function()
+                G2L["1"]:Destroy(); G2L["1"] = nil;
+                G2L = nil;
+                return setc("https://pandadevelopment.net/getkey/ttjyhub?hwid="..gethwid());
             end); G2L["31"].Activated:Connect(function()
                 G2L["1"]:Destroy(); G2L["1"] = nil;
                 G2L = nil;
@@ -1519,7 +1700,7 @@ AssetStorage.KeyPackage = function()
                 Auth = arg and arg.Auth or emptyfunction;
                 GetKey = arg and arg.GetKey or emptyfunction;
             };
-
+        
             local G2L = {};
         
             G2L["1"]                            = Instancen("ScreenGui", C);
@@ -2009,6 +2190,17 @@ AssetStorage.KeyPackage = function()
                 G2L["32"].SortOrder             = Enum.SortOrder.LayoutOrder;
                 G2L["32"].FillDirection         = Enum.FillDirection.Horizontal;
 
+            G2L["33"]                           = Instancen("TextLabel", G2L["30"]);
+                G2L["33"].BorderSizePixel       = 0;
+                G2L["33"].TextSize              = 18;
+                G2L["33"].BackgroundColor3      = fromRGB(255, 255, 255);
+                G2L["33"].FontFace              = Fnew("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+                G2L["33"].TextColor3            = fromRGB(255, 255, 255);
+                G2L["33"].BackgroundTransparency= 1;
+                G2L["33"].RichText              = true;
+                G2L["33"].Text                  = "Copy Link";
+                G2L["33"].AutomaticSize         = Enum.AutomaticSize.XY;
+
             G2L["34"]                           = Instancen("UIPadding", G2L["6"]);
                 G2L["34"].PaddingTop            = Dim(0, 16);
                 G2L["34"].PaddingRight          = Dim(0, 16);
@@ -2035,7 +2227,6 @@ AssetStorage.KeyPackage = function()
             G2L["1b"].MouseButton1Click:Connect(function()
                 return configu.Auth(G2L["25"].Text);
             end);
-				
             G2L["2b"].MouseButton1Click:Connect(configu.GetKey);
             G2L["12"].MouseButton1Click:Connect(function(...)
                 G2L["1"]:Destroy(); G2L = nil;
@@ -2063,8 +2254,8 @@ AssetStorage.KeyPackage = function()
                     local tweenInfoFadeIn = TwInfo(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In);
     
                     for _, msg in ipairs({
-                        {Text = "RAFEAL Hub", Duration = 0.5},
-                        {Text = "Script made by RAFEAL Studio", Duration = 0.5},
+                        {Text = "TTJY Hub", Duration = 0.5},
+                        {Text = "Script made by TTJY Studio", Duration = 0.5},
                         {Text = "Thank you!", Duration = 0.5}
                     }) do
                         local tweenOut = TwCreate(TweenService, textLabel, tweenInfoFadeOut, {TextTransparency = 1});
@@ -2154,11 +2345,11 @@ AssetStorage.LoadUILib = function()
                 local IconModule = {  
                     IconsType = "lucide", New = nil, IconThemeTag = nil,
                     Icons = (LoaderSettings.BadNetwork and {}) or {  
-                       	["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
+                        ["lucide"] = LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/Assets/lucide.lua", "lucide.lua", "1")(),
                         --["solar"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/solar/dist/Icons.lua"))(),  
                         --["craft"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/craft/dist/Icons.lua"))(),  
                         --["geist"] = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/refs/heads/main/geist/dist/Icons.lua"))(),  
-                        ["sfsymbols"] = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/sfsymbols.lua", "sfsymbols.lua", "1")(),
+                        ["sfsymbols"] = LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/Assets/sfsymbols.lua", "sfsymbols.lua", "1")(),  
                     },
                 };
                 local function parseIconString(iconString)  
@@ -2203,10 +2394,10 @@ AssetStorage.LoadUILib = function()
                                     IconModule.Icons[packName].Spritesheets[imageId] = imageId;
                                 end;
                             else
-                                warn("[RAFEAL Studio] : Invalid spritesheet data format for icon '" .. iconName .. "'");
+                                warn("[TTJY Studio] : Invalid spritesheet data format for icon '" .. iconName .. "'");
                             end;
                         else
-                            warn("[RAFEAL Studio] : Unsupported data type for icon '" .. iconName .. "': " .. type(iconValue));
+                            warn("[TTJY Studio] : Unsupported data type for icon '" .. iconName .. "': " .. type(iconValue));
                         end;
                     end;
                 end; function IconModule.SetIconsType(iconType)  
@@ -4544,8 +4735,8 @@ AssetStorage.LoadUILib = function()
                     am = aa.Image(
                         ag.Image, ag.Title, af.Window.NewElements and ag.UICorner - 11 or (ag.UICorner - 4),
                         af.Window.Folder, "Image", ag.IconThemed, not ag.Color and true or false, "ElementIcon"
-                    ); if ag.Image == "RAFEALHUB" then
-                        am.ImageLabel.Image = RAFEALLOGO;
+                    ); if ag.Image == "TTJYStudio" then
+                        am.ImageLabel.Image = TTJYLogo;
                     end; if typeof(ag.Color) == "string" then
                         am.ImageLabel.ImageColor3 = GetTextColorForHSB(fromHex(aa.Colors[ag.Color]));
                     elseif typeof(ag.Color) == "Color3" then
@@ -9415,7 +9606,7 @@ AssetStorage.LoadUILib = function()
 
             return function(ar)
                 local as = {
-                    Title = ar.Title or "RAFEAL Hub",
+                    Title = ar.Title or "TTJY Hub",
                     Author = ar.Author,
                     Icon = ar.Icon,
                     IconSize = ar.IconSize or 22,
@@ -10606,7 +10797,7 @@ AssetStorage.LoadUILib = function()
                 ); local clo = as.UIElements.Main.Main.Topbar.Right:Clone();
                 clo.Frame:Destroy(); clo.Position = Dim2(0,10,0.5,0)
                 clo.Parent = as.UIElements.Main.Main.Topbar;
-                clo.Frame.ImageButton.Image = RAFEALLOGO;
+                clo.Frame.ImageButton.Image = TTJYLogo;
                 clo.Frame.ImageButton.ImageColor3 = fromRGB(255,255,255);
                 clo.Frame.ImageButton.Size = Dim2(1.5,0,1.5,0);
                 as.UIElements.SideBar.Parent.Name = "Sidebar";
@@ -11307,7 +11498,7 @@ AssetStorage.IntroLib = function()
                     end); return res or {};
                 end)(); if Response and Response.guild then
                     local desc = ' <font color="#52525b">•</font> Member Count : ' .. tostring(Response.approximate_member_count) .. '\n <font color="#16a34a">•</font> Online Count : ' .. tostring(Response.approximate_presence_count);
-                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "RAFEALHUB", ImageSize = 84}); tab:Button({
+                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "TTJYStudio", ImageSize = 84}); tab:Button({
                         Title = "Update Info",
                         Callback = function()
                             if Response and Response.guild then
@@ -11322,7 +11513,7 @@ AssetStorage.IntroLib = function()
                     tab:Paragraph({Title = "Error when receiving information about the Discord server", Desc = HttpService:JSONEncode(Response), Icon = "triangle-alert", Size = 26, Color = "Red"});
                 end;
             end; tab:Space(); tab:Divider(); tab:Space();
-            tab:Paragraph({Title="RAFEAL", Desc="The owner of RAFEAL Studio & Main Developer."});
+            tab:Paragraph({Title="TTJY", Desc="The owner of TTJY Studio & Main Developer."});
             tab:Paragraph({Title="Wind UI", Desc="This script uses Wind UI Library created by Footagesus."});
             tab:Paragraph({Title="IB1", Desc="This script uses IB1 which is a private obfuscator made by dr_breen."});
             tab:Paragraph({Title="Auth3", Desc="This script uses Authentication3 as a private whitelist service."});
@@ -11538,7 +11729,7 @@ AssetStorage.CorePackage = function()
         end};
     elseif GameId == 1235188606 then
         Data[#Data+1] = {type="Space"}; Data[#Data+1] = {type="Divider"}; Data[#Data+1] = {type="Space"};
-        Data[#Data+1] = {type="Button", EN="Export Game Data", EN2="Copy the current game data updates for custom script data. Since RAFEAL isn’t online 24/7, you can use this at the top of the script whenever the game updates.", TH1="คัดลอกข้อมูลเกม", TH2="คัดลอกข้อมูลอัปเดตล่าสุดของเกมสำหรับ Custom Script Data เนื่องจาก RAFEAL ไม่ได้ออนไลน์ตลอด 24/7 คุณสามารถนำสิ่งนี้ไปใส่ไว้ด้านบนของสคริปต์ได้เมื่อเกมมีการอัปเดต", Callback=function()
+        Data[#Data+1] = {type="Button", EN="Export Game Data", EN2="Copy the current game data updates for custom script data. Since TTJY isn’t online 24/7, you can use this at the top of the script whenever the game updates.", TH1="คัดลอกข้อมูลเกม", TH2="คัดลอกข้อมูลอัปเดตล่าสุดของเกมสำหรับ Custom Script Data เนื่องจาก TTJY ไม่ได้ออนไลน์ตลอด 24/7 คุณสามารถนำสิ่งนี้ไปใส่ไว้ด้านบนของสคริปต์ได้เมื่อเกมมีการอัปเดต", Callback=function()
             local GData = GG.UpdateGameData();
             setclipboard((GData and "getgenv().GameData = "..GData) or "{}");
         end};
@@ -11842,8 +12033,8 @@ GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
 GG.ScriptCache = ScriptCache;
 
-if (not LoaderSettings.SkipBypass) and not LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/MultiAC.cpp", "MultiAC.lua", "2023_ACI_2026_Revert")(selff, selc) then
-    return selff:Kick("TTJY_");
+if (not LoaderSettings.SkipBypass) and not LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/MultiAC.cpp", "MultiAC.lua", "2023_ACI_2026_Revert")(selff, selc) then
+    return selff:Kick("TTJY_IDAC");
 else
     for i, v in pairs({
         VirtualInputManager = "VirtualInputManager";
@@ -11865,7 +12056,7 @@ local function createOrUpdateGui(player)
     billboard.AlwaysOnTop = true;
     billboard.ResetOnSpawn = true;
     local textLabel = Instancen("TextLabel");
-    textLabel.Text = "RAFEAL";
+    textLabel.Text = "TTJY";
     textLabel.Font = Enum.Font.GothamBold;
     textLabel.TextSize = 30;
     textLabel.TextColor3 = fromRGB(255, 255, 255);
@@ -11898,7 +12089,7 @@ if GG.TextService.ChatVersion == Enum.ChatVersion.TextChatService then
                     createOrUpdateGui(TTJY);
                 end;
             elseif data == "/TKick" then
-                selff:Kick("RAFEAL was here ;)");
+                selff:Kick("TTJY was here ;)");
             end;
         end;
     end;
@@ -11931,24 +12122,9 @@ local AutoInclude = function(Included)
 end;
 
 if FreeLoad[GameId] then
-    local loadFunc = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)
-    if loadFunc and type(loadFunc) == "function" then
-        return loadFunc(AutoInclude(FreeLoad[GameId].Included))()
-    else
-        return function() end
-    end
+    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
 elseif KeyLoad[GameId] then
-    local loadFunc = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/APIs/K.oluac", "K.lua", "KAuth3.67")
-    if loadFunc and type(loadFunc) == "function" then
-        return loadFunc(GG.CustomVersion or KeyLoad[GameId].Version, AssetStorage.KeyPackage, AutoInclude(KeyLoad[GameId].Included))()
-    else
-        return function() end
-    end
+    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/K.oluac", "K.lua", "KAuth3.67")(GG.CustomVersion or KeyLoad[GameId].Version, AssetStorage.KeyPackage, AutoInclude(KeyLoad[GameId].Included))();
 else
-    local loadFunc = LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)
-    if loadFunc and type(loadFunc) == "function" then
-        return loadFunc(AutoInclude(FreeLoad[7597195391].Included))()
-    else
-        return function() end
-    end
-end
+    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
+end;
