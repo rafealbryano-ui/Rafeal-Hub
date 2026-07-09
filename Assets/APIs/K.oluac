@@ -227,7 +227,7 @@ local KeyProcessor = function(script_key)
         Url = "https://api.pandauth.com/api/v1/keys/validate";
         Headers = {["Content-Type"] = "application/json"}, Method = "POST",
         Body = EnCodeJ(HttpService, {
-            ServiceID = "ttjyhub",
+            ServiceID = "rafealhub",
             HWID = gethwid(),
             Key = script_key
         });
