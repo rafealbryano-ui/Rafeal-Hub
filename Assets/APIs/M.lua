@@ -461,7 +461,7 @@ if not LoaderSettings.BadNetwork then
     if not isfolder"RAFEALHUB" then makefolder"RAFEALHUB"; end;
     if not isfile"RAFEALHUB/RAFEALHUB.png" then
         local pngfile = Request({
-            Url = "https://github.com/rafealbryano-ui/Rafeal-Hub/blob/main/Assets/RAFEALHUB.png";
+            Url = "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/Assets/RAFEALHUB.png";
             Method = "GET";
         }); if pngfile.Success then
             writefile("RAFEALHUB/RAFEALHUB.png", pngfile.Body);
