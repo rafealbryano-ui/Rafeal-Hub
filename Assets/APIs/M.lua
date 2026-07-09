@@ -11905,7 +11905,7 @@ if not LoaderSettings.BadNetwork then
     end;
 end;
 
-local FreeLoad = {
+local FreeLoad, KeyLoad = {
     [7597195391] = {
         File = "7597195391";
         Version = "RealUNISnapshot3";
@@ -11931,6 +11931,7 @@ local FreeLoad = {
         Version = "OneTapV3.01";
         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "CoruTask", "ESPPackage", "CommonF", "CirclePackage"};
     };
+}, {
     [2294168059] = {
         File = "2294168059";
         Version = "TheMimicV3.B1";
@@ -12036,6 +12037,9 @@ if not LoaderSettings.BadNetwork then
     end);
 end;
 
+local Resolve = FreeLoad[GameId] and FreeLoad[GameId].File .. ".lua";
+Resolve = Resolve or (KeyLoad[GameId] and KeyLoad[GameId].File .. ".lua");
+
 local AutoInclude = function(Included)
     local tbl={}; for i, v in ipairs(Included) do
         if v == "LoadUILib" then
@@ -12043,32 +12047,14 @@ local AutoInclude = function(Included)
         else
             tble.insert(tbl, i, AssetStorage[v]());
             AssetStorage[v] = nil;
-        end;
+        end; continue;
     end; return unpack(tbl);
 end;
 
-local Resolve = FreeLoad[GameId] and FreeLoad[GameId].File .. ".lua";
-
 if FreeLoad[GameId] then
-    return LoadFromVControl(
-        "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
-        Resolve,
-        GG.CustomVersion or FreeLoad[GameId].Version
-    )(AutoInclude(FreeLoad[GameId].Included));
+    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/ListFile/" .. Resolve, Resolve, GG.CustomVersion or FreeLoad[GameId].Version)(AutoInclude(FreeLoad[GameId].Included))();
+elseif KeyLoad[GameId] then
+    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/APIs/K.oluac", "K.lua", "KAuth3.67")(GG.CustomVersion or KeyLoad[GameId].Version, AssetStorage.KeyPackage, AutoInclude(KeyLoad[GameId].Included))();
 else
-    local Resolve = "7597195391.lua";
-    local Included = {
-        "CorePackage",
-        "LoadUILib",
-        "IntroLib",
-        "Windy",
-        "ClientPackage",
-        "PromptPackage",
-        "CoruTask"
-    };
-    return LoadFromVControl(
-        "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. Resolve,
-        Resolve,
-        GG.CustomVersion or "RealUNISnapshot3"
-    )(AutoInclude(Included));
-end
+    return LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/ListFile/7597195391.lua", "7597195391.lua", GG.CustomVersion or FreeLoad[7597195391].Version)(AutoInclude(FreeLoad[7597195391].Included))();
+end;
