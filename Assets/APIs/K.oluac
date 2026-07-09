@@ -221,7 +221,7 @@ local KeyProcessor = function(script_key)
     end; install(tick); install(Request);
 
     local utf8_rr = "X-API-Key";
-    local utf8_ir = "b4131c27-0729-4de3-beba-60e92c05bda8";
+    local utf8_ir = "26188f03-7be6-4de9-8bbe-7d48d93b3d2f";
     
     local a_Identification, rr = tick(), Request({
         Url = "https://api.pandauth.com/api/v1/keys/validate";
@@ -292,10 +292,12 @@ return {
                         end));
                         local loadFunc = GG.LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/"..tostring(GameId) .. ".lua", tostring(GameId) .. ".lua", version)
                         if loadFunc and type(loadFunc) == "function" then
-                            return loadFunc(unpack(ToGo))(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2))
-                        else
-                            return function() end
+                            local mainFunc = loadFunc(unpack(ToGo))
+                            if mainFunc and type(mainFunc) == "function" then
+                                return mainFunc(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2))
+                            end
                         end
+                        return function() end
                     else
                         task.delay(5, function()
                             if g2.f and g2.f.Parent then
@@ -326,7 +328,10 @@ return {
                     GG.LoadingSignal:Fire(false);
                     local loadFunc = GG.LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/"..tostring(GameId) .. ".lua", tostring(GameId)..".lua", version)
                     if loadFunc and type(loadFunc) == "function" then
-                        loadFunc(...)(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2))
+                        local mainFunc = loadFunc(...)
+                        if mainFunc and type(mainFunc) == "function" then
+                            mainFunc(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2))
+                        end
                     end
                     return IB_NO_VIRTUALIZE(function() end);
                 end;
