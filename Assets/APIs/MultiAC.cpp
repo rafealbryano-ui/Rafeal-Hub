@@ -12,7 +12,8 @@ return {
                     local AC2 = selc:FindFirstChild("AntiFly", true) or selc:FindFirstChild("Anti-Fly", true) or selc:FindFirstChild("Anti-Speed", true) or selc:FindFirstChild("AntiSpeed", true);
                     if AC1 then AC1:Destroy(); end; if AC2 then AC2:Destroy(); end;
                 end));
-            end; if GG.UpperC and GG.LowerC then
+            end; 
+            if GG.UpperC and GG.LowerC then
                 if PlaceId == 15962819441 then
                     local o;o=GG.UpperC(game, "__namecall", newcclosure(function(self, ...)
                         if getnamecallmethod() == "FireServer" then
@@ -44,7 +45,8 @@ return {
                         if v then
                             v[ml.nsjkd](v);
                         end;
-                    end; local old = nil; old = GG.UpperC(p,ml.X19uYW1lY2FsbA, newcclosure(function(self, ...)
+                    end; 
+                    local old = nil; old = GG.UpperC(p,ml.X19uYW1lY2FsbA, newcclosure(function(self, ...)
                         local traceBACK,selfstring = debug.traceback(), tostring(self);
                         if str.find(traceBACK,meta,1,true) then return error(ml.mksdsdds); end;
                         if getnamecallmethod() == "FireServer" and not checkcaller() then
@@ -61,10 +63,10 @@ return {
                     v:Disable();
                 end;
             else
-                selff.Idled:Connect(IB_NO_VIRTUALIZE(function()
+                selff.Idled:Connect(function()
                     GG.VirtualInputManager:SendMouseButtonEvent(0,0,0, true, game, 1);
                     GG.VirtualInputManager:SendMouseButtonEvent(0,0,0, false, game, 1);
-                end));
+                end);
             end;
         elseif GameId == 5995470825 then
             local cV = game:GetService("ContentProvider");
@@ -78,22 +80,25 @@ return {
                 return Enum.AssetFetchStatus.None
             end));
         elseif GameId == 8795154789 then
-            local o;o=GG.LowerC(game.FindService, IB_NO_VIRTUALIZE(function(self, a)
+            local o;o=GG.LowerC(game.FindService, function(self, a)
                 if not checkcaller() then
                     if a == "VirtualUser" or a == "VirtualInputManager" or a == "UGCValidationService" then
                         return nil;
                     end;
                 end; return o(self, a);
-            end)); local str = string; for i, v in getgc(true) do
+            end); 
+            local str = string; 
+            for i, v in getgc(true) do
                 if typeof(v) == 'function' and getinfo(v).name == 'compareTables' then
                     local gvinfo = getinfo(v);
                     if str.find(gvinfo.source, "Anti") then
-                        local o;o=GG.LowerC(v, IB_NO_VIRTUALIZE(function()
+                        local o;o=GG.LowerC(v, function()
                             return true;
-                        end));
+                        end);
                     end;
                 end;
             end;
-        end; return true;
+        end; 
+        return true;
     end;
 };
