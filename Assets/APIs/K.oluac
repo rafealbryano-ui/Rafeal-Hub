@@ -58,7 +58,7 @@ end;
 
 local InvalidTable = [[{
 	"OwnerSecretID": "68bffa9ef8948d329c5754d216b9830d3a08ce227d174f55d4189f7c6a186e9e",
-	"Registered_ServiceID": "ttjy",
+	"Registered_ServiceID": "rafealhub",
 	"Authentication": "cc4dd48a9316360d006bed2e77a8eb18be233f79f555aa34e9d9805716006cd8",
 	"V2_Authentication": "false",
 	"Key_Information": {
@@ -318,7 +318,7 @@ return {
                             return tbl:fadeAndTween({
                                 g2["f"], g2["10"]
                             }, g2["e"]), task.wait(1), g2["1"]:Destroy(), GG.LoadingSignal:Fire(false);
-                        end)); return GG.LoadFromVControl("https://raw.githubusercontent.com/Yumiara/SSL-TTJY/refs/heads/main/ListFile/"..tostring(GameId) .. ".lua", tostring(GameId) .. ".lua", version)(unpack(ToGo))(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2));
+                        end)); return GG.LoadFromVControl("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/"..tostring(GameId) .. ".lua", tostring(GameId) .. ".lua", version)(unpack(ToGo))(encrypt(HttpService:GenerateGUID(false), 4) .. encrypt(HttpService:GenerateGUID(false), 4) .. "+++os()" .. encrypt(encrypt(HttpService:GenerateGUID(false), 1) .. "+++os()" .. encrypt("emptyspace" .. Result, 3) .. "+++os()" .. encrypt("emptyspace"..P.LocalPlayer.UserId, 2) .. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 1), 3).. "+++os()" .. encrypt(HttpService:GenerateGUID(false), 2));
                     else
                         task.delay(5, function()
                             if g2.f and g2.f.Parent then
