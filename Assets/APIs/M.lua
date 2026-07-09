@@ -298,7 +298,7 @@ ScriptCache.userIdentify.unc_infos = {
 
 local LoadFromVControl = nil;
 LoadFromVControl = function(srcName, fileName, selectversion)
-    local cacheFile = "RafealHub/" .. tostring(fileName);
+    local cacheFile = "RAFEALHUB/" .. tostring(fileName);
     if LoaderSettings.AllowCache then
         if isfile(cacheFile) then
             local loadc = loadstring(readfile(cacheFile))();
@@ -4665,7 +4665,7 @@ AssetStorage.LoadUILib = function()
                     am = aa.Image(
                         ag.Image, ag.Title, af.Window.NewElements and ag.UICorner - 11 or (ag.UICorner - 4),
                         af.Window.Folder, "Image", ag.IconThemed, not ag.Color and true or false, "ElementIcon"
-                    ); if ag.Image == "RafealHub" then
+                    ); if ag.Image == "RAFEALHUB" then
                         am.ImageLabel.Image = RAFEALLOGO;
                     end; if typeof(ag.Color) == "string" then
                         am.ImageLabel.ImageColor3 = GetTextColorForHSB(fromHex(aa.Colors[ag.Color]));
@@ -11428,7 +11428,7 @@ AssetStorage.IntroLib = function()
                     end); return res or {};
                 end)(); if Response and Response.guild then
                     local desc = ' <font color="#52525b">•</font> Member Count : ' .. tostring(Response.approximate_member_count) .. '\n <font color="#16a34a">•</font> Online Count : ' .. tostring(Response.approximate_presence_count);
-                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "RafealHub", ImageSize = 84}); tab:Button({
+                    local DiscordInfo = tab:Paragraph({Title = Response.guild.name, Desc = desc, Image = "RAFEALHUB", ImageSize = 84}); tab:Button({
                         Title = "Update Info",
                         Callback = function()
                             if Response and Response.guild then
