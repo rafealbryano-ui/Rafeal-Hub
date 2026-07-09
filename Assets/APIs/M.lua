@@ -1595,7 +1595,7 @@ AssetStorage.KeyPackage = function()
             local G2L = {};
             local tbl = {};
             local configu = {
-                Auth = function(key) return true; end,
+                Auth = arg and arg.Auth or emptyfunction;
                 GetKey = arg and arg.GetKey or emptyfunction;
             };
         
