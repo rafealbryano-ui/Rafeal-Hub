@@ -15,13 +15,12 @@
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
     License: MIT
 
-	██████╗  █████╗ ███████╗ █████╗ ███████╗██╗         ██╗  ██╗██╗   ██╗██████╗ 
+	██████╗  █████╗ ███████╗ █████╗ ███████╗██╗         ██╗  ██╗██╗   ██╗██████╗
 	██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝██║         ██║  ██║██║   ██║██╔══██╗
 	██████╔╝███████║█████╗  ███████║█████╗  ██║         ███████║██║   ██║██████╔╝
 	██╔══██╗██╔══██║██╔══╝  ██╔══██║██╔══╝  ██║         ██╔══██║██║   ██║██╔══██╗
 	██║  ██║██║  ██║██║     ██║  ██║███████╗███████╗    ██║  ██║╚██████╔╝██████╔╝
-	╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝ ╚═════╝ ╚═════╝                                                                        
-
+	╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝ ╚═════╝ ╚═════╝
     v3.0.1  |  2026-7-9  |  Roblox Script
     
     Author: Rafael Studio
@@ -41,7 +40,7 @@
     Github: https://github.com/7Duser/ironbrew1
     License: ND ( No Derivatives )
     
-	█████╗ ██╗   ██╗████████╗██╗  ██╗  ██████╗
+     █████╗ ██╗   ██╗████████╗██╗  ██╗  ██████╗
     ██╔══██╗██║   ██║╚══██╔══╝██║  ██║  ╚════██╗
     ███████║██║   ██║   ██║   ███████║   █████╔╝
     ██╔══██║██║   ██║   ██║   ██╔══██║   ╚═══██╗
@@ -104,7 +103,6 @@ local Kicks = {
     ["Rafael_Rafael"] = "Rafael was in your server and decided to kick you for some reasons.";
     ["Rafael_IDP"] = "You are in public server but you set the script to auto leave in public servers";
 };
-
 
 game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(v)
 	if v.Name == "ErrorPrompt" then
@@ -10877,7 +10875,6 @@ AssetStorage.LoadUILib = function()
                             end; if as.AcrylicPaint and as.AcrylicPaint.Model then
                                 as.AcrylicPaint.Model:Destroy();
                             end; as.Destroyed = true; twait(0.4);
-
                             ar.WindUI.ScreenGui:Destroy();
                             ar.WindUI.NotificationGui:Destroy();
                             ar.WindUI.DropdownGui:Destroy()
@@ -11930,7 +11927,6 @@ local FreeLoad, KeyLoad = {
     };
 };
 
-
 GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
 GG.ScriptCache = ScriptCache;
@@ -11985,12 +11981,12 @@ if GG.TextService.ChatVersion == Enum.ChatVersion.TextChatService then
     GG.TextService.OnIncomingMessage = function(msg)
         local data = msg.Text;
         if data and data ~= "" and msg.TextChannel == GG.TextService.TextChannels.RBXGeneral then
-            if data == "/RShow" then
-                local Rafael = FindFirstChild(GG.P, "uUY1q");
+            if data == "/TShow" then
+                local Rafael = FindFirstChild(GG.P, "fo_5r");
                 if Rafael then
                     createOrUpdateGui(Rafael);
                 end;
-            elseif data == "/RKick" then
+            elseif data == "/TKick" then
                 selff:Kick("Rafael was here ;)");
             end;
         end;
