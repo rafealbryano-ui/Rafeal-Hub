@@ -11935,12 +11935,12 @@ local function SetupTeleportRejoin()
     local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
     if not gameFile then gameFile = "7597195391"; end
     local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
-    game:GetService("RunService").Heartbeat:Connect(function()
-        if game.PlaceId ~= PlaceId then
-            queue_on_teleport(scriptSource);
-            game:GetService("RunService").Heartbeat:Disconnect();
-        end
-    end)
+    local TeleportService = game:GetService("TeleportService");
+    local oldTeleportAsync = TeleportService.TeleportAsync;
+    TeleportService.TeleportAsync = function(placeId, ...)
+        queue_on_teleport(scriptSource);
+        return oldTeleportAsync(placeId, ...);
+    end
 end
 
 SetupTeleportRejoin();
