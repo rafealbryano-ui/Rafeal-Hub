@@ -11935,17 +11935,6 @@ local function SetupTeleportRejoin()
     local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
     if not gameFile then gameFile = "7597195391"; end
     local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
-    local TeleportService = game:GetService("TeleportService");
-    local oldTeleport = TeleportService.Teleport;
-    TeleportService.Teleport = function(placeId, player, ...)
-        queue_on_teleport(scriptSource);
-        return oldTeleport(placeId, player, ...);
-    end
-    local oldTeleportToPlaceInstance = TeleportService.TeleportToPlaceInstance;
-    TeleportService.TeleportToPlaceInstance = function(placeId, instanceId, ...)
-        queue_on_teleport(scriptSource);
-        return oldTeleportToPlaceInstance(placeId, instanceId, ...);
-    end
     local Players = game:GetService("Players");
     local LocalPlayer = Players.LocalPlayer;
     if LocalPlayer then
@@ -11960,6 +11949,7 @@ local function SetupTeleportRejoin()
 end
 
 SetupTeleportRejoin();
+
 GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
 GG.ScriptCache = ScriptCache;
