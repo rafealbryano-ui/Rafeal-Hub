@@ -11935,23 +11935,11 @@ local function SetupTeleportRejoin()
     local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
     if not gameFile then gameFile = "7597195391"; end
     local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
-    local TeleportService = game:GetService("TeleportService");
-    local oldTeleport = TeleportService.Teleport;
-    TeleportService.Teleport = function(placeId, player, ...)
-        queue_on_teleport(scriptSource);
-        return oldTeleport(placeId, player, ...);
-    end
-    local oldTeleportToPlaceInstance = TeleportService.TeleportToPlaceInstance;
-    TeleportService.TeleportToPlaceInstance = function(placeId, instanceId, ...)
-        queue_on_teleport(scriptSource);
-        return oldTeleportToPlaceInstance(placeId, instanceId, ...);
-    end
-    local Players = game:GetService("Players");
-    local LocalPlayer = Players.LocalPlayer;
+    local LocalPlayer = game:GetService("Players").LocalPlayer;
     if LocalPlayer then
         local connection
-        connection = LocalPlayer:GetPropertyChangedSignal("PlayerGui"):Connect(function()
-            if not LocalPlayer.PlayerGui then
+        connection = LocalPlayer:GetPropertyChangedSignal("Parent"):Connect(function()
+            if not LocalPlayer.Parent then
                 queue_on_teleport(scriptSource);
                 if connection then connection:Disconnect() end
             end
