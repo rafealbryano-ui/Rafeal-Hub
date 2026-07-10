@@ -105,18 +105,6 @@ local Kicks = {
     ["Rafael_IDP"] = "You are in public server but you set the script to auto leave in public servers";
 };
 
-local AutoRejoin = {
-    Enabled = true,
-    ScriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/MAIN.lua"))()'
-};
-
-local function SetupAutoRejoin()
-    if not AutoRejoin.Enabled then return end;
-    if not queue_on_teleport then return end;
-    task.defer(function()
-        queue_on_teleport(AutoRejoin.ScriptSource);
-    end);
-end;
 
 game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(v)
 	if v.Name == "ErrorPrompt" then
@@ -10849,7 +10837,6 @@ AssetStorage.LoadUILib = function()
                     end
 
                     ar.WindUI:ToggleAcrylic(false)
-					SetupAutoRejoin();
 
                     as.UIElements.Main:WaitForChild "Main".Visible = false
 
@@ -10890,7 +10877,7 @@ AssetStorage.LoadUILib = function()
                             end; if as.AcrylicPaint and as.AcrylicPaint.Model then
                                 as.AcrylicPaint.Model:Destroy();
                             end; as.Destroyed = true; twait(0.4);
-							SetupAutoRejoin();
+
                             ar.WindUI.ScreenGui:Destroy();
                             ar.WindUI.NotificationGui:Destroy();
                             ar.WindUI.DropdownGui:Destroy()
@@ -11943,23 +11930,22 @@ local FreeLoad, KeyLoad = {
     };
 };
 
-local AutoRejoin = {
-    Enabled = true,
-};
-
-local function SetupAutoRejoin()
-    if not AutoRejoin.Enabled then return end;
+local function SetupTeleportRejoin()
     if not queue_on_teleport then return end;
     local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
-    if not gameFile then
-        gameFile = "7597195391";
+    if not gameFile then gameFile = "7597195391"; end
+    local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
+    local TeleportService = game:GetService("TeleportService");
+    if TeleportService then
+        TeleportService:GetPropertyChangedSignal("TeleportState"):Connect(function()
+            if TeleportService.TeleportState == Enum.TeleportState.Teleporting then
+                queue_on_teleport(scriptSource);
+            end
+        end);
     end
-    local scriptURL = "https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/" .. gameFile .. ".lua";
-    local scriptSource = 'loadstring(game:HttpGet("' .. scriptURL .. '"))()';
-    task.defer(function()
-        queue_on_teleport(scriptSource);
-    end);
-end;
+end
+
+SetupTeleportRejoin();
 
 GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
