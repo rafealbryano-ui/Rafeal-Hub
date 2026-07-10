@@ -11930,25 +11930,6 @@ local FreeLoad, KeyLoad = {
     };
 };
 
-local function SetupTeleportRejoin()
-    if not queue_on_teleport then return end;
-    local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
-    if not gameFile then gameFile = "7597195391"; end
-    local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
-    local LocalPlayer = game:GetService("Players").LocalPlayer;
-    if LocalPlayer then
-        local connection
-        connection = LocalPlayer:GetPropertyChangedSignal("Parent"):Connect(function()
-            if not LocalPlayer.Parent then
-                queue_on_teleport(scriptSource);
-                if connection then connection:Disconnect() end
-            end
-        end)
-    end
-end
-
-SetupTeleportRejoin();
-
 GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
 GG.ScriptCache = ScriptCache;
