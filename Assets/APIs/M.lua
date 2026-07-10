@@ -11930,20 +11930,6 @@ local FreeLoad, KeyLoad = {
     };
 };
 
-if queue_on_teleport then
-    local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
-    if not gameFile then gameFile = "7597195391"; end
-    local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
-    local currentJobId = game.JobId;
-    game:GetService("RunService").Heartbeat:Connect(function()
-        if game.JobId ~= currentJobId then
-            queue_on_teleport(scriptSource);
-            currentJobId = game.JobId;
-        end
-    end)
-end
-
-local Resolve = FreeLoad[GameId] and FreeLoad[GameId].File .. ".lua";
 
 GG.LoadFromVControl = LoadFromVControl;
 GG.LoaderSettings = LoaderSettings;
