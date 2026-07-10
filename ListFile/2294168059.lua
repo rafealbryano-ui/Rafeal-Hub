@@ -1,20 +1,5 @@
 local GG=GG; if not GG then return game:GetService("Players").LocalPlayer:Kick("[Rafael Studio] : Really? Your account is now at risk for the next ban wave."); end;
 
-if queue_on_teleport then
-    local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
-    if not gameFile then gameFile = "7597195391"; end
-    local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
-    local currentJobId = game.JobId;
-    game:GetService("RunService").Heartbeat:Connect(function()
-        if game.JobId ~= currentJobId then
-            queue_on_teleport(scriptSource);
-            currentJobId = game.JobId;
-        end
-    end)
-end
-
-local QUEUE_INFO = GG.QUEUE_INFO or {};
-
 local QUEUE_INFO = GG.QUEUE_INFO or {};
 local ScriptCache = GG.ScriptCache;
 local LoaderSettings = GG.LoaderSettings;
@@ -194,6 +179,18 @@ end;
 return {
     Version = "TheMimicV3.B3";
     Function = function(CorePackage, WindLib, IntroLib, Windy, ClientPackage, PromptPackage, CoruTask, ESPF, CommonF, TheMimicPaints, QueuePack)
+			if queue_on_teleport then
+            local gameFile = FreeLoad[GameId] and FreeLoad[GameId].File or (KeyLoad[GameId] and KeyLoad[GameId].File);
+            if not gameFile then gameFile = "7597195391"; end
+            local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
+            local currentJobId = game.JobId;
+            game:GetService("RunService").Heartbeat:Connect(function()
+                if game.JobId ~= currentJobId then
+                    queue_on_teleport(scriptSource);
+                    currentJobId = game.JobId;
+                end
+            end)
+        end
         local CoreConnection    = {};
         local CoreDestroyed     = false;
         local ForceFloat        = "None";
