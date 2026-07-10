@@ -11937,11 +11937,13 @@ local function SetupTeleportRejoin()
     local scriptSource = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/rafealbryano-ui/Rafeal-Hub/refs/heads/main/ListFile/' .. gameFile .. '.lua"))()';
     local TeleportService = game:GetService("TeleportService");
     if TeleportService then
-        TeleportService:GetPropertyChangedSignal("TeleportState"):Connect(function()
+        local connection
+        connection = game:GetService("RunService").Heartbeat:Connect(function()
             if TeleportService.TeleportState == Enum.TeleportState.Teleporting then
                 queue_on_teleport(scriptSource);
+                if connection then connection:Disconnect() end
             end
-        end);
+        end)
     end
 end
 
