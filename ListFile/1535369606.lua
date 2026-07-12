@@ -47,11 +47,11 @@ local VEC100 = Vec3(1,0,0);
 local CFR100 = CFr(1,0,0);
 local CFR400 = CFr(4,0,0);
 
+local PEID = {1535369606};
+
 local ScriptData = {
     AutoData = {};
 };
-
-local PEID = {87678351592287};
 
 local Config = GG.Configs or {
     ["Aimlock"] = {
@@ -380,7 +380,7 @@ return {
         local LSecureUI = function()
             WindUI = WindLib();
             local Window = WindUI:CreateWindow({
-                Title = "DAUP V1.0",
+                Title = "Rafael Hub DAUP",
                 Folder = "RafaelStudio",
                 Transparent = true,
                 Theme = "Dark",
