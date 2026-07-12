@@ -14,7 +14,6 @@ local tk = task;
 local H = GG.H;
 local W = GG.W;
 local P = GG.P;
-local R = GG.R;
 
 local PlaceId = game.PlaceId;
 
@@ -33,7 +32,6 @@ local FindFirstChildOfClass = game.FindFirstChildOfClass;
 local FindFirstChildWhichIsA = game.FindFirstChildWhichIsA;
 local FindFirstAncestorOfClass = game.FindFirstAncestorOfClass;
 local RunService = game:GetService("RunService");
-local GuiService = game:GetService("GuiService");
 
 local RED = Col3.new(1,0,0);
 local GREEN = Col3.new(0, 1, 0);
@@ -88,8 +86,10 @@ return {
         local CoreDestroyed = false;
         local WindUI = nil;
 
+        local Seat = nil;
         local Cam = W.CurrentCamera;
         local selff = GG.P.LocalPlayer;
+        local PSG = selff.PlayerGui;
         local selc = selff.Character or selff.CharacterAdded:Wait();
         local HumSelf = FindFirstChildOfClass(selc, "Humanoid");
         local HumRSelf = HumSelf and HumSelf.RootPart;
@@ -101,6 +101,7 @@ return {
         local espHealthBars = {};
         local espTracers = {};
         local espNames = {};
+        local espSetupDone = false;
 
         local AimlockCon = Configs.Aimlock;
         local ESPCon = Configs.ESP;
@@ -190,47 +191,22 @@ return {
         end;
 
         local function SetupESP()
-            local currentCamera = Cam;
-            if not currentCamera then return end
+            if espSetupDone then return end
             
-            local boxColor = GetColorFromString(ESPCon.BoxColor);
-            local tracerColor = GetColorFromString(ESPCon.TracerColor);
-
             for _, player in ipairs(GetPlayers(P)) do
                 if player ~= selff then
-                    if espBoxes[player] then 
-                        pcall(function() espBoxes[player]:Remove() end)
-                        espBoxes[player] = nil
-                    end
-                    if espHealthBars[player] then 
-                        pcall(function() espHealthBars[player]:Remove() end)
-                        espHealthBars[player] = nil
-                    end
-                    if espTracers[player] then 
-                        pcall(function() espTracers[player]:Remove() end)
-                        espTracers[player] = nil
-                    end
-                    if espNames[player] then 
-                        pcall(function() espNames[player]:Remove() end)
-                        espNames[player] = nil
-                    end
-                end
-            end
-
-            for _, player in ipairs(GetPlayers(P)) do
-                if player ~= selff then
-                    espBoxes[player] = CreateBox(boxColor, 1, false);
+                    espBoxes[player] = CreateBox(WHITE, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    espTracers[player] = CreateTracer(tracerColor, 1);
+                    espTracers[player] = CreateTracer(WHITE, 1);
                     espNames[player] = CreateNameLabel();
                 end;
             end;
 
             P.PlayerAdded:Connect(function(player)
                 if player ~= selff then
-                    espBoxes[player] = CreateBox(boxColor, 1, false);
+                    espBoxes[player] = CreateBox(WHITE, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    espTracers[player] = CreateTracer(tracerColor, 1);
+                    espTracers[player] = CreateTracer(WHITE, 1);
                     espNames[player] = CreateNameLabel();
                 end;
             end);
@@ -247,6 +223,8 @@ return {
                     espNames[player] = nil;
                 end;
             end);
+
+            espSetupDone = true;
         end;
 
         local function UpdateESP()
@@ -398,7 +376,9 @@ return {
         };
 
         local LSecureUI = function()
-            WindUI = WindLib();
+            local WindUILib = WindLib();
+            WindUI = WindUILib;
+            
             local Window = WindUI:CreateWindow({
                 Title = "Rafael Hub DAUP",
                 Folder = "RafaelStudio",
@@ -474,6 +454,9 @@ return {
                     selc = selff.Character;
                     HumSelf = selc and FindFirstChildOfClass(selc, "Humanoid");
                     HumRSelf = HumSelf and HumSelf.RootPart;
+                    if CommonF and type(CommonF.GetSeat) == "function" then
+                        Seat = CommonF.GetSeat(HumSelf);
+                    end
                 end);
 
                 task.wait(1);
@@ -481,7 +464,9 @@ return {
                 circleDrawing = CreateCircle();
 
                 if not CoruTask.Intialized then
-                    CoruTask.Init(WindUI);
+                    if CoruTask and type(CoruTask.Init) == "function" then
+                        CoruTask.Init(WindUI);
+                    end
                     CoruTask.Intialized = true;
                     GG.Configs = Configs;
                 end
