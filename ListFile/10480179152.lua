@@ -156,14 +156,14 @@ return {
             circle.Color = Col3.fromRGB(255, 0, 0);
             circle.Thickness = 2;
             circle.Filled = false;
-            circle.Visible = AimlockCon.ShowFOVCircle and AimlockCon.Enabled;
+            circle.Visible = false;
             return circle;
         end;
 
         local function CreateBox(color, thickness, filled)
             if not Drawing then return nil; end
             local box = Drawing.new("Square");
-            box.Visible = true;
+            box.Visible = false;
             box.Color = color;
             box.Thickness = thickness;
             box.Filled = filled;
@@ -173,7 +173,7 @@ return {
         local function CreateTracer(color, thickness)
             if not Drawing then return nil; end
             local tracer = Drawing.new("Line");
-            tracer.Visible = true;
+            tracer.Visible = false;
             tracer.Color = color;
             tracer.Thickness = thickness or 1;
             tracer.From = Vector2.new(Cam.ViewportSize.X/2, Cam.ViewportSize.Y);
@@ -184,7 +184,7 @@ return {
         local function CreateNameLabel()
             if not Drawing then return nil; end
             local label = Drawing.new("Text");
-            label.Visible = true;
+            label.Visible = false;
             label.Color = WHITE;
             label.Size = 14;
             label.Center = true;
@@ -196,26 +196,21 @@ return {
 
         local function SetupESP()
             if espSetupDone then return end
-            local currentCamera = Cam;
-            if not currentCamera then return end
             
-            local boxColor = GetColorFromString(ESPCon.BoxColor);
-            local tracerColor = GetColorFromString(ESPCon.TracerColor);
-
             for _, player in ipairs(GetPlayers(P)) do
                 if player ~= selff then
-                    espBoxes[player] = CreateBox(boxColor, 1, false);
+                    espBoxes[player] = CreateBox(WHITE, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    espTracers[player] = CreateTracer(tracerColor, 1);
+                    espTracers[player] = CreateTracer(WHITE, 1);
                     espNames[player] = CreateNameLabel();
                 end;
             end;
 
             P.PlayerAdded:Connect(function(player)
                 if player ~= selff then
-                    espBoxes[player] = CreateBox(boxColor, 1, false);
+                    espBoxes[player] = CreateBox(WHITE, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    espTracers[player] = CreateTracer(tracerColor, 1);
+                    espTracers[player] = CreateTracer(WHITE, 1);
                     espNames[player] = CreateNameLabel();
                 end;
             end);
@@ -236,22 +231,13 @@ return {
             espSetupDone = true;
         end;
 
-        local function UpdateESPVisibility()
-            if not ESPCon.Enabled then
-                for _, player in ipairs(GetPlayers(P)) do
-                    if espBoxes[player] then espBoxes[player].Visible = false; end;
-                    if espHealthBars[player] then espHealthBars[player].Visible = false; end;
-                    if espTracers[player] then espTracers[player].Visible = false; end;
-                    if espNames[player] then espNames[player].Visible = false; end;
-                end
-                return
-            end
-            
+        local function UpdateESP()
             local currentCamera = Cam;
             if not currentCamera then return end
             
             local boxColor = GetColorFromString(ESPCon.BoxColor);
             local tracerColor = GetColorFromString(ESPCon.TracerColor);
+            local espEnabled = ESPCon.Enabled;
             
             for _, player in ipairs(GetPlayers(P)) do
                 if player ~= selff and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
@@ -275,7 +261,7 @@ return {
                             local topVec = Vector2.new(topPos.X, topPos.Y);
                             local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                             
-                            if ESPCon.Boxes and espBoxes[player] then
+                            if espEnabled and ESPCon.Boxes and espBoxes[player] then
                                 local box = espBoxes[player];
                                 if box then
                                     box.Color = boxColor;
@@ -287,7 +273,7 @@ return {
                                 espBoxes[player].Visible = false;
                             end;
                             
-                            if ESPCon.HealthBars and espHealthBars[player] then
+                            if espEnabled and ESPCon.HealthBars and espHealthBars[player] then
                                 local healthPercent = humanoid.Health / humanoid.MaxHealth;
                                 local healthHeight = bottomVec.Y * healthPercent;
                                 healthHeight = math.clamp(healthHeight, 0, bottomVec.Y);
@@ -302,7 +288,7 @@ return {
                                 espHealthBars[player].Visible = false;
                             end;
                             
-                            if ESPCon.Tracers and espTracers[player] then
+                            if espEnabled and ESPCon.Tracers and espTracers[player] then
                                 local tracer = espTracers[player];
                                 if tracer then
                                     tracer.Color = tracerColor;
@@ -314,7 +300,7 @@ return {
                                 espTracers[player].Visible = false;
                             end;
                             
-                            if ESPCon.Names and espNames[player] then
+                            if espEnabled and ESPCon.Names and espNames[player] then
                                 local nameLabel = espNames[player];
                                 if nameLabel then
                                     nameLabel.Text = player.Name;
@@ -343,6 +329,11 @@ return {
                     espNames[player].Visible = false;
                 end;
             end;
+            
+            if circleDrawing then
+                circleDrawing.Visible = AimlockCon.ShowFOVCircle and AimlockCon.Enabled;
+                circleDrawing.Radius = AimlockCon.FOV;
+            end;
         end;
 
         RunService.Heartbeat:Connect(function()
@@ -352,12 +343,7 @@ return {
                 end)
             end;
             
-            if circleDrawing then
-                circleDrawing.Visible = AimlockCon.ShowFOVCircle and AimlockCon.Enabled;
-                circleDrawing.Radius = AimlockCon.FOV;
-            end;
-            
-            UpdateESPVisibility();
+            UpdateESP();
         end);
 
         selff:GetMouse().KeyDown:Connect(function(key)
