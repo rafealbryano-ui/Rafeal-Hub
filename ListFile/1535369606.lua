@@ -43,7 +43,6 @@ local PURPLE = Col3.fromRGB(128, 0, 255);
 local CYAN = Col3.fromRGB(0, 255, 255);
 
 local VEC4 = Vec3(4,4,4);
-local VEC7 = Vec3(7,7,7);
 
 local Config = GG.Configs or {
     ["Aimlock"] = {
@@ -150,7 +149,10 @@ return {
         end;
 
         local function CreateCircle()
-            if not Drawing then return nil; end
+            if not Drawing then 
+                warn("Drawing library not available");
+                return nil; 
+            end
             local circle = Drawing.new("Circle");
             circle.Position = Vector2.new(Cam.ViewportSize.X/2, Cam.ViewportSize.Y/2);
             circle.Radius = AimlockCon.FOV;
@@ -202,6 +204,27 @@ return {
 
             for _, player in ipairs(GetPlayers(P)) do
                 if player ~= selff then
+                    if espBoxes[player] then 
+                        pcall(function() espBoxes[player]:Remove() end)
+                        espBoxes[player] = nil
+                    end
+                    if espHealthBars[player] then 
+                        pcall(function() espHealthBars[player]:Remove() end)
+                        espHealthBars[player] = nil
+                    end
+                    if espTracers[player] then 
+                        pcall(function() espTracers[player]:Remove() end)
+                        espTracers[player] = nil
+                    end
+                    if espNames[player] then 
+                        pcall(function() espNames[player]:Remove() end)
+                        espNames[player] = nil
+                    end
+                end
+            end
+
+            for _, player in ipairs(GetPlayers(P)) do
+                if player ~= selff then
                     espBoxes[player] = CreateBox(boxColor, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
                     if ESPCon.Tracers then
@@ -228,10 +251,10 @@ return {
 
             P.PlayerRemoving:Connect(function(player)
                 if espBoxes[player] then
-                    espBoxes[player]:Remove();
-                    espHealthBars[player]:Remove();
-                    if espTracers[player] then espTracers[player]:Remove(); end;
-                    if espNames[player] then espNames[player]:Remove(); end;
+                    pcall(function() espBoxes[player]:Remove() end);
+                    pcall(function() espHealthBars[player]:Remove() end);
+                    if espTracers[player] then pcall(function() espTracers[player]:Remove() end); end;
+                    if espNames[player] then pcall(function() espNames[player]:Remove() end); end;
                     espBoxes[player] = nil;
                     espHealthBars[player] = nil;
                     espTracers[player] = nil;
@@ -259,10 +282,12 @@ return {
                                 
                                 if ESPCon.Boxes and espBoxes[player] then
                                     local box = espBoxes[player];
-                                    box.Color = boxColor;
-                                    box.Size = bottomVec;
-                                    box.Position = topVec;
-                                    box.Visible = true;
+                                    if box then
+                                        box.Color = boxColor;
+                                        box.Size = bottomVec;
+                                        box.Position = topVec;
+                                        box.Visible = true;
+                                    end;
                                 end;
                                 
                                 if ESPCon.HealthBars and espHealthBars[player] then
@@ -271,24 +296,30 @@ return {
                                     healthHeight = math.clamp(healthHeight, 0, bottomVec.Y);
                                     
                                     local healthBar = espHealthBars[player];
-                                    healthBar.Size = Vector2.new(5, healthHeight);
-                                    healthBar.Position = Vector2.new(topVec.X - 6, (topVec.Y + bottomVec.Y) - healthHeight);
-                                    healthBar.Visible = true;
+                                    if healthBar then
+                                        healthBar.Size = Vector2.new(5, healthHeight);
+                                        healthBar.Position = Vector2.new(topVec.X - 6, (topVec.Y + bottomVec.Y) - healthHeight);
+                                        healthBar.Visible = true;
+                                    end;
                                 end;
                                 
                                 if ESPCon.Tracers and espTracers[player] then
                                     local tracer = espTracers[player];
-                                    tracer.Color = tracerColor;
-                                    tracer.From = Vector2.new(currentCamera.ViewportSize.X/2, currentCamera.ViewportSize.Y);
-                                    tracer.To = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y);
-                                    tracer.Visible = true;
+                                    if tracer then
+                                        tracer.Color = tracerColor;
+                                        tracer.From = Vector2.new(currentCamera.ViewportSize.X/2, currentCamera.ViewportSize.Y);
+                                        tracer.To = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y);
+                                        tracer.Visible = true;
+                                    end;
                                 end;
                                 
                                 if ESPCon.Names and espNames[player] then
                                     local nameLabel = espNames[player];
-                                    nameLabel.Text = player.Name;
-                                    nameLabel.Position = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y - 20);
-                                    nameLabel.Visible = true;
+                                    if nameLabel then
+                                        nameLabel.Text = player.Name;
+                                        nameLabel.Position = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y - 20);
+                                        nameLabel.Visible = true;
+                                    end;
                                 end;
                             else
                                 if espBoxes[player] then espBoxes[player].Visible = false; end;
@@ -434,11 +465,12 @@ return {
                     HumSelf = selc and FindFirstChildOfClass(selc, "Humanoid");
                     HumRSelf = HumSelf and HumSelf.RootPart;
                     Seat = CommonF.GetSeat(HumSelf);
-                    
-                    if ESPCon.Enabled and not CoreDestroyed then
-                        SetupESP();
-                    end;
                 end);
+
+                task.wait(1)
+                if ESPCon.Enabled and not CoreDestroyed then
+                    SetupESP();
+                end
 
                 if not CoruTask.Intialized then
                     circleDrawing = CreateCircle();
