@@ -11627,7 +11627,7 @@ AssetStorage.CorePackage = function()
         end};
     elseif GameId == 1235188606 then
         Data[#Data+1] = {type="Space"}; Data[#Data+1] = {type="Divider"}; Data[#Data+1] = {type="Space"};
-        Data[#Data+1] = {type="Button", EN="Export Game Data", EN2="Copy the current game data updates for custom script data. Since Rafael isn’t online 24/7, you can use this at the top of the script whenever the game updates.", TH1="คัดลอกข้อมูลเกม", TH2="คัดลอกข้อมูลอัปเดตล่าสุดของเกมสำหรับ Custom Script Data เนื่องจาก Rafael ไม่ได้ออนไลน์ตลอด 24/7 คุณสามารถนำสิ่งนี้ไปใส่ไว้ด้านบนของสคริปต์ได้เมื่อเกมมีการอัปเดต", Callback=function()
+        Data[#Data+1] = {type="Button", EN="Export Game Data", EN2="Copy the current game data updates for custom script data. Since Rafael isn't online 24/7, you can use this at the top of the script whenever the game updates.", TH1="คัดลอกข้อมูลเกม", TH2="คัดลอกข้อมูลอัปเดตล่าสุดของเกมสำหรับ Custom Script Data เนื่องจาก Rafael ไม่ได้ออนไลน์ตลอด 24/7 คุณสามารถนำสิ่งนี้ไปใส่ไว้ด้านบนของสคริปต์ได้เมื่อเกมมีการอัปเดต", Callback=function()
             local GData = GG.UpdateGameData();
             setclipboard((GData and "getgenv().GameData = "..GData) or "{}");
         end};
@@ -11636,6 +11636,9 @@ AssetStorage.CorePackage = function()
         Data[#Data+1] = {type="Toggle", EN="Allow TP Bypass", EN2="Instant teleport; You need to have low ping or this won't work.", TH1="วาปทันที", TH2="เวลาฟาม เวลาขโมยจะวาปทันทีแต่ต้องเน็ตแรงๆ ปิงน้อยๆ", Callback=function(state)
             LoaderSettings.GAG2Loader.Allow_TPBypass = state;
         end};
+    elseif GameId == 1535369606 then
+        Data[#Data+1] = {type="Space"}; Data[#Data+1] = {type="Divider"}; Data[#Data+1] = {type="Space"};
+        Data[#Data+1] = {type="Paragraph", Title="DAUP V1.0", Desc="Aimlock & ESP features for this game."};
     end;
 
     local Init = function()
@@ -11910,11 +11913,11 @@ local FreeLoad, KeyLoad = {
         Version = "DA_V3.38";
         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "DAPackage"};
     };
- [1535369606] = {
-        File = "1535369606";
-        Version = "DAUP_V1.0";
-        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "DAPackage"};
-    };
+[1535369606] = {
+   	 	File = "1535369606";
+    	Version = "DAUP_V1.0";
+    	Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF"};
+	};
     [5995470825] = {
         File = "5995470825";
         Version = "HyperSV3.03";
