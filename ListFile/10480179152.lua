@@ -389,7 +389,22 @@ return {
         };
 
         local LSecureUI = function()
+            if type(WindLib) ~= "function" then
+                warn("WindLib is not a function");
+                return;
+            end
+            
             WindUI = WindLib();
+            if type(WindUI) ~= "table" then
+                warn("WindUI library failed to load properly");
+                return;
+            end
+            
+            if type(WindUI.CreateWindow) ~= "function" then
+                warn("WindUI.CreateWindow is not a function");
+                return;
+            end
+            
             local Window = WindUI:CreateWindow({
                 Title = "Rafael Hub DAUP",
                 Folder = "RafaelStudio",
@@ -406,23 +421,49 @@ return {
                     Draggable = true,
                     OnlyMobile = false,
                     Color = ColorSequence.new(Col3.fromHex("#30FF6A"), Col3.fromHex("#e7ff2f"))
-                }, Topbar = {
+                }, 
+                Topbar = {
                     Height = 44,
                     ButtonsType = "Mac",
                 },
             });
+            
+            if type(Window) ~= "table" then
+                warn("Failed to create WindUI window");
+                return;
+            end
+            
             local Tabs = {
                 Welcome = Window:Tab({Title="Welcome", Icon="smile"}),
                 Aimlock = Window:Tab({Title="Aimlock", Icon="crosshair"}),
-            }; IntroLib.Init(WindUI, Tabs.Welcome); IntroLib:Tutorial(WindUI);
-            Windy:CreateComponent(Tabs.Aimlock, ScriptData.AutoData.AimlockTab, "Aimlock");
+            };
+            
+            if IntroLib and type(IntroLib.Init) == "function" then
+                IntroLib.Init(WindUI, Tabs.Welcome);
+            end
+            if IntroLib and type(IntroLib.Tutorial) == "function" then
+                IntroLib.Tutorial(WindUI);
+            end
+            
+            if Windy and type(Windy.CreateComponent) == "function" then
+                Windy:CreateComponent(Tabs.Aimlock, ScriptData.AutoData.AimlockTab, "Aimlock");
+            end
 
-            Window:SelectTab(1); Window:OnDestroy(function()
-                CoreDestroyed = true;
-                PromptPackage.UpdateState(true);
-            end);
+            if Window and type(Window.SelectTab) == "function" then
+                Window:SelectTab(1);
+            end
+            
+            if Window and type(Window.OnDestroy) == "function" then
+                Window:OnDestroy(function()
+                    CoreDestroyed = true;
+                    if PromptPackage and type(PromptPackage.UpdateState) == "function" then
+                        PromptPackage.UpdateState(true);
+                    end
+                end);
+            end
 
-            ScriptCache.WindUI = WindUI; ScriptCache.Window = Window;
+            ScriptCache.WindUI = WindUI; 
+            ScriptCache.Window = Window;
         end;
 
         local LSecureLoad = function(AUTH_KEY)
@@ -444,7 +485,9 @@ return {
 
             local OneRunCallMain, OneRunErrorMain = pcall(function()
                 CoreDestroyed = false;
-                PromptPackage.UpdateState(false);
+                if PromptPackage and type(PromptPackage.UpdateState) == "function" then
+                    PromptPackage.UpdateState(false);
+                end
                 
                 LSecureUI();
 
@@ -453,12 +496,14 @@ return {
                         CoreConnection[1]:Disconnect();
                         CoreConnection[1] = nil;
                         return;
-                    end;
+                    end
 
                     selc = selff.Character;
                     HumSelf = selc and FindFirstChildOfClass(selc, "Humanoid");
                     HumRSelf = HumSelf and HumSelf.RootPart;
-                    Seat = CommonF.GetSeat(HumSelf);
+                    if CommonF and type(CommonF.GetSeat) == "function" then
+                        Seat = CommonF.GetSeat(HumSelf);
+                    end
                 end);
 
                 task.wait(1);
@@ -469,20 +514,22 @@ return {
                 if not CoruTask.Intialized then
                     circleDrawing = CreateCircle();
                     
-                    CoruTask.Init(WindUI);
+                    if CoruTask and type(CoruTask.Init) == "function" then
+                        CoruTask.Init(WindUI);
+                    end
                     CoruTask.Intialized = true;
 
                     GG.Configs = Config;
-                end;
-            end);
+                end
+            end)
             
             if OneRunCallMain then
-                return true, GG.LoadingSignal:Fire(100);
-            end;
+                return true, GG.LoadingSignal and GG.LoadingSignal:Fire(100) or nil;
+            end
             return false, warn(OneRunErrorMain);
-        end;
+        end
         
         GG.LSecureLoad = LSecureLoad;
         return LSecureLoad;
-    end;
-};
+    end
+}
