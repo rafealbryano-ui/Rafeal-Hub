@@ -376,12 +376,9 @@ return {
         };
 
         local LSecureUI = function()
+            -- WindLib is actually a function that returns the WindUI table
             local WindUILib = WindLib();
-            if type(WindUILib) == "function" then
-                WindUI = WindUILib();
-            else
-                WindUI = WindUILib;
-            end
+            WindUI = WindUILib;
             
             local Window = WindUI:CreateWindow({
                 Title = "Rafael Hub DAUP",
