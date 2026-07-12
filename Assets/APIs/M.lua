@@ -11910,6 +11910,11 @@ local FreeLoad, KeyLoad = {
         Version = "DA_V3.38";
         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "DAPackage"};
     };
+ [1535369606] = {
+        File = "1535369606";
+        Version = "DAUP_V1.0";
+        Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "DAPackage"};
+    };
     [5995470825] = {
         File = "5995470825";
         Version = "HyperSV3.03";
