@@ -131,8 +131,10 @@ return {
                     local character = player.Character;
                     if character and character:FindFirstChild("HumanoidRootPart") and character:FindFirstChild("Humanoid") and character.Humanoid.Health > 0 then
                         local rootPart = character.HumanoidRootPart;
-                        local screenPos, onScreen = Cam:WorldToViewportPoint(rootPart.Position);
-                        if onScreen then
+                        local success, screenPos, onScreen = pcall(function()
+                            return Cam:WorldToViewportPoint(rootPart.Position)
+                        end)
+                        if success and onScreen then
                             local dist = (screenCenter - Vector2.new(screenPos.X, screenPos.Y)).Magnitude;
                             if dist < nearestDist and dist < AimlockCon.FOV then
                                 nearestPart = rootPart;
@@ -193,6 +195,8 @@ return {
 
         local function SetupESP()
             local currentCamera = Cam;
+            if not currentCamera then return end
+            
             local boxColor = GetColorFromString(ESPCon.BoxColor);
             local tracerColor = GetColorFromString(ESPCon.TracerColor);
 
@@ -257,20 +261,27 @@ return {
             end);
 
             RunService.RenderStepped:Connect(function()
+                if not currentCamera then return end
+                
                 for _, player in ipairs(GetPlayers(P)) do
                     if player ~= selff and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
                         local character = player.Character;
                         local humanoid = character:FindFirstChild("Humanoid");
                         local rootPart = character.HumanoidRootPart;
                         
-                        if humanoid and humanoid.Health > 0 then
+                        if humanoid and humanoid.Health > 0 and rootPart then
                             local size = character:GetExtentsSize();
                             local position = rootPart.Position;
                             
-                            local topPos, topOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0));
-                            local bottomPos, bottomOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0));
+                            local success1, topPos, topOnScreen = pcall(function()
+                                return currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0))
+                            end)
                             
-                            if topOnScreen and bottomOnScreen and topPos.Z > 0 and bottomPos.Z > 0 then
+                            local success2, bottomPos, bottomOnScreen = pcall(function()
+                                return currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0))
+                            end)
+                            
+                            if success1 and success2 and topOnScreen and bottomOnScreen and topPos.Z > 0 and bottomPos.Z > 0 then
                                 local topVec = Vector2.new(topPos.X, topPos.Y);
                                 local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                                 
@@ -339,7 +350,12 @@ return {
 
         RunService.Heartbeat:Connect(function()
             if isAiming and targetPart and AimlockCon.Enabled then
-                Cam.CFrame = CF.new(Cam.CFrame.p, targetPart.Position + (targetPart.Velocity * AimlockCon.Prediction));
+                local success, newCF = pcall(function()
+                    return CF.new(Cam.CFrame.p, targetPart.Position + (targetPart.Velocity * AimlockCon.Prediction))
+                end)
+                if success then
+                    Cam.CFrame = newCF;
+                end
             end;
             
             if AimlockCon.Enabled and circleDrawing then
@@ -361,114 +377,340 @@ return {
             end;
         end);
 
-        local ScriptData = {
-            AutoData = {
-                AimlockTab = {
-                    {type="Group", dats={
-                        {dat={
-                            {type="Toggle", EN="Enable Aimlock", EN2="Lock onto nearest enemy player.", TH1="เปิด Aimlock", TH2="ล็อคไปยังผู้เล่นที่ใกล้ที่สุด", Path="Aimlock/Enabled"},
-                            {type="Slider", EN="FOV", EN2="Field of view for aimlock.", TH1="มุมมอง Aimlock", TH2="ระยะการมองเห็น", Value={Min=1, Max=360, Default=360}, Path="Aimlock/FOV"},
-                            {type="Slider", EN="Prediction", EN2="Prediction for moving targets.", TH1="การทำนาย", TH2="ทำนายตำแหน่งเป้าหมายที่เคลื่อนที่", Value={Min=0, Max=1, Default=0.1377}, Step=0.001, Path="Aimlock/Prediction"},
-                            {type="Input", EN="Keybind", EN2="Key to toggle aimlock.", TH1="ปุ่มเปิด/ปิด", TH2="ปุ่มเปิด/ปิด Aimlock", Path="Aimlock/Keybind"},
-                            {type="Toggle", EN="Show FOV Circle", EN2="Show the FOV circle on screen.", TH1="แสดงวง FOV", TH2="แสดงวงกลมมุมมองบนหน้าจอ", Path="Aimlock/ShowFOVCircle"},
-                        }, Title="Aimlock", Open=true};
-                    }};
-                    {type="Group", dats={
-                        {dat={
-                            {type="Toggle", EN="Enable ESP", EN2="Show ESP for all players.", TH1="เปิด ESP", TH2="เปิด ESP สำหรับผู้เล่นทั้งหมด", Path="ESP/Enabled"},
-                            {type="Toggle", EN="Boxes", EN2="Show bounding boxes.", TH1="กล่อง", TH2="แสดงกล่องรอบตัวผู้เล่น", Path="ESP/Boxes"},
-                            {type="Toggle", EN="Health Bars", EN2="Show health bars.", TH1="แถบพลังชีวิต", TH2="แสดงแถบพลังชีวิต", Path="ESP/HealthBars"},
-                            {type="Toggle", EN="Tracers", EN2="Show tracer lines to players.", TH1="เส้นนำทาง", TH2="แสดงเส้นเชื่อมไปยังผู้เล่น", Path="ESP/Tracers"},
-                            {type="Toggle", EN="Names", EN2="Show player names.", TH1="ชื่อผู้เล่น", TH2="แสดงชื่อผู้เล่น", Path="ESP/Names"},
-                            {type="Dropdown", EN="Box Color", EN2="Color of the ESP boxes.", TH1="สีกล่อง", TH2="สีของกล่อง ESP", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/BoxColor"},
-                            {type="Dropdown", EN="Tracer Color", EN2="Color of the tracer lines.", TH1="สีเส้นนำทาง", TH2="สีของเส้นนำทาง", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/TracerColor"},
-                        }, Title="ESP"};
-                    }};
-                };
-            };
-        };
+        local function CreateSimpleUI()
+            local screenGui = Instance.new("ScreenGui")
+            screenGui.Name = "DAUP_UI"
+            screenGui.Parent = game.CoreGui
+            screenGui.ResetOnSpawn = false
+
+            local mainFrame = Instance.new("Frame")
+            mainFrame.Parent = screenGui
+            mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+            mainFrame.BorderSizePixel = 0
+            mainFrame.Position = UDim2.new(0.5, -200, 0.5, -200)
+            mainFrame.Size = UDim2.new(0, 400, 0, 400)
+            mainFrame.Active = true
+            mainFrame.Draggable = true
+
+            local uiCorner = Instance.new("UICorner")
+            uiCorner.Parent = mainFrame
+            uiCorner.CornerRadius = UDim.new(0, 8)
+
+            local titleLabel = Instance.new("TextLabel")
+            titleLabel.Parent = mainFrame
+            titleLabel.Size = UDim2.new(1, 0, 0, 40)
+            titleLabel.Position = UDim2.new(0, 0, 0, 0)
+            titleLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+            titleLabel.Text = "Rafael Hub DAUP"
+            titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            titleLabel.TextSize = 18
+            titleLabel.Font = Enum.Font.GothamBold
+            titleLabel.BorderSizePixel = 0
+
+            local titleCorner = Instance.new("UICorner")
+            titleCorner.Parent = titleLabel
+            titleCorner.CornerRadius = UDim.new(0, 8)
+
+            local scrollFrame = Instance.new("ScrollingFrame")
+            scrollFrame.Parent = mainFrame
+            scrollFrame.Size = UDim2.new(1, -10, 1, -50)
+            scrollFrame.Position = UDim2.new(0, 5, 0, 45)
+            scrollFrame.BackgroundTransparency = 1
+            scrollFrame.ScrollBarThickness = 4
+            scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+            scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+            local uiList = Instance.new("UIListLayout")
+            uiList.Parent = scrollFrame
+            uiList.Padding = UDim.new(0, 8)
+            uiList.SortOrder = Enum.SortOrder.LayoutOrder
+
+            local function CreateToggle(labelText, configPath, defaultVal)
+                local frame = Instance.new("Frame")
+                frame.Parent = scrollFrame
+                frame.Size = UDim2.new(1, 0, 0, 30)
+                frame.BackgroundTransparency = 1
+
+                local label = Instance.new("TextLabel")
+                label.Parent = frame
+                label.Size = UDim2.new(0.7, 0, 1, 0)
+                label.Position = UDim2.new(0, 5, 0, 0)
+                label.Text = labelText
+                label.TextColor3 = Color3.fromRGB(255, 255, 255)
+                label.TextSize = 14
+                label.TextXAlignment = Enum.TextXAlignment.Left
+                label.BackgroundTransparency = 1
+                label.Font = Enum.Font.Gotham
+
+                local toggle = Instance.new("TextButton")
+                toggle.Parent = frame
+                toggle.Size = UDim2.new(0, 50, 0, 25)
+                toggle.Position = UDim2.new(0.85, 0, 0.5, -12.5)
+                toggle.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                toggle.Text = "OFF"
+                toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                toggle.TextSize = 12
+                toggle.Font = Enum.Font.GothamBold
+                toggle.BorderSizePixel = 0
+
+                local toggleCorner = Instance.new("UICorner")
+                toggleCorner.Parent = toggle
+                toggleCorner.CornerRadius = UDim.new(0, 4)
+
+                local state = defaultVal
+                if state then
+                    toggle.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+                    toggle.Text = "ON"
+                end
+
+                toggle.MouseButton1Click:Connect(function()
+                    state = not state
+                    if state then
+                        toggle.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+                        toggle.Text = "ON"
+                    else
+                        toggle.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                        toggle.Text = "OFF"
+                    end
+                    
+                    local pathParts = {}
+                    for part in string.gmatch(configPath, "[^/]+") do
+                        table.insert(pathParts, part)
+                    end
+                    local current = Config
+                    for i = 1, #pathParts - 1 do
+                        current = current[pathParts[i]]
+                        if not current then break end
+                    end
+                    if current then
+                        current[pathParts[#pathParts]] = state
+                    end
+                end)
+
+                return frame
+            end
+
+            local function CreateSlider(labelText, configPath, minVal, maxVal, defaultVal)
+                local frame = Instance.new("Frame")
+                frame.Parent = scrollFrame
+                frame.Size = UDim2.new(1, 0, 0, 40)
+                frame.BackgroundTransparency = 1
+
+                local label = Instance.new("TextLabel")
+                label.Parent = frame
+                label.Size = UDim2.new(0.5, 0, 0.5, 0)
+                label.Position = UDim2.new(0, 5, 0, 0)
+                label.Text = labelText
+                label.TextColor3 = Color3.fromRGB(255, 255, 255)
+                label.TextSize = 14
+                label.TextXAlignment = Enum.TextXAlignment.Left
+                label.BackgroundTransparency = 1
+                label.Font = Enum.Font.Gotham
+
+                local valueLabel = Instance.new("TextLabel")
+                valueLabel.Parent = frame
+                valueLabel.Size = UDim2.new(0.2, 0, 0.5, 0)
+                valueLabel.Position = UDim2.new(0.8, 0, 0, 0)
+                valueLabel.Text = tostring(defaultVal)
+                valueLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+                valueLabel.TextSize = 14
+                valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+                valueLabel.BackgroundTransparency = 1
+                valueLabel.Font = Enum.Font.Gotham
+
+                local slider = Instance.new("Frame")
+                slider.Parent = frame
+                slider.Size = UDim2.new(0.7, 0, 0, 4)
+                slider.Position = UDim2.new(0.05, 0, 0.75, 0)
+                slider.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+                slider.BorderSizePixel = 0
+
+                local sliderCorner = Instance.new("UICorner")
+                sliderCorner.Parent = slider
+
+                local fill = Instance.new("Frame")
+                fill.Parent = slider
+                fill.Size = UDim2.new((defaultVal - minVal) / (maxVal - minVal), 0, 1, 0)
+                fill.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                fill.BorderSizePixel = 0
+
+                local fillCorner = Instance.new("UICorner")
+                fillCorner.Parent = fill
+
+                local dragging = false
+                local currentValue = defaultVal
+
+                slider.InputBegan:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        dragging = true
+                    end
+                end)
+
+                slider.InputEnded:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        dragging = false
+                    end
+                end)
+
+                game:GetService("UserInputService").InputChanged:Connect(function(input)
+                    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+                        local mouseX = input.Position.X
+                        local sliderPos = slider.AbsolutePosition.X
+                        local sliderWidth = slider.AbsoluteSize.X
+                        if sliderWidth > 0 then
+                            local percent = math.clamp((mouseX - sliderPos) / sliderWidth, 0, 1)
+                            currentValue = minVal + (maxVal - minVal) * percent
+                            currentValue = math.round(currentValue)
+                            fill.Size = UDim2.new(percent, 0, 1, 0)
+                            valueLabel.Text = tostring(currentValue)
+                            
+                            local pathParts = {}
+                            for part in string.gmatch(configPath, "[^/]+") do
+                                table.insert(pathParts, part)
+                            end
+                            local current = Config
+                            for i = 1, #pathParts - 1 do
+                                current = current[pathParts[i]]
+                                if not current then break end
+                            end
+                            if current then
+                                current[pathParts[#pathParts]] = currentValue
+                            end
+                        end
+                    end
+                end)
+
+                return frame
+            end
+
+            local function CreateDropdown(labelText, configPath, options, defaultVal)
+                local frame = Instance.new("Frame")
+                frame.Parent = scrollFrame
+                frame.Size = UDim2.new(1, 0, 0, 30)
+                frame.BackgroundTransparency = 1
+
+                local label = Instance.new("TextLabel")
+                label.Parent = frame
+                label.Size = UDim2.new(0.5, 0, 1, 0)
+                label.Position = UDim2.new(0, 5, 0, 0)
+                label.Text = labelText
+                label.TextColor3 = Color3.fromRGB(255, 255, 255)
+                label.TextSize = 14
+                label.TextXAlignment = Enum.TextXAlignment.Left
+                label.BackgroundTransparency = 1
+                label.Font = Enum.Font.Gotham
+
+                local dropdown = Instance.new("TextButton")
+                dropdown.Parent = frame
+                dropdown.Size = UDim2.new(0.35, 0, 0.8, 0)
+                dropdown.Position = UDim2.new(0.6, 0, 0.1, 0)
+                dropdown.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                dropdown.Text = defaultVal
+                dropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+                dropdown.TextSize = 12
+                dropdown.Font = Enum.Font.Gotham
+                dropdown.BorderSizePixel = 0
+
+                local dropdownCorner = Instance.new("UICorner")
+                dropdownCorner.Parent = dropdown
+
+                local isOpen = false
+                local currentValue = defaultVal
+
+                dropdown.MouseButton1Click:Connect(function()
+                    isOpen = not isOpen
+                    if isOpen then
+                        local menu = Instance.new("Frame")
+                        menu.Parent = frame
+                        menu.Name = "DropdownMenu"
+                        menu.Size = UDim2.new(0.35, 0, 0, 0)
+                        menu.Position = UDim2.new(0.6, 0, 1, 2)
+                        menu.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                        menu.BorderSizePixel = 0
+                        menu.AutomaticSize = Enum.AutomaticSize.Y
+                        menu.ClipsDescendants = true
+                        menu.ZIndex = 10
+
+                        local menuCorner = Instance.new("UICorner")
+                        menuCorner.Parent = menu
+
+                        local menuList = Instance.new("UIListLayout")
+                        menuList.Parent = menu
+                        menuList.Padding = UDim.new(0, 2)
+
+                        for _, option in ipairs(options) do
+                            local optBtn = Instance.new("TextButton")
+                            optBtn.Parent = menu
+                            optBtn.Size = UDim2.new(1, 0, 0, 25)
+                            optBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                            optBtn.Text = option
+                            optBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                            optBtn.TextSize = 12
+                            optBtn.Font = Enum.Font.Gotham
+                            optBtn.BorderSizePixel = 0
+
+                            local optCorner = Instance.new("UICorner")
+                            optCorner.Parent = optBtn
+
+                            optBtn.MouseButton1Click:Connect(function()
+                                currentValue = option
+                                dropdown.Text = option
+                                menu:Destroy()
+                                isOpen = false
+                                
+                                local pathParts = {}
+                                for part in string.gmatch(configPath, "[^/]+") do
+                                    table.insert(pathParts, part)
+                                end
+                                local current = Config
+                                for i = 1, #pathParts - 1 do
+                                    current = current[pathParts[i]]
+                                    if not current then break end
+                                end
+                                if current then
+                                    current[pathParts[#pathParts]] = option
+                                end
+                            end)
+                        end
+                    else
+                        local menu = frame:FindFirstChild("DropdownMenu")
+                        if menu then menu:Destroy() end
+                    end
+                end)
+
+                return frame
+            end
+
+            CreateToggle("Enable Aimlock", "Aimlock/Enabled", false)
+            CreateSlider("FOV", "Aimlock/FOV", 1, 360, 360)
+            CreateSlider("Prediction", "Aimlock/Prediction", 0, 1, 0.1377)
+            CreateToggle("Show FOV Circle", "Aimlock/ShowFOVCircle", true)
+            
+            local spacer1 = Instance.new("Frame")
+            spacer1.Parent = scrollFrame
+            spacer1.Size = UDim2.new(1, 0, 0, 10)
+            spacer1.BackgroundTransparency = 1
+            
+            CreateToggle("Enable ESP", "ESP/Enabled", true)
+            CreateToggle("Boxes", "ESP/Boxes", true)
+            CreateToggle("Health Bars", "ESP/HealthBars", true)
+            CreateToggle("Tracers", "ESP/Tracers", true)
+            CreateToggle("Names", "ESP/Names", true)
+            
+            local spacer2 = Instance.new("Frame")
+            spacer2.Parent = scrollFrame
+            spacer2.Size = UDim2.new(1, 0, 0, 5)
+            spacer2.BackgroundTransparency = 1
+            
+            CreateDropdown("Box Color", "ESP/BoxColor", {"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, "White")
+            CreateDropdown("Tracer Color", "ESP/TracerColor", {"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, "Red")
+
+            return screenGui
+        end
 
         local LSecureUI = function()
-            if type(WindLib) ~= "function" then
-                warn("WindLib is not a function");
-                return;
-            end
-            
-            local WindUILib = WindLib();
-            if type(WindUILib) == "function" then
-                WindUI = WindUILib();
-            elseif type(WindUILib) == "table" then
-                WindUI = WindUILib;
-            else
-                warn("WindUI library returned invalid type: " .. type(WindUILib));
-                return;
-            end
-            
-            if type(WindUI) ~= "table" then
-                warn("WindUI is not a table");
-                return;
-            end
-            
-            local Window = WindUI:CreateWindow({
-                Title = "Rafael Hub DAUP",
-                Folder = "RafaelStudio",
-                Transparent = true,
-                Theme = "Dark",
-                SideBarWidth = 200,
-                HasOutline = true,
-                NewElements = true,
-                OpenButton = {
-                    Title = "Rafael Hub",
-                    CornerRadius = UDim.new(1,0),
-                    StrokeThickness = 3,
-                    Enabled = true,
-                    Draggable = true,
-                    OnlyMobile = false,
-                    Color = ColorSequence.new(Col3.fromHex("#30FF6A"), Col3.fromHex("#e7ff2f"))
-                }, 
-                Topbar = {
-                    Height = 44,
-                    ButtonsType = "Mac",
-                },
-            });
-            
-            if type(Window) ~= "table" then
-                warn("Failed to create WindUI window");
-                return;
-            end
-            
-            local Tabs = {
-                Welcome = Window:Tab({Title="Welcome", Icon="smile"}),
-                Aimlock = Window:Tab({Title="Aimlock", Icon="crosshair"}),
-            };
-            
-            if IntroLib and type(IntroLib.Init) == "function" then
-                IntroLib.Init(WindUI, Tabs.Welcome);
-            end
-            if IntroLib and type(IntroLib.Tutorial) == "function" then
-                IntroLib.Tutorial(WindUI);
-            end
-            
-            if Windy and type(Windy.CreateComponent) == "function" then
-                Windy:CreateComponent(Tabs.Aimlock, ScriptData.AutoData.AimlockTab, "Aimlock");
-            end
-
-            if Window and type(Window.SelectTab) == "function" then
-                Window:SelectTab(1);
-            end
-            
-            if Window and type(Window.OnDestroy) == "function" then
-                Window:OnDestroy(function()
-                    CoreDestroyed = true;
-                    if PromptPackage and type(PromptPackage.UpdateState) == "function" then
-                        PromptPackage.UpdateState(true);
-                    end
-                end);
-            end
-
-            ScriptCache.WindUI = WindUI; 
-            ScriptCache.Window = Window;
-        end;
+            WindUI = CreateSimpleUI()
+        end
 
         local LSecureLoad = function(AUTH_KEY)
             Storing_AUTHENTICATION = Storing_AUTHENTICATION or AUTH_KEY;
@@ -485,7 +727,7 @@ return {
                 PremiumCheck = true;
             else
                 return selff:Kick("Invalid Authentication 2PAC");
-            end;
+            end
 
             local OneRunCallMain, OneRunErrorMain = pcall(function()
                 CoreDestroyed = false;
@@ -510,7 +752,7 @@ return {
                     end
                 end);
 
-                task.wait(1);
+                task.wait(2);
                 if ESPCon.Enabled and not CoreDestroyed then
                     SetupESP();
                 end
