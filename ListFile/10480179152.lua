@@ -361,33 +361,33 @@ return {
             end;
         end);
 
-       local ScriptData = {
-    		AutoData = {
-        		AimlockTab = {
-            		{type="Group", dats={
-                		{dat={
-                    		{type="Toggle", EN="Enable Aimlock", EN2="Lock onto nearest enemy player.", TH1="เปิด Aimlock", TH2="ล็อคไปยังผู้เล่นที่ใกล้ที่สุด", Path="Aimlock/Enabled"},
-                    		{type="Slider", EN="FOV", EN2="Field of view for aimlock.", TH1="มุมมอง Aimlock", TH2="ระยะการมองเห็น", Value={Min=1, Max=360, Default=360}, Path="Aimlock/FOV"},
-                    		{type="Slider", EN="Prediction", EN2="Prediction for moving targets.", TH1="การทำนาย", TH2="ทำนายตำแหน่งเป้าหมายที่เคลื่อนที่", Value={Min=0, Max=1, Default=0.1377}, Step=0.001, Path="Aimlock/Prediction"},
-                    		{type="Input", EN="Keybind", EN2="Key to toggle aimlock.", TH1="ปุ่มเปิด/ปิด", TH2="ปุ่มเปิด/ปิด Aimlock", Path="Aimlock/Keybind"},
-                    		{type="Toggle", EN="Show FOV Circle", EN2="Show the FOV circle on screen.", TH1="แสดงวง FOV", TH2="แสดงวงกลมมุมมองบนหน้าจอ", Path="Aimlock/ShowFOVCircle"},
-                		}, Title="Aimlock", Open=true};
-           		 }};
-            		{type="Group", dats={
-                		{dat={
-                    		{type="Toggle", EN="Enable ESP", EN2="Show ESP for all players.", TH1="เปิด ESP", TH2="เปิด ESP สำหรับผู้เล่นทั้งหมด", Path="ESP/Enabled"},
-                    		{type="Toggle", EN="Boxes", EN2="Show bounding boxes.", TH1="กล่อง", TH2="แสดงกล่องรอบตัวผู้เล่น", Path="ESP/Boxes"},
-                   	 		{type="Toggle", EN="Health Bars", EN2="Show health bars.", TH1="แถบพลังชีวิต", TH2="แสดงแถบพลังชีวิต", Path="ESP/HealthBars"},
-                   	 		{type="Toggle", EN="Tracers", EN2="Show tracer lines to players.", TH1="เส้นนำทาง", TH2="แสดงเส้นเชื่อมไปยังผู้เล่น", Path="ESP/Tracers"},
-                    		{type="Toggle", EN="Names", EN2="Show player names.", TH1="ชื่อผู้เล่น", TH2="แสดงชื่อผู้เล่น", Path="ESP/Names"},
-                    		{type="Dropdown", EN="Box Color", EN2="Color of the ESP boxes.", TH1="สีกล่อง", TH2="สีของกล่อง ESP", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/BoxColor"},
-                    		{type="Dropdown", EN="Tracer Color", EN2="Color of the tracer lines.", TH1="สีเส้นนำทาง", TH2="สีของเส้นนำทาง", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/TracerColor"},
-               		 	}, Title="ESP"};
-            		}};
-        		};
-    		};
-		};
-			
+        local ScriptData = {
+            AutoData = {
+                AimlockTab = {
+                    {type="Group", dats={
+                        {dat={
+                            {type="Toggle", EN="Enable Aimlock", EN2="Lock onto nearest enemy player.", TH1="เปิด Aimlock", TH2="ล็อคไปยังผู้เล่นที่ใกล้ที่สุด", Path="Aimlock/Enabled"},
+                            {type="Slider", EN="FOV", EN2="Field of view for aimlock.", TH1="มุมมอง Aimlock", TH2="ระยะการมองเห็น", Value={Min=1, Max=360, Default=360}, Path="Aimlock/FOV"},
+                            {type="Slider", EN="Prediction", EN2="Prediction for moving targets.", TH1="การทำนาย", TH2="ทำนายตำแหน่งเป้าหมายที่เคลื่อนที่", Value={Min=0, Max=1, Default=0.1377}, Step=0.001, Path="Aimlock/Prediction"},
+                            {type="Input", EN="Keybind", EN2="Key to toggle aimlock.", TH1="ปุ่มเปิด/ปิด", TH2="ปุ่มเปิด/ปิด Aimlock", Path="Aimlock/Keybind"},
+                            {type="Toggle", EN="Show FOV Circle", EN2="Show the FOV circle on screen.", TH1="แสดงวง FOV", TH2="แสดงวงกลมมุมมองบนหน้าจอ", Path="Aimlock/ShowFOVCircle"},
+                        }, Title="Aimlock", Open=true};
+                    }};
+                    {type="Group", dats={
+                        {dat={
+                            {type="Toggle", EN="Enable ESP", EN2="Show ESP for all players.", TH1="เปิด ESP", TH2="เปิด ESP สำหรับผู้เล่นทั้งหมด", Path="ESP/Enabled"},
+                            {type="Toggle", EN="Boxes", EN2="Show bounding boxes.", TH1="กล่อง", TH2="แสดงกล่องรอบตัวผู้เล่น", Path="ESP/Boxes"},
+                            {type="Toggle", EN="Health Bars", EN2="Show health bars.", TH1="แถบพลังชีวิต", TH2="แสดงแถบพลังชีวิต", Path="ESP/HealthBars"},
+                            {type="Toggle", EN="Tracers", EN2="Show tracer lines to players.", TH1="เส้นนำทาง", TH2="แสดงเส้นเชื่อมไปยังผู้เล่น", Path="ESP/Tracers"},
+                            {type="Toggle", EN="Names", EN2="Show player names.", TH1="ชื่อผู้เล่น", TH2="แสดงชื่อผู้เล่น", Path="ESP/Names"},
+                            {type="Dropdown", EN="Box Color", EN2="Color of the ESP boxes.", TH1="สีกล่อง", TH2="สีของกล่อง ESP", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/BoxColor"},
+                            {type="Dropdown", EN="Tracer Color", EN2="Color of the tracer lines.", TH1="สีเส้นนำทาง", TH2="สีของเส้นนำทาง", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/TracerColor"},
+                        }, Title="ESP"};
+                    }};
+                };
+            };
+        };
+
         local LSecureUI = function()
             WindUI = WindLib();
             local Window = WindUI:CreateWindow({
