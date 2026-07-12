@@ -377,7 +377,11 @@ return {
 
         local LSecureUI = function()
             local WindUILib = WindLib();
-            WindUI = WindUILib;
+            if type(WindUILib) == "function" then
+                WindUI = WindUILib();
+            else
+                WindUI = WindUILib;
+            end
             
             local Window = WindUI:CreateWindow({
                 Title = "Rafael Hub DAUP",
