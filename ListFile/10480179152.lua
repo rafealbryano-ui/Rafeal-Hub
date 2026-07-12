@@ -394,14 +394,18 @@ return {
                 return;
             end
             
-            WindUI = WindLib();
-            if type(WindUI) ~= "table" then
-                warn("WindUI library failed to load properly");
+            local WindUILib = WindLib();
+            if type(WindUILib) == "function" then
+                WindUI = WindUILib();
+            elseif type(WindUILib) == "table" then
+                WindUI = WindUILib;
+            else
+                warn("WindUI library returned invalid type: " .. type(WindUILib));
                 return;
             end
             
-            if type(WindUI.CreateWindow) ~= "function" then
-                warn("WindUI.CreateWindow is not a function");
+            if type(WindUI) ~= "table" then
+                warn("WindUI is not a table");
                 return;
             end
             
