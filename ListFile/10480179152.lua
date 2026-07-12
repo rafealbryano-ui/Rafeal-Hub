@@ -248,7 +248,7 @@ return {
                         local topPos, topOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0));
                         local bottomPos, bottomOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0));
                         
-                        if topOnScreen and bottomOnScreen and topPos.Z > 0 and bottomPos.Z > 0 then
+                        if topPos and bottomPos and topOnScreen and bottomOnScreen and topPos.Z > 0 and bottomPos.Z > 0 then
                             local topVec = Vector2.new(topPos.X, topPos.Y);
                             local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                             
