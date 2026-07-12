@@ -149,7 +149,10 @@ return {
         end;
 
         local function CreateCircle()
-            if not Drawing then return nil; end
+            if not Drawing then 
+                warn("Drawing library not available");
+                return nil; 
+            end
             local circle = Drawing.new("Circle");
             circle.Position = Vector2.new(Cam.ViewportSize.X/2, Cam.ViewportSize.Y/2);
             circle.Radius = AimlockCon.FOV;
