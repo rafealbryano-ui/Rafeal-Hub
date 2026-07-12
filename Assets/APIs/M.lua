@@ -11916,7 +11916,7 @@ local FreeLoad, KeyLoad = {
 [10480179152] = {
    	 	File = "1535369606";
     	Version = "DAUP_V1.0";
-    	Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF"};
+    	Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "CommonF"};
 	};
     [5995470825] = {
         File = "5995470825";
