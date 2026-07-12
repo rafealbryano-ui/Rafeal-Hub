@@ -193,6 +193,8 @@ return {
 
         local function SetupESP()
             local currentCamera = Cam;
+            if not currentCamera then return end
+            
             local boxColor = GetColorFromString(ESPCon.BoxColor);
             local tracerColor = GetColorFromString(ESPCon.TracerColor);
 
@@ -257,20 +259,22 @@ return {
             end);
 
             RunService.RenderStepped:Connect(function()
+                if not currentCamera then return end
+                
                 for _, player in ipairs(GetPlayers(P)) do
                     if player ~= selff and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
                         local character = player.Character;
                         local humanoid = character:FindFirstChild("Humanoid");
                         local rootPart = character.HumanoidRootPart;
                         
-                        if humanoid and humanoid.Health > 0 then
+                        if humanoid and humanoid.Health > 0 and rootPart then
                             local size = character:GetExtentsSize();
                             local position = rootPart.Position;
                             
                             local topPos, topOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0));
                             local bottomPos, bottomOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0));
                             
-                            if topOnScreen and bottomOnScreen and topPos.Z > 0 and bottomPos.Z > 0 then
+                            if topOnScreen and bottomOnScreen and topPos and bottomPos and topPos.Z > 0 and bottomPos.Z > 0 then
                                 local topVec = Vector2.new(topPos.X, topPos.Y);
                                 local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                                 
