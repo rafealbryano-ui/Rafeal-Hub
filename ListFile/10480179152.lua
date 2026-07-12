@@ -131,8 +131,10 @@ return {
                     local character = player.Character;
                     if character and character:FindFirstChild("HumanoidRootPart") and character:FindFirstChild("Humanoid") and character.Humanoid.Health > 0 then
                         local rootPart = character.HumanoidRootPart;
-                        local screenPos, onScreen = Cam:WorldToViewportPoint(rootPart.Position);
-                        if onScreen then
+                        local success, screenPos, onScreen = pcall(function()
+                            return Cam:WorldToViewportPoint(rootPart.Position)
+                        end)
+                        if success and onScreen then
                             local dist = (screenCenter - Vector2.new(screenPos.X, screenPos.Y)).Magnitude;
                             if dist < nearestDist and dist < AimlockCon.FOV then
                                 nearestPart = rootPart;
@@ -271,10 +273,15 @@ return {
                             local size = character:GetExtentsSize();
                             local position = rootPart.Position;
                             
-                            local topPos, topOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0));
-                            local bottomPos, bottomOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0));
+                            local success1, topPos, topOnScreen = pcall(function()
+                                return currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0))
+                            end)
                             
-                            if topOnScreen and bottomOnScreen and topPos and bottomPos and topPos.Z > 0 and bottomPos.Z > 0 then
+                            local success2, bottomPos, bottomOnScreen = pcall(function()
+                                return currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0))
+                            end)
+                            
+                            if success1 and success2 and topOnScreen and bottomOnScreen and topPos and bottomPos and topPos.Z > 0 and bottomPos.Z > 0 then
                                 local topVec = Vector2.new(topPos.X, topPos.Y);
                                 local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                                 
@@ -343,7 +350,9 @@ return {
 
         RunService.Heartbeat:Connect(function()
             if isAiming and targetPart and AimlockCon.Enabled then
-                Cam.CFrame = CF.new(Cam.CFrame.p, targetPart.Position + (targetPart.Velocity * AimlockCon.Prediction));
+                local success = pcall(function()
+                    Cam.CFrame = CF.new(Cam.CFrame.p, targetPart.Position + (targetPart.Velocity * AimlockCon.Prediction))
+                end)
             end;
             
             if AimlockCon.Enabled and circleDrawing then
