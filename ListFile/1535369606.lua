@@ -31,6 +31,7 @@ local FindFirstChild = game.FindFirstChild
 local FindFirstChildOfClass = game.FindFirstChildOfClass;
 local FindFirstChildWhichIsA = game.FindFirstChildWhichIsA;
 local FindFirstAncestorOfClass = game.FindFirstAncestorOfClass;
+local RunService = game:GetService("RunService");
 
 local RED = Col3.new(1,0,0);
 local GREEN = Col3.new(0, 1, 0);
@@ -43,22 +44,12 @@ local CYAN = Col3.fromRGB(0, 255, 255);
 
 local VEC4 = Vec3(4,4,4);
 local VEC7 = Vec3(7,7,7);
-local VEC100 = Vec3(1,0,0);
-local CFR100 = CFr(1,0,0);
-local CFR400 = CFr(4,0,0);
-
-local PEID = {1535369606};
-
-local ScriptData = {
-    AutoData = {};
-};
 
 local Config = GG.Configs or {
     ["Aimlock"] = {
         ["Enabled"] = false;
         ["Prediction"] = 0.1377;
-        ["Smoothness"] = 0.1298;
-        ["FOV"] = 20;
+        ["FOV"] = 360;
         ["Keybind"] = "q";
         ["ShowFOVCircle"] = true;
     };
@@ -66,7 +57,7 @@ local Config = GG.Configs or {
         ["Enabled"] = true;
         ["Boxes"] = true;
         ["HealthBars"] = true;
-        ["Tracers"] = false;
+        ["Tracers"] = true;
         ["Names"] = true;
         ["BoxColor"] = "White";
         ["TracerColor"] = "Red";
@@ -107,7 +98,7 @@ return {
         local PSG = selff.PlayerGui;
         local selc = selff.Character or selff.CharacterAdded:Wait();
         local HumSelf = FindFirstChildOfClass(selc, "Humanoid");
-        local HumRSelf = HumSelf.RootPart;
+        local HumRSelf = HumSelf and HumSelf.RootPart;
 
         local targetPart = nil;
         local isAiming = false;
@@ -137,7 +128,7 @@ return {
         local function FindNearestEnemy()
             local nearestDist = math.huge;
             local nearestPart = nil;
-            local screenCenter = Vector2.new(W.CurrentCamera.ViewportSize.X/2, W.CurrentCamera.ViewportSize.Y/2);
+            local screenCenter = Vector2.new(Cam.ViewportSize.X/2, Cam.ViewportSize.Y/2);
             
             for _, player in ipairs(GetPlayers(P)) do
                 if player ~= selff then
@@ -159,10 +150,11 @@ return {
         end;
 
         local function CreateCircle()
+            if not Drawing then return nil; end
             local circle = Drawing.new("Circle");
             circle.Position = Vector2.new(Cam.ViewportSize.X/2, Cam.ViewportSize.Y/2);
             circle.Radius = AimlockCon.FOV;
-            circle.Color = Col3.fromRGB(136, 8, 8);
+            circle.Color = Col3.fromRGB(255, 0, 0);
             circle.Thickness = 2;
             circle.Filled = false;
             circle.Visible = AimlockCon.ShowFOVCircle;
@@ -170,6 +162,7 @@ return {
         end;
 
         local function CreateBox(color, thickness, filled)
+            if not Drawing then return nil; end
             local box = Drawing.new("Square");
             box.Visible = true;
             box.Color = color;
@@ -179,6 +172,7 @@ return {
         end;
 
         local function CreateTracer(color, thickness)
+            if not Drawing then return nil; end
             local tracer = Drawing.new("Line");
             tracer.Visible = true;
             tracer.Color = color;
@@ -189,6 +183,7 @@ return {
         end;
 
         local function CreateNameLabel()
+            if not Drawing then return nil; end
             local label = Drawing.new("Text");
             label.Visible = true;
             label.Color = WHITE;
@@ -245,9 +240,6 @@ return {
             end);
 
             RunService.RenderStepped:Connect(function()
-                local boxColor = GetColorFromString(ESPCon.BoxColor);
-                local tracerColor = GetColorFromString(ESPCon.TracerColor);
-                
                 for _, player in ipairs(GetPlayers(P)) do
                     if player ~= selff and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
                         local character = player.Character;
@@ -265,46 +257,38 @@ return {
                                 local topVec = Vector2.new(topPos.X, topPos.Y);
                                 local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                                 
-                                if ESPCon.Boxes then
+                                if ESPCon.Boxes and espBoxes[player] then
                                     local box = espBoxes[player];
-                                    if box then
-                                        box.Color = boxColor;
-                                        box.Size = bottomVec;
-                                        box.Position = topVec;
-                                        box.Visible = true;
-                                    end;
+                                    box.Color = boxColor;
+                                    box.Size = bottomVec;
+                                    box.Position = topVec;
+                                    box.Visible = true;
                                 end;
                                 
-                                if ESPCon.HealthBars then
+                                if ESPCon.HealthBars and espHealthBars[player] then
                                     local healthPercent = humanoid.Health / humanoid.MaxHealth;
                                     local healthHeight = bottomVec.Y * healthPercent;
                                     healthHeight = math.clamp(healthHeight, 0, bottomVec.Y);
                                     
                                     local healthBar = espHealthBars[player];
-                                    if healthBar then
-                                        healthBar.Size = Vector2.new(5, healthHeight);
-                                        healthBar.Position = Vector2.new(topVec.X - 6, (topVec.Y + bottomVec.Y) - healthHeight);
-                                        healthBar.Visible = true;
-                                    end;
+                                    healthBar.Size = Vector2.new(5, healthHeight);
+                                    healthBar.Position = Vector2.new(topVec.X - 6, (topVec.Y + bottomVec.Y) - healthHeight);
+                                    healthBar.Visible = true;
                                 end;
                                 
-                                if ESPCon.Tracers then
+                                if ESPCon.Tracers and espTracers[player] then
                                     local tracer = espTracers[player];
-                                    if tracer then
-                                        tracer.Color = tracerColor;
-                                        tracer.From = Vector2.new(currentCamera.ViewportSize.X/2, currentCamera.ViewportSize.Y);
-                                        tracer.To = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y);
-                                        tracer.Visible = true;
-                                    end;
+                                    tracer.Color = tracerColor;
+                                    tracer.From = Vector2.new(currentCamera.ViewportSize.X/2, currentCamera.ViewportSize.Y);
+                                    tracer.To = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y);
+                                    tracer.Visible = true;
                                 end;
                                 
-                                if ESPCon.Names then
+                                if ESPCon.Names and espNames[player] then
                                     local nameLabel = espNames[player];
-                                    if nameLabel then
-                                        nameLabel.Text = player.Name;
-                                        nameLabel.Position = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y - 20);
-                                        nameLabel.Visible = true;
-                                    end;
+                                    nameLabel.Text = player.Name;
+                                    nameLabel.Position = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y - 20);
+                                    nameLabel.Visible = true;
                                 end;
                             else
                                 if espBoxes[player] then espBoxes[player].Visible = false; end;
@@ -352,28 +336,30 @@ return {
             end;
         end);
 
-        ScriptData.AutoData = {
-            AimlockTab = {
-                {type="Group", dats={
-                    {dat={
-                        {type="Toggle", EN="Enable Aimlock", EN2="Lock onto nearest enemy player.", TH1="เปิด Aimlock", TH2="ล็อคไปยังผู้เล่นที่ใกล้ที่สุด", Path="Aimlock/Enabled"},
-                        {type="Slider", EN="FOV", EN2="Field of view for aimlock.", TH1="มุมมอง Aimlock", TH2="ระยะการมองเห็น", Value={Min=1, Max=360}, Path="Aimlock/FOV"},
-                        {type="Slider", EN="Prediction", EN2="Prediction for moving targets.", TH1="การทำนาย", TH2="ทำนายตำแหน่งเป้าหมายที่เคลื่อนที่", Value={Min=0, Max=1, Default=0.1377}, Step=0.001, Path="Aimlock/Prediction"},
-                        {type="Textbox", EN="Keybind", EN2="Key to toggle aimlock.", TH1="ปุ่มเปิด/ปิด", TH2="ปุ่มเปิด/ปิด Aimlock", Path="Aimlock/Keybind"},
-                        {type="Toggle", EN="Show FOV Circle", EN2="Show the FOV circle on screen.", TH1="แสดงวง FOV", TH2="แสดงวงกลมมุมมองบนหน้าจอ", Path="Aimlock/ShowFOVCircle"},
-                    }, Title="Aimlock", Open=true};
-                }};
-                {type="Group", dats={
-                    {dat={
-                        {type="Toggle", EN="Enable ESP", EN2="Show ESP for all players.", TH1="เปิด ESP", TH2="เปิด ESP สำหรับผู้เล่นทั้งหมด", Path="ESP/Enabled"},
-                        {type="Toggle", EN="Boxes", EN2="Show bounding boxes.", TH1="กล่อง", TH2="แสดงกล่องรอบตัวผู้เล่น", Path="ESP/Boxes"},
-                        {type="Toggle", EN="Health Bars", EN2="Show health bars.", TH1="แถบพลังชีวิต", TH2="แสดงแถบพลังชีวิต", Path="ESP/HealthBars"},
-                        {type="Toggle", EN="Tracers", EN2="Show tracer lines to players.", TH1="เส้นนำทาง", TH2="แสดงเส้นเชื่อมไปยังผู้เล่น", Path="ESP/Tracers"},
-                        {type="Toggle", EN="Names", EN2="Show player names.", TH1="ชื่อผู้เล่น", TH2="แสดงชื่อผู้เล่น", Path="ESP/Names"},
-                        {type="Dropdown", EN="Box Color", EN2="Color of the ESP boxes.", TH1="สีกล่อง", TH2="สีของกล่อง ESP", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/BoxColor"},
-                        {type="Dropdown", EN="Tracer Color", EN2="Color of the tracer lines.", TH1="สีเส้นนำทาง", TH2="สีของเส้นนำทาง", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/TracerColor"},
-                    }, Title="ESP"};
-                }};
+        local ScriptData = {
+            AutoData = {
+                AimlockTab = {
+                    {type="Group", dats={
+                        {dat={
+                            {type="Toggle", EN="Enable Aimlock", EN2="Lock onto nearest enemy player.", TH1="เปิด Aimlock", TH2="ล็อคไปยังผู้เล่นที่ใกล้ที่สุด", Path="Aimlock/Enabled"},
+                            {type="Slider", EN="FOV", EN2="Field of view for aimlock.", TH1="มุมมอง Aimlock", TH2="ระยะการมองเห็น", Value={Min=1, Max=360, Default=360}, Path="Aimlock/FOV"},
+                            {type="Slider", EN="Prediction", EN2="Prediction for moving targets.", TH1="การทำนาย", TH2="ทำนายตำแหน่งเป้าหมายที่เคลื่อนที่", Value={Min=0, Max=1, Default=0.1377}, Step=0.001, Path="Aimlock/Prediction"},
+                            {type="Textbox", EN="Keybind", EN2="Key to toggle aimlock.", TH1="ปุ่มเปิด/ปิด", TH2="ปุ่มเปิด/ปิด Aimlock", Path="Aimlock/Keybind"},
+                            {type="Toggle", EN="Show FOV Circle", EN2="Show the FOV circle on screen.", TH1="แสดงวง FOV", TH2="แสดงวงกลมมุมมองบนหน้าจอ", Path="Aimlock/ShowFOVCircle"},
+                        }, Title="Aimlock", Open=true};
+                    }};
+                    {type="Group", dats={
+                        {dat={
+                            {type="Toggle", EN="Enable ESP", EN2="Show ESP for all players.", TH1="เปิด ESP", TH2="เปิด ESP สำหรับผู้เล่นทั้งหมด", Path="ESP/Enabled"},
+                            {type="Toggle", EN="Boxes", EN2="Show bounding boxes.", TH1="กล่อง", TH2="แสดงกล่องรอบตัวผู้เล่น", Path="ESP/Boxes"},
+                            {type="Toggle", EN="Health Bars", EN2="Show health bars.", TH1="แถบพลังชีวิต", TH2="แสดงแถบพลังชีวิต", Path="ESP/HealthBars"},
+                            {type="Toggle", EN="Tracers", EN2="Show tracer lines to players.", TH1="เส้นนำทาง", TH2="แสดงเส้นเชื่อมไปยังผู้เล่น", Path="ESP/Tracers"},
+                            {type="Toggle", EN="Names", EN2="Show player names.", TH1="ชื่อผู้เล่น", TH2="แสดงชื่อผู้เล่น", Path="ESP/Names"},
+                            {type="Dropdown", EN="Box Color", EN2="Color of the ESP boxes.", TH1="สีกล่อง", TH2="สีของกล่อง ESP", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/BoxColor"},
+                            {type="Dropdown", EN="Tracer Color", EN2="Color of the tracer lines.", TH1="สีเส้นนำทาง", TH2="สีของเส้นนำทาง", Values={"Red", "Green", "Blue", "White", "Yellow", "Orange", "Purple", "Cyan"}, Path="ESP/TracerColor"},
+                        }, Title="ESP"};
+                    }};
+                };
             };
         };
 
