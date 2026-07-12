@@ -14,6 +14,7 @@ local tk = task;
 local H = GG.H;
 local W = GG.W;
 local P = GG.P;
+local R = GG.R;
 
 local PlaceId = game.PlaceId;
 
@@ -32,6 +33,7 @@ local FindFirstChildOfClass = game.FindFirstChildOfClass;
 local FindFirstChildWhichIsA = game.FindFirstChildWhichIsA;
 local FindFirstAncestorOfClass = game.FindFirstAncestorOfClass;
 local RunService = game:GetService("RunService");
+local GuiService = game:GetService("GuiService");
 
 local RED = Col3.new(1,0,0);
 local GREEN = Col3.new(0, 1, 0);
@@ -42,17 +44,15 @@ local ORANGE = Col3.fromRGB(255, 165, 0);
 local PURPLE = Col3.fromRGB(128, 0, 255);
 local CYAN = Col3.fromRGB(0, 255, 255);
 
-local VEC4 = Vec3(4,4,4);
-
-local Config = GG.Configs or {};
-Config.Aimlock = Config.Aimlock or {
+local Configs = GG.Configs or {};
+Configs.Aimlock = Configs.Aimlock or {
     Enabled = false;
     Prediction = 0.1377;
     FOV = 360;
     Keybind = "q";
     ShowFOVCircle = false;
 };
-Config.ESP = Config.ESP or {
+Configs.ESP = Configs.ESP or {
     Enabled = false;
     Boxes = false;
     HealthBars = false;
@@ -61,7 +61,7 @@ Config.ESP = Config.ESP or {
     BoxColor = "White";
     TracerColor = "White";
 };
-GG.Configs = Config;
+GG.Configs = Configs;
 
 local Storing_AUTHENTICATION, PremiumCheck = nil, false;
 local encrypt = function(text, key)
@@ -88,10 +88,8 @@ return {
         local CoreDestroyed = false;
         local WindUI = nil;
 
-        local Seat = nil;
         local Cam = W.CurrentCamera;
         local selff = GG.P.LocalPlayer;
-        local PSG = selff.PlayerGui;
         local selc = selff.Character or selff.CharacterAdded:Wait();
         local HumSelf = FindFirstChildOfClass(selc, "Humanoid");
         local HumRSelf = HumSelf and HumSelf.RootPart;
@@ -103,10 +101,9 @@ return {
         local espHealthBars = {};
         local espTracers = {};
         local espNames = {};
-        local espSetupDone = false;
 
-        local AimlockCon = Config.Aimlock;
-        local ESPCon = Config.ESP;
+        local AimlockCon = Configs.Aimlock;
+        local ESPCon = Configs.ESP;
 
         local function GetColorFromString(colorName)
             local colors = {
@@ -132,10 +129,8 @@ return {
                     local character = player.Character;
                     if character and character:FindFirstChild("HumanoidRootPart") and character:FindFirstChild("Humanoid") and character.Humanoid.Health > 0 then
                         local rootPart = character.HumanoidRootPart;
-                        local success, screenPos, onScreen = pcall(function()
-                            return Cam:WorldToViewportPoint(rootPart.Position)
-                        end)
-                        if success and onScreen then
+                        local screenPos, onScreen = Cam:WorldToViewportPoint(rootPart.Position);
+                        if onScreen then
                             local dist = (screenCenter - Vector2.new(screenPos.X, screenPos.Y)).Magnitude;
                             if dist < nearestDist and dist < AimlockCon.FOV then
                                 nearestPart = rootPart;
@@ -149,10 +144,7 @@ return {
         end;
 
         local function CreateCircle()
-            if not Drawing then 
-                warn("Drawing library not available");
-                return nil; 
-            end
+            if not Drawing then return nil; end
             local circle = Drawing.new("Circle");
             circle.Position = Vector2.new(Cam.ViewportSize.X/2, Cam.ViewportSize.Y/2);
             circle.Radius = AimlockCon.FOV;
@@ -198,22 +190,47 @@ return {
         end;
 
         local function SetupESP()
-            if espSetupDone then return end
+            local currentCamera = Cam;
+            if not currentCamera then return end
             
+            local boxColor = GetColorFromString(ESPCon.BoxColor);
+            local tracerColor = GetColorFromString(ESPCon.TracerColor);
+
             for _, player in ipairs(GetPlayers(P)) do
                 if player ~= selff then
-                    espBoxes[player] = CreateBox(WHITE, 1, false);
+                    if espBoxes[player] then 
+                        pcall(function() espBoxes[player]:Remove() end)
+                        espBoxes[player] = nil
+                    end
+                    if espHealthBars[player] then 
+                        pcall(function() espHealthBars[player]:Remove() end)
+                        espHealthBars[player] = nil
+                    end
+                    if espTracers[player] then 
+                        pcall(function() espTracers[player]:Remove() end)
+                        espTracers[player] = nil
+                    end
+                    if espNames[player] then 
+                        pcall(function() espNames[player]:Remove() end)
+                        espNames[player] = nil
+                    end
+                end
+            end
+
+            for _, player in ipairs(GetPlayers(P)) do
+                if player ~= selff then
+                    espBoxes[player] = CreateBox(boxColor, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    espTracers[player] = CreateTracer(WHITE, 1);
+                    espTracers[player] = CreateTracer(tracerColor, 1);
                     espNames[player] = CreateNameLabel();
                 end;
             end;
 
             P.PlayerAdded:Connect(function(player)
                 if player ~= selff then
-                    espBoxes[player] = CreateBox(WHITE, 1, false);
+                    espBoxes[player] = CreateBox(boxColor, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    espTracers[player] = CreateTracer(WHITE, 1);
+                    espTracers[player] = CreateTracer(tracerColor, 1);
                     espNames[player] = CreateNameLabel();
                 end;
             end);
@@ -230,8 +247,6 @@ return {
                     espNames[player] = nil;
                 end;
             end);
-
-            espSetupDone = true;
         end;
 
         local function UpdateESP()
@@ -248,19 +263,14 @@ return {
                     local humanoid = character:FindFirstChild("Humanoid");
                     local rootPart = character.HumanoidRootPart;
                     
-                    if humanoid and humanoid.Health > 0 and rootPart then
+                    if humanoid and humanoid.Health > 0 then
                         local size = character:GetExtentsSize();
                         local position = rootPart.Position;
                         
-                        local success1, topPos, topOnScreen = pcall(function()
-                            return currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0))
-                        end)
+                        local topPos, topOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0));
+                        local bottomPos, bottomOnScreen = currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0));
                         
-                        local success2, bottomPos, bottomOnScreen = pcall(function()
-                            return currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0))
-                        end)
-                        
-                        if success1 and success2 and topOnScreen and bottomOnScreen and topPos and bottomPos and topPos.Z > 0 and bottomPos.Z > 0 then
+                        if topOnScreen and bottomOnScreen and topPos.Z > 0 and bottomPos.Z > 0 then
                             local topVec = Vector2.new(topPos.X, topPos.Y);
                             local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                             
@@ -341,9 +351,7 @@ return {
 
         RunService.Heartbeat:Connect(function()
             if AimlockCon.Enabled and isAiming and targetPart then
-                local success = pcall(function()
-                    Cam.CFrame = CF.new(Cam.CFrame.p, targetPart.Position + (targetPart.Velocity * AimlockCon.Prediction))
-                end)
+                Cam.CFrame = CF.new(Cam.CFrame.p, targetPart.Position + (targetPart.Velocity * AimlockCon.Prediction));
             end;
             
             UpdateESP();
@@ -390,22 +398,7 @@ return {
         };
 
         local LSecureUI = function()
-            if type(WindLib) ~= "function" then
-                warn("WindLib is not a function");
-                return;
-            end
-            
             WindUI = WindLib();
-            if type(WindUI) ~= "table" then
-                warn("WindUI library failed to load properly");
-                return;
-            end
-            
-            if type(WindUI.CreateWindow) ~= "function" then
-                warn("WindUI.CreateWindow is not a function");
-                return;
-            end
-            
             local Window = WindUI:CreateWindow({
                 Title = "Rafael Hub DAUP",
                 Folder = "RafaelStudio",
@@ -429,39 +422,20 @@ return {
                 },
             });
             
-            if type(Window) ~= "table" then
-                warn("Failed to create WindUI window");
-                return;
-            end
-            
             local Tabs = {
                 Welcome = Window:Tab({Title="Welcome", Icon="smile"}),
                 Aimlock = Window:Tab({Title="Aimlock", Icon="crosshair"}),
             };
             
-            if IntroLib and type(IntroLib.Init) == "function" then
-                IntroLib.Init(WindUI, Tabs.Welcome);
-            end
-            if IntroLib and type(IntroLib.Tutorial) == "function" then
-                IntroLib.Tutorial(WindUI);
-            end
-            
-            if Windy and type(Windy.CreateComponent) == "function" then
-                Windy:CreateComponent(Tabs.Aimlock, ScriptData.AutoData.AimlockTab, "Aimlock");
-            end
+            IntroLib.Init(WindUI, Tabs.Welcome);
+            IntroLib.Tutorial(WindUI);
+            Windy:CreateComponent(Tabs.Aimlock, ScriptData.AutoData.AimlockTab, "Aimlock");
 
-            if Window and type(Window.SelectTab) == "function" then
-                Window:SelectTab(1);
-            end
-            
-            if Window and type(Window.OnDestroy) == "function" then
-                Window:OnDestroy(function()
-                    CoreDestroyed = true;
-                    if PromptPackage and type(PromptPackage.UpdateState) == "function" then
-                        PromptPackage.UpdateState(true);
-                    end
-                end);
-            end
+            Window:SelectTab(1);
+            Window:OnDestroy(function()
+                CoreDestroyed = true;
+                PromptPackage.UpdateState(true);
+            end);
 
             ScriptCache.WindUI = WindUI; 
             ScriptCache.Window = Window;
@@ -486,9 +460,7 @@ return {
 
             local OneRunCallMain, OneRunErrorMain = pcall(function()
                 CoreDestroyed = false;
-                if PromptPackage and type(PromptPackage.UpdateState) == "function" then
-                    PromptPackage.UpdateState(false);
-                end
+                PromptPackage.UpdateState(false);
                 
                 LSecureUI();
 
@@ -502,9 +474,6 @@ return {
                     selc = selff.Character;
                     HumSelf = selc and FindFirstChildOfClass(selc, "Humanoid");
                     HumRSelf = HumSelf and HumSelf.RootPart;
-                    if CommonF and type(CommonF.GetSeat) == "function" then
-                        Seat = CommonF.GetSeat(HumSelf);
-                    end
                 end);
 
                 task.wait(1);
@@ -512,11 +481,9 @@ return {
                 circleDrawing = CreateCircle();
 
                 if not CoruTask.Intialized then
-                    if CoruTask and type(CoruTask.Init) == "function" then
-                        CoruTask.Init(WindUI);
-                    end
+                    CoruTask.Init(WindUI);
                     CoruTask.Intialized = true;
-                    GG.Configs = Config;
+                    GG.Configs = Configs;
                 end
             end)
             
