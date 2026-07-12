@@ -44,27 +44,24 @@ local CYAN = Col3.fromRGB(0, 255, 255);
 
 local VEC4 = Vec3(4,4,4);
 
-local Config = GG.Configs or {
-    ["Aimlock"] = {
-        ["Enabled"] = false;
-        ["Prediction"] = 0.1377;
-        ["FOV"] = 360;
-        ["Keybind"] = "q";
-        ["ShowFOVCircle"] = true;
-    };
-    ["ESP"] = {
-        ["Enabled"] = true;
-        ["Boxes"] = true;
-        ["HealthBars"] = true;
-        ["Tracers"] = true;
-        ["Names"] = true;
-        ["BoxColor"] = "White";
-        ["TracerColor"] = "Red";
-    };
+local Config = GG.Configs or {};
+Config.Aimlock = Config.Aimlock or {
+    Enabled = false;
+    Prediction = 0.1377;
+    FOV = 360;
+    Keybind = "q";
+    ShowFOVCircle = true;
 };
-
-Config.Aimlock = Config.Aimlock or {};
-Config.ESP = Config.ESP or {};
+Config.ESP = Config.ESP or {
+    Enabled = true;
+    Boxes = true;
+    HealthBars = true;
+    Tracers = true;
+    Names = true;
+    BoxColor = "White";
+    TracerColor = "Red";
+};
+GG.Configs = Config;
 
 local Storing_AUTHENTICATION, PremiumCheck = nil, false;
 local encrypt = function(text, key)
@@ -149,10 +146,7 @@ return {
         end;
 
         local function CreateCircle()
-            if not Drawing then 
-                warn("Drawing library not available");
-                return nil; 
-            end
+            if not Drawing then return nil; end
             local circle = Drawing.new("Circle");
             circle.Position = Vector2.new(Cam.ViewportSize.X/2, Cam.ViewportSize.Y/2);
             circle.Radius = AimlockCon.FOV;
@@ -467,7 +461,7 @@ return {
                     Seat = CommonF.GetSeat(HumSelf);
                 end);
 
-                task.wait(1)
+                task.wait(1);
                 if ESPCon.Enabled and not CoreDestroyed then
                     SetupESP();
                 end
