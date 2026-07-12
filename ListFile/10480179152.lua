@@ -50,16 +50,16 @@ Config.Aimlock = Config.Aimlock or {
     Prediction = 0.1377;
     FOV = 360;
     Keybind = "q";
-    ShowFOVCircle = true;
+    ShowFOVCircle = false;
 };
 Config.ESP = Config.ESP or {
-    Enabled = true;
-    Boxes = true;
-    HealthBars = true;
-    Tracers = true;
-    Names = true;
+    Enabled = false;
+    Boxes = false;
+    HealthBars = false;
+    Tracers = false;
+    Names = false;
     BoxColor = "White";
-    TracerColor = "Red";
+    TracerColor = "White";
 };
 GG.Configs = Config;
 
@@ -155,7 +155,7 @@ return {
             circle.Color = Col3.fromRGB(255, 0, 0);
             circle.Thickness = 2;
             circle.Filled = false;
-            circle.Visible = AimlockCon.ShowFOVCircle;
+            circle.Visible = AimlockCon.ShowFOVCircle and AimlockCon.Enabled;
             return circle;
         end;
 
@@ -263,6 +263,16 @@ return {
             RunService.RenderStepped:Connect(function()
                 if not currentCamera then return end
                 
+                if not ESPCon.Enabled then
+                    for _, player in ipairs(GetPlayers(P)) do
+                        if espBoxes[player] then espBoxes[player].Visible = false; end;
+                        if espHealthBars[player] then espHealthBars[player].Visible = false; end;
+                        if espTracers[player] then espTracers[player].Visible = false; end;
+                        if espNames[player] then espNames[player].Visible = false; end;
+                    end
+                    return
+                end
+                
                 for _, player in ipairs(GetPlayers(P)) do
                     if player ~= selff and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
                         local character = player.Character;
@@ -288,7 +298,7 @@ return {
                                 if ESPCon.Boxes and espBoxes[player] then
                                     local box = espBoxes[player];
                                     if box then
-                                        box.Color = boxColor;
+                                        box.Color = GetColorFromString(ESPCon.BoxColor);
                                         box.Size = bottomVec;
                                         box.Position = topVec;
                                         box.Visible = true;
@@ -311,7 +321,7 @@ return {
                                 if ESPCon.Tracers and espTracers[player] then
                                     local tracer = espTracers[player];
                                     if tracer then
-                                        tracer.Color = tracerColor;
+                                        tracer.Color = GetColorFromString(ESPCon.TracerColor);
                                         tracer.From = Vector2.new(currentCamera.ViewportSize.X/2, currentCamera.ViewportSize.Y);
                                         tracer.To = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y);
                                         tracer.Visible = true;
@@ -349,15 +359,15 @@ return {
         end;
 
         RunService.Heartbeat:Connect(function()
-            if isAiming and targetPart and AimlockCon.Enabled then
+            if AimlockCon.Enabled and isAiming and targetPart then
                 local success = pcall(function()
                     Cam.CFrame = CF.new(Cam.CFrame.p, targetPart.Position + (targetPart.Velocity * AimlockCon.Prediction))
                 end)
             end;
             
-            if AimlockCon.Enabled and circleDrawing then
+            if circleDrawing then
+                circleDrawing.Visible = AimlockCon.ShowFOVCircle and AimlockCon.Enabled;
                 circleDrawing.Radius = AimlockCon.FOV;
-                circleDrawing.Visible = AimlockCon.ShowFOVCircle;
             end;
         end);
 
@@ -367,7 +377,7 @@ return {
                 if AimlockCon.Enabled then
                     targetPart = FindNearestEnemy();
                     isAiming = true;
-                elseif targetPart ~= nil then
+                else
                     targetPart = nil;
                     isAiming = false;
                 end;
@@ -520,9 +530,7 @@ return {
                 end);
 
                 task.wait(1);
-                if ESPCon.Enabled and not CoreDestroyed then
-                    SetupESP();
-                end
+                SetupESP();
 
                 if not CoruTask.Intialized then
                     circleDrawing = CreateCircle();
