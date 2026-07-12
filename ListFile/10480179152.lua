@@ -103,6 +103,7 @@ return {
         local espHealthBars = {};
         local espTracers = {};
         local espNames = {};
+        local espSetupDone = false;
 
         local AimlockCon = Config.Aimlock;
         local ESPCon = Config.ESP;
@@ -194,6 +195,7 @@ return {
         end;
 
         local function SetupESP()
+            if espSetupDone then return end
             local currentCamera = Cam;
             if not currentCamera then return end
             
@@ -202,35 +204,10 @@ return {
 
             for _, player in ipairs(GetPlayers(P)) do
                 if player ~= selff then
-                    if espBoxes[player] then 
-                        pcall(function() espBoxes[player]:Remove() end)
-                        espBoxes[player] = nil
-                    end
-                    if espHealthBars[player] then 
-                        pcall(function() espHealthBars[player]:Remove() end)
-                        espHealthBars[player] = nil
-                    end
-                    if espTracers[player] then 
-                        pcall(function() espTracers[player]:Remove() end)
-                        espTracers[player] = nil
-                    end
-                    if espNames[player] then 
-                        pcall(function() espNames[player]:Remove() end)
-                        espNames[player] = nil
-                    end
-                end
-            end
-
-            for _, player in ipairs(GetPlayers(P)) do
-                if player ~= selff then
                     espBoxes[player] = CreateBox(boxColor, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    if ESPCon.Tracers then
-                        espTracers[player] = CreateTracer(tracerColor, 1);
-                    end;
-                    if ESPCon.Names then
-                        espNames[player] = CreateNameLabel();
-                    end;
+                    espTracers[player] = CreateTracer(tracerColor, 1);
+                    espNames[player] = CreateNameLabel();
                 end;
             end;
 
@@ -238,12 +215,8 @@ return {
                 if player ~= selff then
                     espBoxes[player] = CreateBox(boxColor, 1, false);
                     espHealthBars[player] = CreateBox(GREEN, 1, true);
-                    if ESPCon.Tracers then
-                        espTracers[player] = CreateTracer(tracerColor, 1);
-                    end;
-                    if ESPCon.Names then
-                        espNames[player] = CreateNameLabel();
-                    end;
+                    espTracers[player] = CreateTracer(tracerColor, 1);
+                    espNames[player] = CreateNameLabel();
                 end;
             end);
 
@@ -251,8 +224,8 @@ return {
                 if espBoxes[player] then
                     pcall(function() espBoxes[player]:Remove() end);
                     pcall(function() espHealthBars[player]:Remove() end);
-                    if espTracers[player] then pcall(function() espTracers[player]:Remove() end); end;
-                    if espNames[player] then pcall(function() espNames[player]:Remove() end); end;
+                    pcall(function() espTracers[player]:Remove() end);
+                    pcall(function() espNames[player]:Remove() end);
                     espBoxes[player] = nil;
                     espHealthBars[player] = nil;
                     espTracers[player] = nil;
@@ -260,87 +233,96 @@ return {
                 end;
             end);
 
-            RunService.RenderStepped:Connect(function()
-                if not currentCamera then return end
-                
-                if not ESPCon.Enabled then
-                    for _, player in ipairs(GetPlayers(P)) do
-                        if espBoxes[player] then espBoxes[player].Visible = false; end;
-                        if espHealthBars[player] then espHealthBars[player].Visible = false; end;
-                        if espTracers[player] then espTracers[player].Visible = false; end;
-                        if espNames[player] then espNames[player].Visible = false; end;
-                    end
-                    return
-                end
-                
+            espSetupDone = true;
+        end;
+
+        local function UpdateESPVisibility()
+            if not ESPCon.Enabled then
                 for _, player in ipairs(GetPlayers(P)) do
-                    if player ~= selff and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                        local character = player.Character;
-                        local humanoid = character:FindFirstChild("Humanoid");
-                        local rootPart = character.HumanoidRootPart;
+                    if espBoxes[player] then espBoxes[player].Visible = false; end;
+                    if espHealthBars[player] then espHealthBars[player].Visible = false; end;
+                    if espTracers[player] then espTracers[player].Visible = false; end;
+                    if espNames[player] then espNames[player].Visible = false; end;
+                end
+                return
+            end
+            
+            local currentCamera = Cam;
+            if not currentCamera then return end
+            
+            local boxColor = GetColorFromString(ESPCon.BoxColor);
+            local tracerColor = GetColorFromString(ESPCon.TracerColor);
+            
+            for _, player in ipairs(GetPlayers(P)) do
+                if player ~= selff and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local character = player.Character;
+                    local humanoid = character:FindFirstChild("Humanoid");
+                    local rootPart = character.HumanoidRootPart;
+                    
+                    if humanoid and humanoid.Health > 0 and rootPart then
+                        local size = character:GetExtentsSize();
+                        local position = rootPart.Position;
                         
-                        if humanoid and humanoid.Health > 0 and rootPart then
-                            local size = character:GetExtentsSize();
-                            local position = rootPart.Position;
+                        local success1, topPos, topOnScreen = pcall(function()
+                            return currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0))
+                        end)
+                        
+                        local success2, bottomPos, bottomOnScreen = pcall(function()
+                            return currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0))
+                        end)
+                        
+                        if success1 and success2 and topOnScreen and bottomOnScreen and topPos and bottomPos and topPos.Z > 0 and bottomPos.Z > 0 then
+                            local topVec = Vector2.new(topPos.X, topPos.Y);
+                            local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
                             
-                            local success1, topPos, topOnScreen = pcall(function()
-                                return currentCamera:WorldToViewportPoint(position + Vec3.new(-size.X/2, size.Y/2, 0))
-                            end)
+                            if ESPCon.Boxes and espBoxes[player] then
+                                local box = espBoxes[player];
+                                if box then
+                                    box.Color = boxColor;
+                                    box.Size = bottomVec;
+                                    box.Position = topVec;
+                                    box.Visible = true;
+                                end;
+                            elseif espBoxes[player] then
+                                espBoxes[player].Visible = false;
+                            end;
                             
-                            local success2, bottomPos, bottomOnScreen = pcall(function()
-                                return currentCamera:WorldToViewportPoint(position + Vec3.new(size.X/2, -size.Y/2, 0))
-                            end)
+                            if ESPCon.HealthBars and espHealthBars[player] then
+                                local healthPercent = humanoid.Health / humanoid.MaxHealth;
+                                local healthHeight = bottomVec.Y * healthPercent;
+                                healthHeight = math.clamp(healthHeight, 0, bottomVec.Y);
+                                
+                                local healthBar = espHealthBars[player];
+                                if healthBar then
+                                    healthBar.Size = Vector2.new(5, healthHeight);
+                                    healthBar.Position = Vector2.new(topVec.X - 6, (topVec.Y + bottomVec.Y) - healthHeight);
+                                    healthBar.Visible = true;
+                                end;
+                            elseif espHealthBars[player] then
+                                espHealthBars[player].Visible = false;
+                            end;
                             
-                            if success1 and success2 and topOnScreen and bottomOnScreen and topPos and bottomPos and topPos.Z > 0 and bottomPos.Z > 0 then
-                                local topVec = Vector2.new(topPos.X, topPos.Y);
-                                local bottomVec = Vector2.new(bottomPos.X - topPos.X, bottomPos.Y - topPos.Y);
-                                
-                                if ESPCon.Boxes and espBoxes[player] then
-                                    local box = espBoxes[player];
-                                    if box then
-                                        box.Color = GetColorFromString(ESPCon.BoxColor);
-                                        box.Size = bottomVec;
-                                        box.Position = topVec;
-                                        box.Visible = true;
-                                    end;
+                            if ESPCon.Tracers and espTracers[player] then
+                                local tracer = espTracers[player];
+                                if tracer then
+                                    tracer.Color = tracerColor;
+                                    tracer.From = Vector2.new(currentCamera.ViewportSize.X/2, currentCamera.ViewportSize.Y);
+                                    tracer.To = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y);
+                                    tracer.Visible = true;
                                 end;
-                                
-                                if ESPCon.HealthBars and espHealthBars[player] then
-                                    local healthPercent = humanoid.Health / humanoid.MaxHealth;
-                                    local healthHeight = bottomVec.Y * healthPercent;
-                                    healthHeight = math.clamp(healthHeight, 0, bottomVec.Y);
-                                    
-                                    local healthBar = espHealthBars[player];
-                                    if healthBar then
-                                        healthBar.Size = Vector2.new(5, healthHeight);
-                                        healthBar.Position = Vector2.new(topVec.X - 6, (topVec.Y + bottomVec.Y) - healthHeight);
-                                        healthBar.Visible = true;
-                                    end;
+                            elseif espTracers[player] then
+                                espTracers[player].Visible = false;
+                            end;
+                            
+                            if ESPCon.Names and espNames[player] then
+                                local nameLabel = espNames[player];
+                                if nameLabel then
+                                    nameLabel.Text = player.Name;
+                                    nameLabel.Position = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y - 20);
+                                    nameLabel.Visible = true;
                                 end;
-                                
-                                if ESPCon.Tracers and espTracers[player] then
-                                    local tracer = espTracers[player];
-                                    if tracer then
-                                        tracer.Color = GetColorFromString(ESPCon.TracerColor);
-                                        tracer.From = Vector2.new(currentCamera.ViewportSize.X/2, currentCamera.ViewportSize.Y);
-                                        tracer.To = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y);
-                                        tracer.Visible = true;
-                                    end;
-                                end;
-                                
-                                if ESPCon.Names and espNames[player] then
-                                    local nameLabel = espNames[player];
-                                    if nameLabel then
-                                        nameLabel.Text = player.Name;
-                                        nameLabel.Position = Vector2.new(topVec.X + (bottomVec.X/2), topVec.Y - 20);
-                                        nameLabel.Visible = true;
-                                    end;
-                                end;
-                            else
-                                if espBoxes[player] then espBoxes[player].Visible = false; end;
-                                if espHealthBars[player] then espHealthBars[player].Visible = false; end;
-                                if espTracers[player] then espTracers[player].Visible = false; end;
-                                if espNames[player] then espNames[player].Visible = false; end;
+                            elseif espNames[player] then
+                                espNames[player].Visible = false;
                             end;
                         else
                             if espBoxes[player] then espBoxes[player].Visible = false; end;
@@ -348,14 +330,19 @@ return {
                             if espTracers[player] then espTracers[player].Visible = false; end;
                             if espNames[player] then espNames[player].Visible = false; end;
                         end;
-                    elseif espBoxes[player] then
-                        espBoxes[player].Visible = false;
-                        espHealthBars[player].Visible = false;
+                    else
+                        if espBoxes[player] then espBoxes[player].Visible = false; end;
+                        if espHealthBars[player] then espHealthBars[player].Visible = false; end;
                         if espTracers[player] then espTracers[player].Visible = false; end;
                         if espNames[player] then espNames[player].Visible = false; end;
                     end;
+                elseif espBoxes[player] then
+                    espBoxes[player].Visible = false;
+                    espHealthBars[player].Visible = false;
+                    espTracers[player].Visible = false;
+                    espNames[player].Visible = false;
                 end;
-            end);
+            end;
         end;
 
         RunService.Heartbeat:Connect(function()
@@ -369,6 +356,8 @@ return {
                 circleDrawing.Visible = AimlockCon.ShowFOVCircle and AimlockCon.Enabled;
                 circleDrawing.Radius = AimlockCon.FOV;
             end;
+            
+            UpdateESPVisibility();
         end);
 
         selff:GetMouse().KeyDown:Connect(function(key)
@@ -531,15 +520,13 @@ return {
 
                 task.wait(1);
                 SetupESP();
+                circleDrawing = CreateCircle();
 
                 if not CoruTask.Intialized then
-                    circleDrawing = CreateCircle();
-                    
                     if CoruTask and type(CoruTask.Init) == "function" then
                         CoruTask.Init(WindUI);
                     end
                     CoruTask.Intialized = true;
-
                     GG.Configs = Config;
                 end
             end)
