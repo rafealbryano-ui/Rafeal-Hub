@@ -11636,7 +11636,7 @@ AssetStorage.CorePackage = function()
         Data[#Data+1] = {type="Toggle", EN="Allow TP Bypass", EN2="Instant teleport; You need to have low ping or this won't work.", TH1="วาปทันที", TH2="เวลาฟาม เวลาขโมยจะวาปทันทีแต่ต้องเน็ตแรงๆ ปิงน้อยๆ", Callback=function(state)
             LoaderSettings.GAG2Loader.Allow_TPBypass = state;
         end};
-    elseif GameId == 1535369606 then
+    elseif GameId == 10480179152 then
         Data[#Data+1] = {type="Space"}; Data[#Data+1] = {type="Divider"}; Data[#Data+1] = {type="Space"};
         Data[#Data+1] = {type="Paragraph", Title="DAUP V1.0", Desc="Aimlock & ESP features for this game."};
     end;
@@ -11913,7 +11913,7 @@ local FreeLoad, KeyLoad = {
         Version = "DA_V3.38";
         Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF", "DAPackage"};
     };
-[1535369606] = {
+[10480179152] = {
    	 	File = "1535369606";
     	Version = "DAUP_V1.0";
     	Included = {"CorePackage", "LoadUILib", "IntroLib", "Windy", "ClientPackage", "PromptPackage", "CoruTask", "ESPPackage", "CommonF"};
